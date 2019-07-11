@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<title></title>	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="shortcut icon" href="img/favicon.ico" />
+	<link href="includes/css/gybi.css" rel="stylesheet" type="text/css">
+	<link href="css/gybi-styles.css" rel="stylesheet" type="text/css">
+	<link href="css/slider.css" rel="stylesheet" type="text/css">
+	<link href="css/fonts.css" rel="stylesheet">	
+	<script type='text/javascript' src='js/wp-jquery.js'></script>
+	<script type='text/javascript' src='js/wp-jquery-migrate.min.js'></script>
+</head>
+<body id="gybi" class="page-template-marketplace">
+	<div class="wrapper">
+		<header>			
+			<nav class="navbar navbar-fixed-top" role="navigation"> 			  
+				<div class="col-lg-4 col-md-4 col-sm-3">
+					<div class="navbar-header navbrand_1">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1"> 
+							<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> 
+						</button>
+					</div>
+					<a class="navbar-brand" href="#"><img src="images/logo.png" align="GYBI" /></a>
+				</div>
+				<div class="col-lg-8 col-md-8 col-sm-9">
+					<div class="row">
+						<div class="bg-nav">
+							<div class="collapse navbar-collapse" id="navbar-collapse-1">
+								<div class="navbar-left">
+									<ul class="nav navbar-nav nav-small">			  
+										<li><a href="#">Market Place</a></li>        
+										<li><a href="#">Organizations</a></li>
+										<li><a href="#">Contact Us</a></li>
+										<li>
+						 <select onchange="doGTranslate(this);" class="notranslate"><option value="">Select Language</option><option value="en|ar">العربية</option><option value="en|zh-TW">繁體中文</option><option value="en|en">English</option><option value="en|fr">Français</option><option value="en|de">Deutsch</option><option value="en|hi">हिन्दी</option><option value="en|it">Italiano</option><option value="en|ja">日本語</option><option value="en|pt">Português</option><option value="en|ru">Русский</option><option value="en|es">Español</option></select><style type="text/css">						
+						.goog-text-highlight {
+							background-color: none !important;
+							-webkit-box-shadow: none !important;
+							-moz-box-shadow: none !important;
+							box-shadow: none !important;
+							box-sizing: none !important;
+							-webkit-box-sizing: none !important;
+							-moz-box-sizing: none !important;
+							position: none !important;
+						}
+						</style>
+						<div id="google_translate_element2"></div>
+			<!--			<script type="text/javascript">
+						function googleTranslateElementInit2() {new google.translate.TranslateElement({pageLanguage: '',autoDisplay: true}, 'google_translate_element2');}
+						</script>
+						<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit2"></script>
+						<script type="text/javascript">						
+						function GTranslateGetCurrentLang() {var keyValue = document.cookie.match('(^|;) ?googtrans=([^;]*)(;|$)');return keyValue ? keyValue[2].split('/')[2] : null;}
+						function GTranslateFireEvent(element,event){try{if(document.createEventObject){var evt=document.createEventObject();element.fireEvent('on'+event,evt);alert(evt);alert(element);}else{var evt=document.createEvent('HTMLEvents');evt.initEvent(event,true,true);element.dispatchEvent(evt);}}catch(e){}}
+						function doGTranslate(lang_pair){if(lang_pair.value)lang_pair=lang_pair.value;if(lang_pair=='')return;var lang=lang_pair.split('|')[1];if(GTranslateGetCurrentLang() == null && lang == lang_pair.split('|')[0])return;if(typeof ga!='undefined'){ga('send', 'event', 'GTranslate', lang, location.hostname+location.pathname+location.search);}else{if(typeof _gaq!='undefined')_gaq.push(['_trackEvent', 'GTranslate', lang, location.hostname+location.pathname+location.search]);}var teCombo;var sel=document.getElementsByTagName('select');for(var i=0;i<sel.length;i++)if(sel[i].className=='goog-te-combo')teCombo=sel[i];if(document.getElementById('google_translate_element2')==null||document.getElementById('google_translate_element2').innerHTML.length==0||teCombo.length==0||teCombo.innerHTML.length==0){setTimeout(function(){doGTranslate(lang_pair)},500)}else{teCombo.value=lang;GTranslateFireEvent(teCombo,'change');GTranslateFireEvent(teCombo,'change')}}
+						</script>       -->
+						</li>
+						<li>
+							<div class="form-group">
+								<div id="countries" data-input-name="country" class="flagstrap">						 
+								</div>
+							</div>
+						</li>	
+						<a data-toggle="dropdown" class="dropdown-toggle" aria-expanded="false" href="#" title="Organizations">							
+						<div class="name">Welcome, Organizations  <span class="caret"></span></div></a>
+						<ul id="menu-user-menu" class="dropdown-menu">
+							<li ><a title="Dashboard" href="#">Dashboard</a></li>
+							<li ><a title="Blog" href="#">Blog</a></li>
+							<li ><a title="Messages" href="#">Messages</a></li>
+							<li ><a title="Account" href="#">Account</a></li>
+							<li ><a title="Market Place" href="#">Market Place</a></li>
+							<li ><a title="Orders" href="#">Orders</a></li>
+							<li ><a title="Logout" href="#">Logout</a></li>
+						</ul>	
+						<!--li>
+							<button type="button" class="btn btn-default" onClick="location.href ='#'">SIgn In</button>
+							<button type="button" class="btn btn-default" onClick="location.href ='#'">SIgn up</button>
+						</li-->
+						</ul>
+								</div>	
+								<div class="navbar-right new-nav">
+									<nav class="navbar navbar-default">
+										<ul class="nav navbar-nav dropup">    
+											<li class="dropdown mega-dropdown"> 
+												<a href="#" class="dropdown-toggle" data-toggle="dropdown">Entrepreneurs
+													<span class="glyphicon glyphicon-chevron-down"></span>
+												</a>
+												<ul class="dropdown-menu dropdown-menu-1 mega-dropdown-menu dropup  row">
+													<li class="col-sm-4">
+														<ul>
+															<li><a href="#">Diaspora</a></li>
+															 <li><a href="#">Social Entrepreneur</a></li>
+															 <li><a href="#">Uncategorized</a></li>
+															 <li><a href="#">Women</a></li>
+															 <li><a href="#">Youth</a></li>
+														</ul>
+													</li>
+													<li class="col-sm-8">
+														<ul>
+															<li class="descr">Create, analyze, and optimize your business plan, Maximize your entrepreneurship success with supporters, Secure flexible funding for your business from investors.
+																<button type="button" class="btn" onclick="location.href ='#'">SIGN UP NOW</button>
+															</li>
+														</ul>
+													</li>
+												</ul> 
+											</li>          
+											<li class="dropdown mega-dropdown"> 
+												<a href="#" class="dropdown-toggle" data-toggle="dropdown"> Investors
+													<span class="glyphicon glyphicon-chevron-down"></span>
+												</a>
+												<ul class="dropdown-menu dropdown-menu-2 mega-dropdown-menu dropup  row">
+													<li class="col-sm-7">
+														<ul>
+															<li class="descr">Create a investor profile with your criteria, Browse our catalog of investment opportunities, Sort, analyze, and compare opportunities in minutes.
+																<button type="button" class="btn" onclick="location.href ='#'">SIGN UP NOW</button>          
+															</li>
+														</ul>
+													</li>
+													<li class="col-sm-5">
+														<ul>              				                
+															<li><a href="#">Angel investor</a></li>                                 
+															<li><a href="#">Banks/MFI</a></li>                                 
+															<li><a href="#">Peer to Peer Lender</a></li>
+															<li><a href="#">Personal Investor</a></li>
+															<li><a href="#">Venture Capitalist</a></li>
+														</ul>
+													</li>
+												</ul>        
+											</li>
+											<li class="dropdown mega-dropdown"> 
+												<a href="#" class="dropdown-toggle" data-toggle="dropdown">Supporters 
+													<span class="glyphicon glyphicon-chevron-down"></span>
+												</a>
+												<ul class="dropdown-menu dropdown-menu-3 mega-dropdown-menu dropup col-sm-8 pull-right">
+													<li class="col-sm-7">
+														<ul>
+															<li class="descr">Create a supporter profile with your focus areas, Survey youth entrepreneurship and training needs, Share your publications with youth around the world.
+																<button type="button" class="btn" onclick="location.href ='#'">SIGN UP NOW</button>
+															</li>
+														</ul>
+													</li>
+													<li class="col-sm-5">
+														<ul>              				                
+															<li><a href="#">Bank</a></li>                                 
+															<li><a href="#">Government</a></li>                                 
+															<li><a href="#">Media</a></li>                                 
+															<li><a href="#">Mentor</a></li>                                 
+															<li><a href="#">Non-profit</a></li>                                 
+															<li><a href="#">Student</a></li>                                 
+															<li><a href="#">University</a></li>                                 
+															<li><a href="#">Women</a></li>
+														</ul>
+													</li>
+												</ul>        
+											</li>
+										</ul>
+										<ul class="nav navbar-nav nav-big">
+											<li class="search">
+												<form method="get" id="searchform" action="#">
+													<input class="form-control btn-primary" value="" name="s" id="s" placeholder="Search for..." type="text">
+													<input name="post_type[]" value="investor" type="hidden">
+													<input name="post_type[]" value="project" type="hidden">
+													<input name="post_type[]" value="supporter" type="hidden">
+													<input name="post_type[]" value="organization" type="hidden">                      
+													<button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+												</form>
+											</li>
+										</ul>
+									</nav>
+								</div>								
+							</div>
+						</div>
+					</div>
+				</div>
+			  <!-- Collect the nav links, forms, and other content for toggling --> 
+			  <!-- /.navbar-collapse --> 
+			</nav>
+		</header>	
+	<section class="sliders">
+		<div class="container">
+			<div class="center-block slider_content">
+				<h1 class="slideInDown animated">EXELEADMEN</h1>
+				<p>Most of our authors make this their full-time gig selling digital files on our marketplace. just do it...</p>              
+				<div class="input-group main_sec"> 
+					<form role="search" method="get" id="searchform" action="#">
+						<input type="text" value="" name="search"  class="form-control" placeholder="Search by product">
+						<i class="fa fa-search" aria-hidden="true"></i>
+						<div class="select-style">
+							<select name="cat" id="cat" class="postform">
+								<option class="level-0" value="562">Industry</option>
+								<option class="level-0" value="563">Social Entrepreneur</option>
+								<option class="level-0" value="564">Youth</option>
+								<option class="level-0" value="565">Diaspora</option>
+								<option class="level-0" value="566">Women</option>
+								<option class="level-0" value="567">Uncategorized</option>
+							</select>
+						</div>
+					</form>
+				</div>
+				<ul class="sec_list">
+					<li><a href="#">Add Product Enquiry</a></li>
+					<li><div></div></li>
+					<li><a href="#">Product Enquirys</a></li>                
+				</ul>
+			</div><!-- slider_content -->
+			<ul class="s_list">
+				<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+				<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+				<li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+				<li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+			</ul>
+		</div>
+	</section>
+	<!-- section for images -->
+	<div id="container">
+		<div id="content" role="main">
+			<nav class="woocommerce-breadcrumb">
+				<div class="breadcrumb">
+					<div class="container">      
+						<ul><a href="#">Home</a>&nbsp;/&nbsp;WCMp Vendors&nbsp;/&nbsp;EXELEADMEN</ul>
+					</div>
+				</div>
+			</nav>          
+			<section class="container-fluid product-section">
+				<div class="container">            
+					<div class="tab-content right_divs">
+						<div class="tab-pane text-style active" id="most">
+							<div class="row">
+								<div class="col-sm-12">
+									<h1>EXELEADMEN</h1>
+									<div class="vendor_description_background" style="background:url() no-repeat;width:100%;height:245px;color:#fff;background-size:100% 100%">
+										<div class="vendor_description">
+											<div class="vendor_img_add">
+												<div class="img_div">
+													<!--img src="" pagespeed_url_hash="4195747638" onload="pagespeed.CriticalImages.checkImageForCriticality(this);" width="200" height="400"-->
+												</div>
+												<div class="vendor_address">
+													<p><i class="fa fa-envelope-o fa-mail" aria-hidden="true"></i><label>lamine004@hotmail.com</label></p>
+												</div>
+											</div>
+											<div class="description">
+												<div class="social_profile"></div>
+											</div>
+										</div>
+									</div>	
+									<div class="description_data clearfix">
+										<div class=" clearfix">
+											<label><strong>Description</strong></label>									
+											<p></p>
+										</div>
+									</div>		
+									<p class="woocommerce-info">No products were found matching your selection.</p>
+									<aside id="sidebar">
+										<div id="primary" class="widget-area">
+											<ul class="sid">
+											</ul>
+										</div>
+									</aside>
+									<div class="clear"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>	
+	<!-- Contact Section Starts Here	-->
+		<section class="contact-form">
+			<button type="button" id="getform" class="btn btn-default btn-circle btn-lg"><img src="images/call.png" /></button>
+			<div id="contact-toggle" class="contact-content">
+				<div class="container"> 
+					<form name="" action="#" method="post" >
+						<h3 style="color:#fff !important;">Contact Form</h3>
+						<div class="form-group">
+							<label style="color:#fff !important;">Your Name (Required)</label>								
+							<input name="your-name" value="" size="40" class="form-control" type="text">								
+						</div>
+						<div class="form-group">
+							<label style="color:#fff !important;">Your Email (Required)</label>								
+							<input name="your-email" value="" size="40" class="form-control" type="email">								
+						</div>
+						<div class="form-group">
+							<label style="color:#fff !important;">Subject</label>
+							<input name="your-subject" value="" size="40" class="form-control" type="text">								
+						</div>
+						<div class="form-group">
+							<label style="color:#fff !important;">Your Message</label>								
+							<textarea name="your-message" cols="40" rows="10" class="form-control"></textarea>								
+						</div>							
+						<input value="send" class="btn btn-primary" type="submit">
+					</form>					
+				</div>	
+			</div>
+		</section>
+		<input type="hidden" class="userrole" value="<?= um_user('role_name') ?>" />
+	<footer class="animated fadeInRight">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3 col-sm-6 col-xs-6 col-ms-12 footer_menu">
+					<h4>Navigation</h4>
+					<div class="menu-marketplace-footer-nav1-container">
+						<ul id="menu-marketplace-footer-nav1" class="menu">
+							<li ><a href="#">Most Recent</a></li>
+							<li ><a href="#">Top Products</a></li>
+							<li ><a href="#">Featured Products</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6 col-xs-6 col-ms-12 footer_menu">
+					<h4>&nbsp;</h4>
+					<div class="menu-marketplace-footer-nav2-container">
+						<ul id="menu-marketplace-footer-nav2" class="menu">
+							<li ><a href="#">Not able to Find</a></li>
+							<li ><a href="#">unavailable products</a></li>
+							<li ><a href="#">On Demand Products</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6 col-xs-6 col-ms-12 footer_menu">
+					<h4>&nbsp;</h4>
+					<div class="menu-help-container">
+						<ul id="menu-help" class="menu">
+							<li ><a href="#">Blog</a></li>
+							<li ><a href="#">FAQ</a></li>
+							<li ><a href="#">Support</a></li>
+							<li ><a href="#">Terms of Use</a></li>
+							<li ><a href="#">Privacy Policy</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6 col-xs-6 col-ms-12 footer_menu">
+					<h4>Contact Information</h4>			
+					<div class="textwidget">
+						<ul>
+							<li><a href="tel:+302106020162"><i class="fa fa-phone"></i> +30 210 6020162</a></li>
+							<li><a href="mailto:inf@gybi.org"><i class="fa fa-envelope"></i> info@gybi.org</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>	
+		</div>
+	</footer>
+					
+	<section class="copyright">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-sm-6 col-xs-7 col-ms-12">
+					<p>© 2018 "Africa Innovation Market" Right Reserved</p>
+				</div>
+				<div class="pull-right col-md-4 col-sm-6 col-xs-5 col-ms-12">
+					<ul class="social-network social-circle">
+						<li><a href="#" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+						<li><a href="#" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+						<li><a href="#" class="icoGoogle" title="Google +"><i class="fa fa-google-plus"></i></a></li>
+						<li><a href="#" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5531caff78e1f8ac" async="async"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js"></script>
+<script src="js/application.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
+<script src="js/jquery.counterup.min.js"></script>
+<script src="includes/js/jquery.circliful.js"></script>
+<script src="includes/js/gybi.js"></script>
+    <!-- flags -->
+<script src="js/jquery.flagstrap.min.js"></script>
+    <!-- custom -->
+<script src="js/swiper.min.js"></script>
+    <!-- banner -->
+<script src="js/slider.banners.js"></script>
+<script src="js/custom.js"></script>
+    <!-- Responsive Slider -->
+<script type="text/javascript" src="js/responsiveCarousel.min.js"></script>
+    <!-- easy-responsive-tabs -->
+<script type="text/javascript" src="js/easy-responsive-tabs.js"></script>
+<script>
+jQuery(document).ready(function(e) {
+	jQuery(".dropdown").find("dd").show();
+	jQuery("form.subscribe_form").submit(function(e) {
+        var re = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-]{1,})+\.)+([a-zA-Z0-9]{2,})+$/;
+		if (!re.test(jQuery("input.subscribe_email").val())) {
+			alert("The email is not correct");
+			return false;
+		}
+
+    });
+	jQuery("input[value='Register']").click(function(e) {
+		if (!jQuery("input[name='role']:checked").val()) {
+			jQuery("input[value='entrepreneur']").attr("checked", "checked");
+		}
+	});
+});
+</script>
+<style>
+.yasr-total-average-container {
+	display: none;
+}
+</style>
+</body></html>
+      

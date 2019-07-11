@@ -1,0 +1,32 @@
+﻿.has_tooltip{}
+.acf-field .acf-label p {
+	display:none;
+}
+.acf-field .acf-label p.showhelp{ display:block}
+.acf-field .tooltip{ opacity:1; font-size:16px; display:inline-block !important; margin:0 0 0 5px}
+.field .label .fa,
+.acf-field .acf-label .fa,
+.table-layout .acf-th .fa,
+th.acf-th-text .fa, .cust-afc-ifrm .fa{
+	color: #3BA1DA;
+	width: 20px;
+	height: 20px;
+	font-size: 20px;
+	cursor: pointer!important;
+}
+
+.qtip-acf {
+	background-color: rgba(0,0,0,0.9);
+	border-color: #000000;
+	color: #f3f3f3;
+	border-radius: 3px;
+	font-size: 13px;
+	line-height: 1.5;
+}
+.cust-afc-ifrm ul li{ float:left;margin-right:10px; }
+.repeater-cust .row{margin:10px 0;}
+.repeater-cust {
+    background: #f9f9f9;
+    padding: 15px 5px;
+    border: 1px solid #dbdbdb;
+}

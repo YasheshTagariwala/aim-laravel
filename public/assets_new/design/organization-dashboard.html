@@ -1,0 +1,186 @@
+<div class="dashboard-section">
+	<!--div class="dashboard-section-overlay">
+		<div class="alert alert-danger fade in dashboard-alert" id="message">
+			<p> Your Organization profile is not yet created/approved. Please do it now by clicking <a href="javascript:void(0)" class="btn btn-danger go_updateprofile">Here</a> OR <a class="btn btn-success" href="#">Contact Administrator</a></p>
+		</div>
+	</div-->
+	<div class="row">
+		<div class="col-md-3 col-sm-6 ">
+			<div class="dashboard-tile detail tile-red">
+				<div class="content" > 
+					<a class="go_link" href="javascript:void(0)" data-href="supporters">Supporters Mentoring Hours</a>
+					<p class="text-left "  ><span class="timer" data-to="0" data-speed="2500"></span></p>
+				</div>			
+				<div class="icon"><i class="fa fa-file-text"></i> </div>
+			</div>
+		</div>
+		<div class="col-md-3 col-sm-6">
+			<div class="dashboard-tile detail tile-purple">
+				<div class="content" >
+					<a class="go_link" href="javascript:void(0)" data-href="investors"> Funds by Investors</a>
+					<p class="text-left "  >$<span class="timer" data-to="0" data-speed="2500"></span></p>
+				</div>
+				<div class="icon"><i class="fa fa-envelope"></i> </div>
+			</div>
+		</div>
+		<div class="col-md-3 col-sm-6">
+			<div class="dashboard-tile detail tile-turquoise">
+				<div class="content" > 
+					<a class="go_link" href="javascript:void(0)" data-href="supporters">Donations by Supporters</a>
+					<p class="text-left "  >$<span class="timer" data-to="0" data-speed="2500"></span></p>
+				</div>
+				<div class="icon"><i class="fa fa-bar-chart-o"></i> </div>
+		  </div>
+		</div>    
+		<div class="col-md-3 col-sm-6">
+			<div class="dashboard-tile detail tile-blue">
+				<div class="content"  > 
+					<a class="go_link" href="javascript:void(0)" data-href="enterplace"> Enterprises Count Countries</a> 
+					<p class="text-left "  ><span class="timer" data-to="<?= $enterpreuners_country_count ?>" data-speed="2500"></span></p>
+				</div>
+				<div class="icon"><i class="fa fa-flag"></i> </div>
+			</div>
+		</div>    
+	</div>  
+	<div class="row">
+		<div class="col-lg-6 col-md-6">
+			<div class="panel panel-white">
+				<div class="panel-heading">
+				   <h3 class="panel-title">Entrepreneurs Details</h3>          
+				   <div class="actions pull-right"> <i class="fa fa-chevron-down"></i></div>
+				</div>
+				<div class="panel-body">
+					<div class="table-responsive project-stats" >  
+						<table class="table">					  
+							<tbody>
+								<tr><td>Agripreneur</td><td>0</td></tr>
+								<tr><td>Business Entrepeneur</td><td>0</td></tr>
+								<tr><td>Social Entrepreneur</td><td>0</td></tr>
+								<tr><td>Technopreneur</td><td>0</td></tr>
+						   </tbody>
+						</table>
+					</div>
+				</div>
+				<div class="panel-footer text-center"> 
+					<a class="go_link" href="javascript:void(0)" data-href="enterplace">View All Projects</a> 
+				</div>
+			</div>
+		</div>      
+		<div class="col-md-6">
+			<div class="panel panel-white">
+				<div class="panel-heading">
+					<h3 class="panel-title">Country based Entrepreneurs , Investors and Supporters</h3>
+					<div class="actions pull-right"> <i class="fa fa-chevron-down"></i> </div>
+				</div>
+				<div class="panel-body" >
+					<div class="table-responsive project-stats"  >  
+						<!--table class="table">
+							<thead>
+							   <tr>
+								   <th>Country</th>
+								   <th>Entrepreneurs </th>
+								   <th>Investors</th>
+								   <th>Supporters</th>
+							   </tr>
+							</thead>
+							<tbody>
+								<tr>
+								   <td>Name</td>
+								   <td>Enterpreaners</th>
+								   <td>Investor</td>
+								   <td>Supporter</td>
+							   </tr>							   
+						   </tbody>
+						</table-->
+						<div class="alert alert-warning alert-dismissable">You currently do not have any Entrepreneurs, Investors or Supporters in your network .</div>     					
+					</div>
+				</div>
+				<div class="panel-footer text-center"> <a class="go_link" href="javascript:void(0)" data-href="enterplace">View All Projects</a> </div>
+			</div>
+		</div>
+	</div>
+    <div class="row">
+		<div class="col-md-9">
+			<div class="panel panel-white">
+				<div class="panel-heading">
+					<h3 class="panel-title">Recent Entrepreneurs	</h3>
+					<div class="actions pull-right"> <i class="fa fa-chevron-down"></i> </div>
+				</div>
+				<div class="panel-body">
+					<div class="table-responsive project-stats" >  					
+						<!--table class="table">
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th>User Name</th>
+									<th>Account Type</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td ><a title="View Project Status" href="#"></a></td>
+									<td>Name</td>
+									<td>Entrepreneur</td>
+									<td class="text-capitalize">
+										<div class="id">
+											<a href='javascript:void(0)' class='post-block btn btn-danger' data-id='id'>Block</a>
+										</div>
+										<div class="id">
+											<a href='javascript:void(0)' class='post-publish btn btn-default btn-primary' data-id='id'> Publish </a>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table-->
+						<div class="alert alert-warning alert-dismissable">You have not sent any invitations recently.</div>
+					</div>
+				</div>        
+				<div class="panel-footer text-center"> <a class="go_link" href="javascript:void(0)" data-href="enterplace">View All Projects</a> </div>
+			</div>
+		</div>
+		<div class="col-lg-3 col-md-6">
+			<div class="panel facebook-box">
+				<div class="panel-body">
+					<div class="live-tile" data-mode="flip" data-speed="750" data-delay="3000"  style="height:320px">
+						<span class="tile-title pull-right">Latest News</span>
+						<i class="fa fa-rss"></i>											 
+						<div>
+							<h2 class="no-m"><a href="#">Testing Blog by Acropolis 11</a></h2>
+							<span class="tile-date">Jun 25 12:45 PM</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
+    <div class="row">
+		<div class="col-md-9">
+			<div class="panel panel-white">
+				<div class="panel-heading">
+					<h3 class="panel-title">Invited Users Details	</h3>
+					<div class="actions pull-right"> <i class="fa fa-chevron-down"></i> </div>
+				</div>
+				<div class="panel-body">
+					<div class="table-responsive project-stats"  >  
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Users</th>
+									<th>Number</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr><td>Investors</td><td> 0</td></tr>
+                                <tr><td>Supporters</td><td> 0</td></tr>
+                                <tr><td>Youth Jobs Created</td><td> 0</td></tr>
+                                <tr><td>Male Entrepreneurs</td><td> 0</td></tr>
+                                <tr><td>Female Entrepreneurs</td><td> 0</td></tr>
+                            </tbody>
+						</table>
+					</div>
+				</div>			
+			</div>
+		</div>
+    </div>    
+</div>

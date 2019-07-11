@@ -1,0 +1,70 @@
+<div class="row">
+    <div class="col-md-12 invite-friends">
+        <div class="ajax-loader" style="display:none"> 
+            <img style="margin-top:200px" src="images/ajax-loader.gif"  />
+        </div>
+		<div class="panel panel-white container-wrapper dashboard-forms">
+            <h1>Invitation</h1>
+    	    <div id="secure_invite_form">
+	    	    <form action="#" method="post" class="secure_invite_form form-controll">					
+					<div class="row refer-head">
+						<div class="col-md-6 col-sm-6 col-inputs">
+							<label class="">Name</label>
+						</div>			
+						<div class="col-md-6 col-sm-6 col-inputs">
+							<label class="">Email</label>
+							<a href="javascipr:void(0)" class="invfr_add button">+</a>
+						</div>			
+					</div>
+					<div class="row refer refer-body">
+						<div class="refer-col">
+							<div class="col-md-6 col-sm-6 col-inputs">
+								<input name="" id="friend_name-0" value="" class="form-control" placeholder="Name" type="text">
+							</div>		
+							<div class="col-md-6 col-sm-6 col-inputs">
+								<input name="" id="friend_email-0" value="" class="form-control" placeholder="Email" type="email">
+							</div>
+						</div>
+						<div class="col-md-12 col-inputs">
+							<input id="secure_invite_send" name="submit" class="btn btn-primary" value="Invitation Sent" type="submit">
+						</div>
+					</div>
+					<fieldset></fieldset>
+				</form>
+            </div>
+            <div class="sowresult">
+				<table class="table table-bordered table-striped" >
+					<thead>
+						<tr class="first-tr">
+							<td>Invitations</td>
+							<td>Invitations  Accepted</td>
+							<td>Points Earned</td>
+							<td></td>
+						</tr>
+					</thead>
+					<tbody>  
+						<tr>
+							<td data-label="Invitations">8</td>
+							<td data-label="Invitations  Accepted">0</td>
+							<td data-label="Points Earned">0</td>
+							<td data-label="Details"><a href="javascript:void(0)" class="underline details">Show Details</a></td>
+						</tr>
+						<tr class="invitation-list" style="display:none;" >
+							<td colspan="4" class="graybg-invite ">
+								<div style="display: block;">
+									<div class="row">
+										<div class="col-md-12 invite-friend">
+											<div class="panel-body">
+												<p>No invitations sent yet.</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</td>
+						</tr>  
+					</tbody>
+				</table>
+			</div>
+        </div>
+    </div>
+</div>
