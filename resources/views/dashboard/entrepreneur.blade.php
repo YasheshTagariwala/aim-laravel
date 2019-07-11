@@ -607,7 +607,7 @@
                                                             <?php $categories = DB::table('categories')->where('groupid','1')->get(); ?>
                                                             <ul>
                                                                 @foreach($categories as $categorie)
-                                                            <li> <label> <input type="checkbox" value="{{$categorie->id}}" name="category[]" @if(count($ent_company) > 0) @if($ent_company[0]->category == $categorie->id) checked="" @endif @endif /> {{$categorie->name}}</label> </li>
+                                                            <li> <label> <input type="checkbox" value="{{$categorie->id}}" name="category[]" @if(count($ent_company) > 0) @if(in_array($categorie->id,explode(",",$ent_company[0]->category))) checked="" @endif @endif /> {{$categorie->name}}</label> </li>
                                                                 @endforeach
                                                             </ul>
                                                         </div>
@@ -720,8 +720,47 @@
                                                 <div class="form-group">
                                                     <div class="row">
                                                         <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                                                            <label style="display: block;">Video  <!-- <i class="fa fa-question-circle" ></i> --></label>
+                                                            @if(count($ent_company) > 0)
+                                                                <input name="project_video" id="friend_name-0" value="" accept="video/*" class="btn"  type="file">
+                                                                <video height="340" width="340" controls src="{{$ent_company[0]->video_link}}"></video>
+                                                                <input type="hidden" name="project_video_done" value="{{$ent_company[0]->video_link}}">
+                                                            @else
+                                                                <input name="project_video" id="friend_name-0" value="" accept="video/*" class="btn"  type="file">
+                                                            @endif
+                                                            OR
+                                                            <label style="display: block;">Youtube Link  <!-- <i class="fa fa-question-circle" ></i> --></label>
+                                                            @if(count($ent_company) > 0)
+                                                                <iframe height="340" width="340" src="{{$ent_company[0]->youtube_link}}"></iframe>
+                                                                <input type="hidden" name="project_youtube_link_done" value="{{$ent_company[0]->youtube_link}}">
+                                                                <input name="project_youtube_link" id="friend_name-0" value="{{$ent_company[0]->youtube_link}}" class="form-control"  type="text">
+                                                            @else
+                                                                <input name="project_youtube_link" id="friend_name-0" value="" class="form-control"  type="text">
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
                                                             <label style="display: block;">Project Featured Image  <!-- <i class="fa fa-question-circle" ></i> --></label>
-                                                            <input name="project_img" id="friend_name-0" value="" class="btn"  type="file">
+                                                            @if(count($ent_company) > 0)
+                                                                <?php
+                                                                    $images =  explode(",",$ent_company[0]->project_img);
+                                                                ?>
+                                                                <div class="row">
+                                                                    @foreach($images as $image)
+                                                                        <div class="col-md-2">
+                                                                            <img src="{{$image}}" alt="" height="120" width="120" />
+                                                                        </div>
+                                                                    @endforeach
+                                                                </div>
+                                                                <input type="hidden" name="project_img_done" value="{{$ent_company[0]->project_img}}">
+                                                            @endif
+                                                            <div id="project_image_rows">
+                                                                <input name="project_img[]" id="friend_name-0" value="" class="btn"  type="file">
+                                                            </div>
+                                                            <div class="acf-form-submit">
+                                                                <input value="Add More" class="button button-success button-large" type="button" onclick="add_image();">
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -741,7 +780,7 @@
                                                     <div class="row">
                                                         <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
                                                             <label style="display: block;">Products / Services </label>
-                                                            <div class="repeater-cust"> 
+                                                            <div class="repeater-cust">
                                                                 <div class="row">
                                                                     <div class="col-md-3 col-sm-3 col-lg-3 col-xs-12">  
                                                                         <label style="display: block;">Name <!-- <i class="fa fa-question-circle" ></i> --></label>
@@ -759,11 +798,36 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="row">
+                                                                    <div class="col-md-3 col-sm-3 col-lg-3 col-xs-12">
+                                                                        <label style="display: block;">Video  <!-- <i class="fa fa-question-circle" ></i> --></label>
+                                                                    </div>
+                                                                    <div class="col-md-9 col-sm-9 col-lg-9 col-xs-12">
+                                                                        <input name="product_video1" id="friend_name-0" value="" accept="video/*" class="btn"  type="file">
+                                                                    </div>
+                                                                    <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 text-center">
+                                                                        OR
+                                                                    </div>
+                                                                    <div class="col-md-3 col-sm-3 col-lg-3 col-xs-12">
+                                                                        <label style="display: block;">Youtube Link  <!-- <i class="fa fa-question-circle" ></i> --></label>
+                                                                    </div>
+                                                                    <div class="col-md-9 col-sm-9 col-lg-9 col-xs-12">
+                                                                        <input name="product_youtube_link1" id="friend_name-0" value="" class="form-control"  type="text">
+                                                                    </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
                                                                     <div class="col-md-3 col-sm-3 col-lg-3 col-xs-12">  
                                                                         <label style="display: block;">Image <!-- <i class="fa fa-question-circle" ></i> --></label>
                                                                     </div>
-                                                                    <div class="col-md-9 col-sm-9 col-lg-9 col-xs-12">  
-                                                                    <input name="product_img1" id="friend_name-0" value="" class="btn"  type="file">
+                                                                    <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                                                        <div id="product_image_rows1">
+                                                                            <input name="product_img1[]" id="friend_name-0" value="" class="btn"  type="file">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-3 col-sm-3 col-lg-3 col-xs-12">
+                                                                        <div class="acf-form-submit">
+                                                                            <input value="Add More" class="button button-success button-large" type="button" onclick="add_product_image(1);">
+                                                                        </div>
                                                                     </div>
                                                                 </div> 
                                                                 <hr>
@@ -787,11 +851,35 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="row">
+                                                                    <div class="col-md-3 col-sm-3 col-lg-3 col-xs-12">
+                                                                        <label style="display: block;">Video  <!-- <i class="fa fa-question-circle" ></i> --></label>
+                                                                    </div>
+                                                                    <div class="col-md-9 col-sm-9 col-lg-9 col-xs-12">
+                                                                        <input name="product_video{{$productrow}}" id="friend_name-0" value="" accept="video/*" class="btn"  type="file">
+                                                                    </div>
+                                                                    <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 text-center">
+                                                                        OR
+                                                                    </div>
+                                                                    <div class="col-md-3 col-sm-3 col-lg-3 col-xs-12">
+                                                                        <label style="display: block;">Youtube Link  <!-- <i class="fa fa-question-circle" ></i> --></label>
+                                                                    </div>
+                                                                    <div class="col-md-9 col-sm-9 col-lg-9 col-xs-12">
+                                                                        <input name="product_youtube_link{{$productrow}}" id="friend_name-0" value="" class="form-control"  type="text">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
                                                                     <div class="col-md-3 col-sm-3 col-lg-3 col-xs-12">  
                                                                         <label style="display: block;">Image <!-- <i class="fa fa-question-circle" ></i> --></label>
                                                                     </div>
-                                                                    <div class="col-md-9 col-sm-9 col-lg-9 col-xs-12">  
-                                                                    <input name="product_img{{$productrow}}" id="friend_name-0" value="" class="btn"  type="file">
+                                                                    <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                                                        <div id="product_image_rows{{$productrow}}">
+                                                                    <input name="product_img{{$productrow}}[]" id="friend_name-0" value="" class="btn"  type="file">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-3 col-sm-3 col-lg-3 col-xs-12">
+                                                                        <div class="acf-form-submit">
+                                                                            <input value="Add More" class="button button-success button-large" type="button" onclick="add_product_image({{$productrow}});">
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>   <?php } ?>                                                         
@@ -1761,6 +1849,14 @@
                     document.getElementById("docrow"+add_count).style.display = 'block';
                 
        
+        }
+
+        function add_image() {
+            jQuery('#project_image_rows').append('<input name="project_img[]" id="friend_name-0" value="" class="btn" type="file">');
+        }
+
+        function add_product_image(count) {
+            jQuery('#product_image_rows'+count).append('<input name="product_img'+count+'[]" id="friend_name-0" value="" class="btn" type="file">');
         }
     </script>
 <script type="text/javascript">

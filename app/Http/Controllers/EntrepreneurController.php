@@ -121,19 +121,48 @@ class EntrepreneurController extends Controller
             $project_img = $request->project_img;
             if($project_img)
              {
-      
-                  $destinationPath = $_SERVER['DOCUMENT_ROOT'].'/files/documents';           
-                  $timestamp = str_replace([' ', ':'], '-', date("YmdHis"));
-                  $namefile = $project_img->getClientOriginalName();    
-                  $recfilename = preg_replace('/\s+/', '', $namefile);
-                  $recfilename = $timestamp."_123_".$recfilename;
-                  $upload_success = Input::file('project_img')->move($destinationPath, $recfilename);
-                  $certificatePath = ('http://'.$_SERVER['HTTP_HOST']."/files/documents/".$recfilename);
+                 $certificatePath = [];
+                 foreach ($project_img as $key => $item){
+                     $destinationPath = $_SERVER['DOCUMENT_ROOT'].'/files/documents';
+                     $timestamp = str_replace([' ', ':'], '-', date("YmdHis"));
+                     $namefile = $item->getClientOriginalName();
+                     $recfilename = preg_replace('/\s+/', '', $namefile);
+                     $recfilename = $timestamp."_123_".$recfilename;
+                     $upload_success = $item->move($destinationPath, $recfilename);
+                     $certificatePath[] = ('http://'.$_SERVER['HTTP_HOST']."/files/documents/".$recfilename);
+                 }
 
              }
+             $video = $request->project_video;
+            $video_path = "";
+            if($video) {
+                $destinationPath = $_SERVER['DOCUMENT_ROOT'].'/files/documents';
+                $timestamp = str_replace([' ', ':'], '-', date("YmdHis"));
+                $namefile = $video->getClientOriginalName();
+                $recfilename = preg_replace('/\s+/', '', $namefile);
+                $recfilename = $timestamp."_123_".$recfilename;
+                $upload_success = $video->move($destinationPath, $recfilename);
+                $video_path = ('http://'.$_SERVER['HTTP_HOST']."/files/documents/".$recfilename);
+            }
+            $youtube_link = "";
+            if($request->project_youtube_link) {
+                $youtube_link = $request->project_youtube_link;
+                $longUrlRegex = '/youtube.com\/((?:embed)|(?:watch))((?:\?v\=)|(?:\/))([a-zA-Z0-9_-]+)/i';
+
+                if (preg_match($longUrlRegex, $youtube_link, $matches)) {
+                    $youtube_id = $matches[count($matches) - 1];
+                }
+                $youtube_link = 'https://www.youtube.com/embed/' . $youtube_id;
+            }
              $category = implode(',', $request->category) ;
+            $certificatePath = implode(",",$certificatePath);
              
-         DB::table('ent_company')->insert(['overview' => $request->overview,'category' =>$category ,'p_yr_revenue' => $request->p_yr_revenue,'c_yr_revenue' => $request->c_yr_revenue,'n_yr_revenue' => $request->n_yr_revenue,'founded_date' => $request->founded_date,'no_employees' => $request->no_employee,'project_img' => $certificatePath,'created_by' => $userid,'updated_by' => $userid]);
+         DB::table('ent_company')->insert(['overview' => $request->overview,'category' =>$category ,
+             'p_yr_revenue' => $request->p_yr_revenue,'c_yr_revenue' => $request->c_yr_revenue,
+             'n_yr_revenue' => $request->n_yr_revenue,'founded_date' => $request->founded_date,
+             'no_employees' => $request->no_employee,'project_img' => $certificatePath,
+             'video_link' => $video_path,'youtube_link' => $youtube_link,
+             'created_by' => $userid,'updated_by' => $userid]);
 
 
           //print_r($request->all()); exit();
@@ -185,24 +214,49 @@ class EntrepreneurController extends Controller
           //print_r($request->all()); exit();
             $product_count = $request->productrowcount;
             for ($pcount=1; $pcount <= $product_count; $pcount++) { 
-            $product_img = Input::file('product_img'.$pcount);
+            $product_img = $request->product_img.$pcount;
             $product_name = $request->input('name'.$pcount);
             $product_desc= $request->input('description'.$pcount);
-            $certificatePath1 = '';
+            $certificatePath1 = [];
             if($product_img)
              {
-      
-                  $destinationPath1 = $_SERVER['DOCUMENT_ROOT'].'/files/documents';           
-                  $timestamp1 = str_replace([' ', ':'], '-', date("YmdHis"));
-                  $namefile1 = $product_img->getClientOriginalName();    
-                  $recfilename1 = preg_replace('/\s+/', '', $namefile1);
-                  $recfilename1 = $timestamp1."_123_".$recfilename1;
-                  $upload_success1 = Input::file('product_img'.$pcount)->move($destinationPath1, $recfilename1);
-                  $certificatePath1 = ('http://'.$_SERVER['HTTP_HOST']."/files/documents/".$recfilename1);
-
+                foreach ($product_img as $img) {
+                    $destinationPath1 = $_SERVER['DOCUMENT_ROOT'].'/files/documents';
+                    $timestamp1 = str_replace([' ', ':'], '-', date("YmdHis"));
+                    $namefile1 = $img->getClientOriginalName();
+                    $recfilename1 = preg_replace('/\s+/', '', $namefile1);
+                    $recfilename1 = $timestamp1."_123_".$recfilename1;
+                    $upload_success1 = $img->move($destinationPath1, $recfilename1);
+                    $certificatePath1[] = ('http://'.$_SERVER['HTTP_HOST']."/files/documents/".$recfilename1);
+                }
              }
+            $certificatePath1 = implode(",",$certificatePath1);
 
-         DB::table('ent_products')->insert(['name' => $product_name,'description' => $product_desc,'created_by' => $userid,'updated_by' => $userid,'product_img' => $certificatePath1]);
+            $video = $request->product_video.$pcount;
+            $video_path = "";
+            if($video) {
+                $destinationPath = $_SERVER['DOCUMENT_ROOT'].'/files/documents';
+                $timestamp = str_replace([' ', ':'], '-', date("YmdHis"));
+                $namefile = $video->getClientOriginalName();
+                $recfilename = preg_replace('/\s+/', '', $namefile);
+                $recfilename = $timestamp."_123_".$recfilename;
+                $upload_success = $video->move($destinationPath, $recfilename);
+                $video_path = ('http://'.$_SERVER['HTTP_HOST']."/files/documents/".$recfilename);
+            }
+            $youtube_link = "";
+            if($request->product_youtube_link.$pcount) {
+                $youtube_link = $request->product_youtube_link.$pcount;
+                $longUrlRegex = '/youtube.com\/((?:embed)|(?:watch))((?:\?v\=)|(?:\/))([a-zA-Z0-9_-]+)/i';
+
+                if (preg_match($longUrlRegex, $youtube_link, $matches)) {
+                    $youtube_id = $matches[count($matches) - 1];
+                }
+                $youtube_link = 'https://www.youtube.com/embed/' . $youtube_id;
+            }
+
+            DB::table('ent_products')->insert(['name' => $product_name,'description' => $product_desc,
+                'created_by' => $userid,'updated_by' => $userid,'product_img' => $certificatePath1,
+                'video_link' => $video_path,"youtube_link" => $youtube_link]);
           }
 
           $alert = 'Project Profile Details Added Successfully';  
@@ -346,25 +400,60 @@ class EntrepreneurController extends Controller
         }
 
         else if($request->savefor == '2'){
-
              //$category = array("");
              $category = implode(',', $request->category) ;
             $project_img = $request->project_img;
                   $certificatePath1 = '';
             if($project_img)
              {
-      
-                  $destinationPath = $_SERVER['DOCUMENT_ROOT'].'/files/documents';           
-                  $timestamp = str_replace([' ', ':'], '-', date("YmdHis"));
-                  $namefile = $project_img->getClientOriginalName();    
-                  $recfilename = preg_replace('/\s+/', '', $namefile);
-                  $recfilename = $timestamp."_123_".$recfilename;
-                  $upload_success = Input::file('project_img')->move($destinationPath, $recfilename);
-                  $certificatePath = ('http://'.$_SERVER['HTTP_HOST']."/files/documents/".$recfilename);
 
-             }
+                 $certificatePath = [];
+                 foreach ($project_img as $key => $item){
+                     $destinationPath = $_SERVER['DOCUMENT_ROOT'].'/files/documents';
+                     $timestamp = str_replace([' ', ':'], '-', date("YmdHis"));
+                     $namefile = $item->getClientOriginalName();
+                     $recfilename = preg_replace('/\s+/', '', $namefile);
+                     $recfilename = $timestamp."_123_".$recfilename;
+                     $upload_success = $item->move($destinationPath, $recfilename);
+                     $certificatePath[] = ('http://'.$_SERVER['HTTP_HOST']."/files/documents/".$recfilename);
+                 }
 
-         DB::table('ent_company')->where('id',$id)->update(['overview' => $request->overview,'category' => $category,'p_yr_revenue' => $request->p_yr_revenue,'c_yr_revenue' => $request->c_yr_revenue,'n_yr_revenue' => $request->n_yr_revenue,'founded_date' => $request->founded_date,'no_employees' => $request->no_employee,'project_img' => $certificatePath,'created_by' => $userid,'updated_by' => $userid]);
+                 $certificatePath = implode(",",$certificatePath) .','.$request->project_img_done;
+             }else {
+                $certificatePath = $request->project_img_done;
+            }
+
+            $video = $request->project_video;
+            $video_path = "";
+            if($video) {
+                $destinationPath = $_SERVER['DOCUMENT_ROOT'].'/files/documents';
+                $timestamp = str_replace([' ', ':'], '-', date("YmdHis"));
+                $namefile = $video->getClientOriginalName();
+                $recfilename = preg_replace('/\s+/', '', $namefile);
+                $recfilename = $timestamp."_123_".$recfilename;
+                $upload_success = $video->move($destinationPath, $recfilename);
+                $video_path = ('http://'.$_SERVER['HTTP_HOST']."/files/documents/".$recfilename);
+            }else {
+                $video_path = $request->project_video_done;
+            }
+            if($request->project_youtube_link) {
+                $youtube_link = $request->project_youtube_link;
+                $longUrlRegex = '/youtube.com\/((?:embed)|(?:watch))((?:\?v\=)|(?:\/))([a-zA-Z0-9_-]+)/i';
+
+                if (preg_match($longUrlRegex, $youtube_link, $matches)) {
+                    $youtube_id = $matches[count($matches) - 1];
+                }
+                $youtube_link = 'https://www.youtube.com/embed/' . $youtube_id;
+            }else {
+                $youtube_link = $request->project_youtube_link_done;
+            }
+
+         DB::table('ent_company')->where('id',$id)->update(['overview' => $request->overview,'category' => $category,
+             'p_yr_revenue' => $request->p_yr_revenue,'c_yr_revenue' => $request->c_yr_revenue,
+             'n_yr_revenue' => $request->n_yr_revenue,'founded_date' => $request->founded_date,
+             'no_employees' => $request->no_employee,'project_img' => $certificatePath,
+             'video_link' => $video_path,'youtube_link' => $youtube_link,
+             'created_by' => $userid,'updated_by' => $userid]);
 
           //print_r($request->all()); exit();
           $doc_count = $request->docrowcount;
