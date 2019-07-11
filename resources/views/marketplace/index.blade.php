@@ -244,8 +244,7 @@ $categories = DB::table('categories')->where('groupid','1')->get(); ?>
                         </div>
                         <div class="select-style form_arrow">
                             <select name="cat" id="cat" class="postform" required="required" onchange="setName(this)">
-                                <option class="level-0" value="">CATEGORY</option>
-                                <option class="level-0" value="562">Industry</option>
+                                <option class="level-0" value="562">Category</option>
                                 <option class="level-0" value="563">Social Entrepreneur</option>
                                 <option class="level-0" value="564">Youth</option>
                                 <option class="level-0" value="565">Diaspora</option>
@@ -253,7 +252,7 @@ $categories = DB::table('categories')->where('groupid','1')->get(); ?>
                                 <option class="level-0" value="567">Uncategorized</option>
                             </select>
                         </div>
-                        <input type="hidden" name="cat_text" id="cat_text">
+                        <input type="hidden" name="cat_text" id="cat_text" value="Category">
                         <textarea class="form-control requirement required" rows="3" placeholder="Enter requirement" name="requirement" required="required"></textarea>
                         <button type="submit" class="btn btn-default btn-block btn-raise btn_veiw_all requirement_submit">Submit</button>
                     </form>
@@ -343,9 +342,7 @@ $categories = DB::table('categories')->where('groupid','1')->get(); ?>
         </section>
 <script>
     function setName(val) {
-        if(jQuery(val).val() != "") {
-            jQuery('#cat_text').val(jQuery(val).find("option:selected").text());
-        }
+        jQuery('#cat_text').val(jQuery(val).find("option:selected").text());
     }
 </script>
 @endsection
