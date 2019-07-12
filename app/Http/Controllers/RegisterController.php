@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Config;
 use Laravel\Socialite\Facades\Socialite;
 use DB;
 use Session;
@@ -45,8 +46,11 @@ class RegisterController extends Controller
     {
         //print_r($secret); exit();
         if($provider == 'twitter'){
-        $token = '1072101674884325377-EKzy4bBs9fYVsjbhIG2tm85jIdDs8B';
-        $secret = 'RpHXsAxCOETuuneYRhvA2DptKIY5loB5qx7WbfyzFQ4OX';
+//        $token = '1072101674884325377-EKzy4bBs9fYVsjbhIG2tm85jIdDs8B';
+//        $secret = 'RpHXsAxCOETuuneYRhvA2DptKIY5loB5qx7WbfyzFQ4OX';
+
+            $token = Config::get('services.twitter.access_token');
+            $secret = Config::get('services.twitter.access_secret');
             $user = Socialite::driver($provider)->userFromTokenAndSecret($token, $secret);
         $user->getId();
         $dname = $user->getNickname();

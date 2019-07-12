@@ -17,6 +17,8 @@ class UserDetails extends Model  {
      *
      * @var array
      */
-    //protected $fillable = [];
+    protected $fillable = [
+        'username', 'email', 'password', 'provider', 'provider_id'
+    ];
 
 }
