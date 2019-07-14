@@ -250,8 +250,8 @@ class HomeController extends Controller
         $userid = DB::table('userdetails')->where('password',$password)->where('email',$userlogin[0]->email)->get();
         if(count($userid) > 0){
             $oMarketPlace = MarketPlaceSettings::where('org_id', '=', $userid[0]->id)->first();
-            Session::put('storelogo',$oMarketPlace->getLogoUrl());
-            Session::put('storename',$oMarketPlace->storename);
+            Session::put('storelogo',$oMarketPlace ? $oMarketPlace->getLogoUrl() : "");
+            Session::put('storename',$oMarketPlace ? $oMarketPlace->storename : "");
             Session::put('login_by',$request->username);
             Session::put('userid',$userid[0]->id);
             Session::put('firstname',$userid[0]->firstname);
