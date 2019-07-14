@@ -189,6 +189,12 @@ class OrderController extends Controller
             return redirect('/checkout')->with(['order_id' => $oOrder->id, 'order_no' => $oOrder->order_no]);
         }
 
+        $products = DB::table('products')
+            ->join('product_cart', 'products.id', '=', 'product_cart.product_id')
+            ->select('products.*', 'product_cart.qty', 'product_cart.id as cartid ')
+            ->where('product_cart.created_by',$userid)
+            ->get();
+
         $useremail = Session::get('useremail');
         $subject = "Thank you for your order";
         $messagecontent = "";
@@ -198,6 +204,18 @@ class OrderController extends Controller
             $msgcontent .='<table width="500" border="0" cellspacing="0" cellpadding="0" style="background: #ffffff;margin:0 auto; width:500px;"><tbody>';
             $msgcontent .='<tr><td style="background:#94c440; color:#FFF; text-align:center;padding:30px 15px; font-size:18px;"><strong>Africa Innovation Market</strong></td></tr></tbody></table>';
             $msgcontent .='<p><b>Dear '.$request->firstname.' '.$request->lastname.', </b></p>';
+            $msgcontent .='<table>';
+            $msgcontent .='<thead>';
+            $msgcontent .='<tr>';
+            $msgcontent .='<td>Name</td><td>Description</td><td>Price</td><td>Quantity</td><td>Total</td>';
+            $msgcontent .='</tr><tbody>';
+            foreach ($products as $product) {
+                $msgcontent .= '<tr>';
+                $msgcontent .='<td>'.$product->name.'</td><td>'.$product->short_desc.'</td><td>$ '.$product->sale_price.'</td><td>'.$product->qty.'</td><td>$ '.($product->sale_price * $product->qty).'</td>';
+                $msgcontent .= '</tr>';
+            }
+            $msgcontent .='</tbody></thead>';
+            $msgcontent .='</table>';
             $msgcontent .='<p>Thank you for your order! ';
             $msgcontent .='<p>Your order with AIM marketplace is successfully added. </p>';
             $msgcontent .='<br><br>
@@ -212,9 +230,11 @@ class OrderController extends Controller
 
 
         Mail::send('home.reminder', $data, function ($m) use ($data, $toemailid, $toemailid1)  {
-        $m->from('aim@acroplisinfotech.com', 'Africa Innovation Market');
-        $m->replyTo($data['replytoemail'], $username = null);
-        $m->bcc($toemailid);
+            $m->from('aim@acroplisinfotech.com', 'Africa Innovation Market');
+            $m->replyTo($data['replytoemail'], $username = null);
+            if($toemailid != null) {
+                $m->bcc($toemailid);
+            }
             $m->to($toemailid1, '')->subject($data['subject']);
         });
 

@@ -44,7 +44,7 @@ return [
     'facebook' => [
         'client_id'     => '685538751851466',
         'client_secret' => '4428ce681b855676d5392ed5bd1673a7',
-        'redirect'      => 'https://aim.it/register/facebook/callback',
+        'redirect'      => env('APP_URL').'/register/facebook/callback',
     ],
 
 //    'twitter' => [
@@ -58,7 +58,7 @@ return [
         'client_secret' => 'D4TeQym3BIVTM4hrjcDeImhylb1eMH5g50nZKIs2teX1YaOQRn',
         'access_token'  => '1149704559125602304-5qerjPk2XirN0yijHyc2siy2tYRFqu',
         'access_secret' => 'EXcWDxkJtOCS4GpiEPQ2CkQ5gn5LbgXL5XbQpZPh27UP9',
-        'redirect'      => 'http://aim.it/register/twitter/callback',
+        'redirect'      => env('APP_URL').'/register/twitter/callback',
     ],
 
 //    'google' => [
@@ -70,13 +70,13 @@ return [
     'google' => [
         'client_id'     => '1037518438842-v039rqcaml1jml7f77ddvppgmmnlkql2.apps.googleusercontent.com',
         'client_secret' => '7PWHtWFLIgvzIgSYXCf8Wwd0',
-        'redirect'      =>  'http://aim.it/register/google/callback',
+        'redirect'      => env('APP_URL').'/register/google/callback',
     ],
 
     'linkedin' => [
         'client_id'     => '78xqx8tdrqs8i4',  //sambpape@gmail.com
         'client_secret' => 'avG2BOJU7uzRKubV',
-        'redirect'      => 'http://aim.it/register/linkedin/callback',
+        'redirect'      => env('APP_URL').'/register/linkedin/callback',
     ],
 
 ];
