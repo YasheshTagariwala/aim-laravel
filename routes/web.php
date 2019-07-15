@@ -116,6 +116,7 @@ Route::post('/invite/send','InviteController@store');
 //MarketplaceController
 Route::get('/market-place','MarketplaceController@index');
 Route::post('/market-place/search','MarketplaceController@index');
+Route::get('/market-place/{userid}','MarketplaceController@sellerDetails');
 Route::get('/market-place/exeleadmen','MarketplaceController@exeleadmen');
 Route::get('/market-place/dashboard','MarketplaceController@dashboard');
 Route::get('/market-place/settings','MarketplaceController@settings');

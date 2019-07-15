@@ -6,8 +6,10 @@ use App\Models\BankAccountDetails;
 use App\Models\MarketPlaceMedia;
 use App\Models\MarketPlaceSettings;
 use App\Models\MarketPlaceSocialLinks;
+use App\Models\OrderProductQty;
 use App\Models\Orders;
 use App\Models\Products;
+use App\Models\UserDetails;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
@@ -32,9 +34,18 @@ class MarketplaceController extends Controller
         $sName = $request->searchterm;
         //print_r($category); exit();
         $oProducts = Products::where('delete_status','0')->orderBy('created_at','desc')->where('categories','like','%'.$sCategory.'%')->where('name','like','%'.$sName.'%')->get();
+        $top_seller = OrderProductQty::select(DB::raw('product_id,sum(qty) as qty'))->groupBy('product_id')->orderBY('qty','desc')->limit(5)->pluck('product_id');
+        $top_seller = Products::whereIn('id',$top_seller)->pluck('userid');
+        if($top_seller) {
+            $top_seller = array_unique($top_seller->toArray());
+        }else {
+            $top_seller = [];
+        }
+        $top_seller = UserDetails::whereIn('id',$top_seller)->get();
         //$recent = DB::table('products')->where('delete_status','0')->orderBy('created_at','desc');
         //print_r($products); exit();
-        return view("marketplace.index", ["products" => $oProducts, "category" => $sCategory, "name" => $sName]);
+        return view("marketplace.index", ["products" => $oProducts, "category" => $sCategory
+            , "name" => $sName ,'top_seller' => $top_seller]);
     }
 
     public function dashboard()
@@ -125,6 +136,12 @@ class MarketplaceController extends Controller
     public function exeleadmen()
     {
         return view("marketplace.exeleadmen");
+    }
+
+    public function sellerDetails(Request $request,$userid) {
+        $user = UserDetails::find($userid);
+        $products = Products::where('userid',$userid)->get();
+        return view("marketplace.seller_details",['user' => $user,'products' => $products]);
     }
 
     /**

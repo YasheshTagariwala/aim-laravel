@@ -264,50 +264,30 @@ $categories = DB::table('categories')->where('groupid','1')->get(); ?>
         <div class="container">
             <div class="row">
                 <h2 class="vendor-headding-custom">Top sellers</h2>
-                <div class="col-md-2 col-sm-2 col-xs-12 img_sec">
-                    <div class="images_12_sell" style="height: 350px;">
-                        <div class="animate_img">
-                            <a href="{{ url('market-place/exeleadmen') }}">
-                                <img class="img-responsive vendor_img" src="{{url('/')}}/assets_new/images/WP-stdavatar.png" id="vendor_image_display" width="125">
-                            </a>
-                            <div class="textbox">
-                                <div class="v_center">
-                                    <a href="{{ url('market-place/exeleadmen') }}">
-                                        <button type="button" class="btn btn-primary btn-lg btn-block">DETAILS</button>
-                                    </a>
+                @foreach($top_seller as $sellers)
+                    <div class="col-md-2 col-sm-2 col-xs-12 img_sec">
+                        <div class="images_12_sell" style="height: 350px;">
+                            <div class="animate_img">
+                                <a href="{{ url('market-place/'.$sellers->id) }}">
+                                    <img class="img-responsive vendor_img" src="{{url('/')}}/assets_new/images/WP-stdavatar.png" id="vendor_image_display" width="125">
+                                </a>
+                                <div class="textbox">
+                                    <div class="v_center">
+                                        <a href="{{ url('market-place/'.$sellers->id) }}">
+                                            <button type="button" class="btn btn-primary btn-lg btn-block">DETAILS</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <h6>{{ $sellers->firstname }} {{ $sellers->lastname }}</h6>
+                            <div class="row lead">
+                                <div style="width:100%; height:50px; margin-bottom:5px; padding-left:15px;">
+                                    <div>No Rating Yet</div>
                                 </div>
                             </div>
                         </div>
-                        <h6>Exeleadmen INTERNATIONAL CONSULTING</h6>
-                        <div class="row lead">
-                            <div style="width:100%; height:50px; margin-bottom:5px; padding-left:15px;">
-                                <div>No Rating Yet</div>
-                            </div>
-                        </div>
                     </div>
-                </div>
-                <div class="col-md-2 col-sm-2 col-xs-12 img_sec">
-                    <div class="images_12_sell" style="height: 350px;">
-                        <div class="animate_img">
-                            <a href="{{ url('market-place/exeleadmen') }}">
-                                <img class="img-responsive vendor_img" src="{{url('/')}}/assets_new/images/WP-stdavatar.png" id="vendor_image_display" width="125">
-                            </a>
-                            <div class="textbox">
-                                <div class="v_center">
-                                    <a href="{{ url('market-place/exeleadmen') }}">
-                                        <button type="button" class="btn btn-primary btn-lg btn-block">DETAILS</button>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <h6>Exeleadmen INTERNATIONAL CONSULTING</h6>
-                        <div class="row lead">
-                            <div style="width:100%; height:50px; margin-bottom:5px; padding-left:15px;">
-                                <div>No Rating Yet</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
 
             </div><!-- row -->
         </div><!-- container -->
