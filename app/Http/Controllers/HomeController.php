@@ -342,11 +342,36 @@ class HomeController extends Controller
     {
         $oSubscription = Subscriptions::where('emailid', '=', $request->subscribe_email)->first();
         if($oSubscription){
-            return response()->json(['status' => 1, 'message' => 'Thank you. You are allready subscribed with us.']);
+            return response()->json(['status' => 2, 'message' => 'Thank you. You are allready subscribed with us.']);
         }else{
             $oSubscription = new Subscriptions();
             $oSubscription->emailid = $request->subscribe_email;
             $oSubscription->save();
+
+            $subject = "You are subscribed to AIM (Africa Innovation Market)";
+            $messagecontent = "";
+            $toemailids= $request->subscribe_email;
+            $content=$messagecontent;
+            $replyto = 'iperamuna@gmail.com';
+
+            $messagecontent = '<div style="width:100%px;text-align:center;margin: 0;">';
+            $messagecontent .='<table width="100%" border="0" cellspacing="0" cellpadding="0"><tbody>';
+            $messagecontent .='<tr><td style="background:#cdcdcd; font-family:Helvetica, Arial;font-size:14px;padding-top:15px;padding-bottom:15px;">';
+            $messagecontent .='<table width="500" border="0" cellspacing="0" cellpadding="0" style="background: #ffffff;margin:0 auto; width:500px;"><tbody>';
+            $messagecontent .='<tr><td style="background:#94c440; color:#FFF; text-align:center;padding:30px 15px; font-size:18px;"><strong>Africa Innovation Market</strong></td></tr>';
+            $messagecontent .='<p>&nbsp;&nbsp;Welcome To Africa Innovation Market (AIM).</p><p>&nbsp;&nbsp;You have subscribed to AIM </p>';
+            $messagecontent .='<br><p style="font-size:10px; text-align:left;"><em>This is an automatically generated message. Please do not reply to this address.</em></p></td></tr></tbody></table></td></tbody></table></div>';
+
+            $data = array( 'replytoemail' => $replyto, 'subject' => $subject, 'content' => $messagecontent);
+
+
+
+            Mail::send('home.reminder', $data, function ($m) use ($data, $toemailids)  {
+                $m->from('noreply@africainnovationmarket.org', 'Africa Innovation Market');
+                $m->replyTo($data['replytoemail'], $name = null);
+                $m->bcc('indunil@siyalude.biz');
+                $m->to($toemailids, '')->subject($data['subject']);
+            });
 
             return response()->json(['status' => 1, 'message' => 'Thank you for susbcribing with us.']);
         }

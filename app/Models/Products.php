@@ -19,9 +19,16 @@ class Products extends Model  {
      *
      * @var array
      */
-    protected $fillable = ['name', 'short_desc', 'description', 'categories', 'imagepath', 'product_data', 'sale_price', 'start_date', 'end_date', 'tags', 'userid', 'created_by'];
+    protected $fillable = ['name', 'short_desc', 'description', 'categories', 'imagepath', 'product_data', 'sale_price', 'start_date', 'end_date', 'tags', 'userid', 'created_by','video_link','youtube_link'];
 
     public function getImagepathAttribute($value){
+        if(Storage::exists($value)){
+            return Storage::url($value);
+        }
+        return url('assets_new/images/WP-stdavatar.png');
+    }
+
+    public function getVideoLinkAttribute($value){
         if(Storage::exists($value)){
             return Storage::url($value);
         }

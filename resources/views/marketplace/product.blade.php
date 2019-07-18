@@ -46,7 +46,7 @@
                                             <input name="price" value="" size="40" class="form-control" type="number" required="">
                                             <label >Sales price start date<span class="acf-required">*</span></label>                                
                                             <input name="start_date" value="" size="40" class="form-control" type="date" required="">
-                                            <label >Sales price start date<span class="acf-required">*</span></label>                                
+                                            <label >Sales price end date<span class="acf-required">*</span></label>
                                             <input name="end_date" value="" size="40" class="form-control" type="date" required="">
                                         </div>
                                         <div class="form-group">
@@ -64,6 +64,13 @@
                                         <div class="form-group">
                                             <label >Product Image Gallery <span class="acf-required">*</span></label>                               
                                             <input name="product_img" value="" size="40" class="form-control" type="file" required="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Video </label>
+                                            <input name="product_video" id="friend_name-0" value="" accept="video/*" class="btn"  type="file">
+                                            OR <br>
+                                            <label>Youtube Link</label>
+                                            <input name="product_youtube_link" id="friend_name-0" value="" class="form-control"  type="text">
                                         </div>
                                                     <input value="Submit Product" class="btn btn-primary" type="submit">
                                         <style>.error{border:1px solid red}</style>             

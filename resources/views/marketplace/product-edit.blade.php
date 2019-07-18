@@ -46,7 +46,7 @@
                                             <input name="price" value="{{ old('price', $product->sale_price) }}" size="40" class="form-control" type="number" required="">
                                             <label >Sales price start date<span class="acf-required">*</span></label>                                
                                             <input name="start_date" value="{{ old('start_date', $product->start_date) }}" size="40" class="form-control" type="date" required="">
-                                            <label >Sales price start date<span class="acf-required">*</span></label>                                
+                                            <label >Sales price end date<span class="acf-required">*</span></label>
                                             <input name="end_date" value="{{ old('end_date', $product->end_date) }}" size="40" class="form-control" type="date" required="">
                                         </div>
                                         <div class="form-group">
@@ -65,6 +65,19 @@
                                             <label >Product Image Gallery <span class="acf-required">*</span></label>                               
                                             <input name="product_img" value="" size="40" class="form-control" type="file" ><br>
                                             <img src="{{  $product->imagepath }}" style="width:100px; height:100px; border: 1px solid #ccc;padding: 4px;">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Video</label>
+                                                <input name="product_video" id="friend_name-0" value="" accept="video/*" class="btn"  type="file">
+                                            @if($product->video_link != null)
+                                                <video height="340" width="340" controls src="{{$product->video_link}}"></video>
+                                            @endif
+                                            <br> OR <br>
+                                            <label>Youtube Link</label><br>
+                                            @if($product->youtube_link != null)
+                                                <iframe height="340" width="340" src="{{$product->youtube_link}}"></iframe>
+                                            @endif
+                                            <input name="product_youtube_link" id="friend_name-0" value="{{$product->youtube_link}}" class="form-control"  type="text">
                                         </div>
                                                     <input value="Submit Product" class="btn btn-primary" type="submit">
                                         <style>.error{border:1px solid red}</style>             

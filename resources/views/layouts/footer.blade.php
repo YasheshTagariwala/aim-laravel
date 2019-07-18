@@ -1,4 +1,4 @@
-        
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/tooltipster/3.3.0/css/tooltipster.min.css" />
         
         <!-- Contact Section Starts Here    -->
         <section class="contact-form">
@@ -95,7 +95,7 @@
                             <form name="" action="{{url('/')}}/subscribe" method="post" name="subscriptionform" id="subscriptionform">
                                  {{csrf_field()}}
                                 <div class="input-group">
-                                    <input class="form-control subscribe_email" type="email" name="subscribe_email" id="subscribe_email" placeholder="Enter your email address" required>
+                                    <input class="form-control subscribe_email tooltipster" type="email" name="subscribe_email" id="subscribe_email" placeholder="Enter your email address" required>
                                     <span class="input-group-btn">
                                         <button type="submit" class="input-group-addon subscribe_button"><i class="glyphicon glyphicon-play"></i></button>
                                     </span> 
@@ -107,12 +107,37 @@
                 </div>
             </div>
         </footer>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tooltipster/3.3.0/js/jquery.tooltipster.min.js"></script>
         <script type="text/javascript">
+            jQuery(document).ready(function() {
+                $('.tooltipster').tooltipster({
+                    trigger: 'custom',
+                    onlyOne: false,
+                    position: 'right'
+                });
+            });
             jQuery('#subscriptionform').submit(function(event){
                 event.preventDefault()
                 var emailid = jQuery('#subscribe_email').val();
+                var re = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-]{1,})+\.)+([a-zA-Z0-9]{2,})+$/;
+                if (!re.test(emailid)) {
+                    $('#subscribe_email').val('');
+                    $('#subscribe_email').tooltipster('content',"Invalid Email Address");
+                    $('#subscribe_email').tooltipster('show');
+                    setTimeout(function() {
+                        $('#subscribe_email').tooltipster('hide');
+                    },3000);
+                    return;
+                }
                 jQuery.post( "{{ url('/subscribe') }}", { subscribe_email: emailid }, function( data ) {
-                    alert(data.message);
+                    $('#subscribe_email').val('');
+                    $('#subscribe_email').tooltipster('content',data.message);
+                    $('#subscribe_email').tooltipster('show');
+                    setTimeout(function() {
+                        $('#subscribe_email').tooltipster('hide');
+                    },3000);
+
                 }, "json");
             });
         </script>

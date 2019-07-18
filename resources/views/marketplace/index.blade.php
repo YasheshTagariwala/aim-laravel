@@ -268,12 +268,12 @@ $categories = DB::table('categories')->where('groupid','1')->get(); ?>
                     <div class="col-md-2 col-sm-2 col-xs-12 img_sec">
                         <div class="images_12_sell" style="height: 350px;">
                             <div class="animate_img">
-                                <a href="{{ url('market-place/'.$sellers->id) }}">
+                                <a href="{{ url('market-place/seller/'.$sellers->id) }}">
                                     <img class="img-responsive vendor_img" src="{{url('/')}}/assets_new/images/WP-stdavatar.png" id="vendor_image_display" width="125">
                                 </a>
                                 <div class="textbox">
                                     <div class="v_center">
-                                        <a href="{{ url('market-place/'.$sellers->id) }}">
+                                        <a href="{{ url('market-place/seller/'.$sellers->id) }}">
                                             <button type="button" class="btn btn-primary btn-lg btn-block">DETAILS</button>
                                         </a>
                                     </div>

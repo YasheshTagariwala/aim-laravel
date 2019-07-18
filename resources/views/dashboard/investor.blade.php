@@ -265,7 +265,7 @@
                                                     </div>
                                                     <?php $categories = DB::table('categories')->get(); ?>
                                                     <div class="form-group">
-                                                        <label for="acf-field_56d41973c0dbc">Interested Industries  <span class="acf-required">*</span></label>
+                                                        <label for="acf-field_56d41973c0dbc">Interested Industries  <span class="acf-required">* (Select you interested capitalist/investor)</span></label>
                                                         <ul class="acf-checkbox-list acf-bl">
                                                             <li><label class="selectit"><input name="category" value="Angel Investor" type="radio" @if(count($investor) > 0) @if($investor[0]->category == "Angel Investor") checked="" @endif @endif>Angel Investor</label></li>
                                                             <li><label class="selectit"><input name="category" value="Bank/MFI" type="radio"@if(count($investor) > 0) @if($investor[0]->category == "Bank/MFI") checked="" @endif @endif>Bank/MFI</label></li>
@@ -294,7 +294,7 @@
                                                     </div>
                                                     <div class="form-group">
                                                     <?php $womenstages = DB::table('women_stage')->get(); ?>
-                                                        <label for="acf-field_56d41973c0dbc">Business Stage  <span class="acf-required">*</span></label>
+                                                        <label for="acf-field_56d41973c0dbc">Business Stage  <span class="acf-required">* (Where you currently stand in you business/start up)</span></label>
                                                         <ul class="acf-checkbox-list acf-bl">
                                                             
                                                             @foreach($womenstages as $womenstage)

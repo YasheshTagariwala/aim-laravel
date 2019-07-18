@@ -759,10 +759,25 @@
                                                 <img style="margin-top:200px" src="{{url('/')}}/assets_new/images/ajax-loader.gif"  />
                                             </div>
                                             <div class="panel panel-white container-wrapper dashboard-forms">
-                                                <h1>Availablity</h1>
+                                                <?php
+                                                    $ip = $_SERVER['REMOTE_ADDR'];
+                                                    try {
+                                                        if($ip != "127.0.0.1") {
+                                                            $ipInfo = file_get_contents('http://ip-api.com/json/' . $ip);
+                                                            $ipInfo = json_decode($ipInfo);
+                                                            $timezone = $ipInfo->timezone;
+                                                        }else {
+                                                            $timezone = "Asia/Kolkata";
+                                                        }
+                                                    }catch (Exception $e) {
+                                                        $timezone = "Asia/Kolkata";
+                                                    }
+                                                    date_default_timezone_set($timezone);
+                                                ?>
+                                                <h1>Availablity (TimeZone :- {{$timezone .' ('. date('T').')' }} )</h1>
                                                 <div id="secure_invite_form">
                                                 <form action="/supporter/availablity" method="post" class="secure_invite_form form-controll">    
-                                                    {{csrf_field()}}  
+                                                    {{csrf_field()}}
                                                     <div class="row refer refer-body">
                                                         <div class="refer-col">
                                                             <div class="col-md-4 col-sm-4 col-inputs">
@@ -815,8 +830,8 @@
                                                             @if(count($availablity) > 0)
                                                             @foreach($availablity as $appoinment)
                                                             <tr>
-                                                                <td data-label="Invitations">{{$appoinment->fromdate}}/{{$appoinment->fromtime}}</td>
-                                                                <td data-label="Invitations">{{$appoinment->todate}}/{{$appoinment->totime}}</td>
+                                                                <td data-label="Invitations">{{date('l, F jS Y',strtotime($appoinment->fromdate))}} from {{ date('h:iA',strtotime($appoinment->fromtime))}} to {{date('h:iA',strtotime($appoinment->totime))}}</td>
+                                                                <td data-label="Invitations">{{date('l, F jS Y',strtotime($appoinment->todate))}} from {{ date('h:iA',strtotime($appoinment->fromtime))}} to {{date('h:iA',strtotime($appoinment->totime))}}</td>
                                                             </tr>
                                                             @endforeach
                                                             @else 

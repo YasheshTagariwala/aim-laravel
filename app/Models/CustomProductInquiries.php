@@ -3,7 +3,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class BankAccountDetails extends Model  {
+class CustomProductInquiries extends Model  {
 
     /**
      * The database table used by the model.

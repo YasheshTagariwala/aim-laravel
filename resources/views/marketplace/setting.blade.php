@@ -122,25 +122,27 @@
                                                 </style>
                                                 <div class="col-lg-6">
                                                     <ul class="mediaDisplayUL">
-                                                    @foreach($marketplace->mediaFiles as $mediaFIle)
-                                                        @if($mediaFIle->media_type == 'image')
-                                                           <li><img class="mediaImage" src="{{ $mediaFIle->getMedia() }}" ><br>
-                                                               <a href="{{ $mediaFIle->getMedia() }}" download target="_blank"><small>{{ $mediaFIle->media_title }}</small></a>
-                                                               | <a href="{{ url('/marketplace/media/'. $mediaFIle->id .'/delete') }}" style="color: red" class="confirmDeleteFile" data-title="{{ $mediaFIle->media_title }}"><small>Delete</small></a>
-                                                              </li>
+                                                        @if($marketplace)
+                                                            @foreach($marketplace->mediaFiles as $mediaFIle)
+                                                                @if($mediaFIle->media_type == 'image')
+                                                                    <li><img class="mediaImage" src="{{ $mediaFIle->getMedia() }}" ><br>
+                                                                        <a href="{{ $mediaFIle->getMedia() }}" download target="_blank"><small>{{ $mediaFIle->media_title }}</small></a>
+                                                                        | <a href="{{ url('/marketplace/media/'. $mediaFIle->id .'/delete') }}" style="color: red" class="confirmDeleteFile" data-title="{{ $mediaFIle->media_title }}"><small>Delete</small></a>
+                                                                    </li>
+                                                                @endif
+                                                                @if($mediaFIle->media_type == 'videos')
+                                                                    <li>{{ $mediaFIle->getMedia() }}<br>
+                                                                        <a href="{{ url('/marketplace/media/'. $mediaFIle->id .'/delete') }}" style="color: red" class="confirmDeleteFile" data-title="{{ $mediaFIle->media_title }}"><small>Delete</small></a></li>
+                                                                @endif
+                                                                @if($mediaFIle->media_type == 'articles')
+                                                                    <li><i class="fas fa-file" style="font-size: 95px"></i><br>
+                                                                        <a href="{{ $mediaFIle->getMedia() }}" download target="_blank"><small>{{ $mediaFIle->media_title }}</small>
+                                                                        </a>
+                                                                        | <a href="{{ url('/marketplace/media/'. $mediaFIle->id .'/delete') }}" style="color: red" class="confirmDeleteFile" data-title="{{ $mediaFIle->media_title }}"><small>Delete</small></a>
+                                                                    </li>
+                                                                @endif
+                                                            @endforeach
                                                         @endif
-                                                        @if($mediaFIle->media_type == 'videos')
-                                                                <li>{{ $mediaFIle->getMedia() }}<br>
-                                                                    <a href="{{ url('/marketplace/media/'. $mediaFIle->id .'/delete') }}" style="color: red" class="confirmDeleteFile" data-title="{{ $mediaFIle->media_title }}"><small>Delete</small></a></li>
-                                                        @endif
-                                                        @if($mediaFIle->media_type == 'articles')
-                                                                <li><i class="fas fa-file" style="font-size: 95px"></i><br>
-                                                                    <a href="{{ $mediaFIle->getMedia() }}" download target="_blank"><small>{{ $mediaFIle->media_title }}</small>
-                                                                    </a>
-                                                                    | <a href="{{ url('/marketplace/media/'. $mediaFIle->id .'/delete') }}" style="color: red" class="confirmDeleteFile" data-title="{{ $mediaFIle->media_title }}"><small>Delete</small></a>
-                                                                </li>
-                                                        @endif
-                                                    @endforeach
                                                     </ul>
                                                     <br>
                                                 </div>

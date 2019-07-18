@@ -89,6 +89,29 @@ class ProductController extends Controller
             $oProduct->save();
         }
 
+        $video = $request->product_video;
+        if($video) {
+            $namefile = $video->getClientOriginalName();
+            $recfilename = time().".".$namefile;
+            $video_path = $uploadFolder .'/'.$recfilename;
+            Storage::putFileAs($uploadFolder,$video,$recfilename,'public');
+
+            $oProduct->video_link = $video_path;
+            $oProduct->save();
+        }
+
+        if($request->product_youtube_link) {
+            $youtube_link = $request->product_youtube_link;
+            $longUrlRegex = '/youtube.com\/((?:embed)|(?:watch))((?:\?v\=)|(?:\/))([a-zA-Z0-9_-]+)/i';
+
+            if (preg_match($longUrlRegex, $youtube_link, $matches)) {
+                $youtube_id = $matches[count($matches) - 1];
+            }
+            $youtube_link = 'https://www.youtube.com/embed/' . $youtube_id;
+            $oProduct->youtube_link = $youtube_link;
+            $oProduct->save();
+        }
+
         return redirect( '/product/' . $iProductId .'/edit');
 
     }
@@ -154,6 +177,29 @@ class ProductController extends Controller
             Storage::putFileAs($uploadFolder, $oProductImg, $name, 'public');
 
             $oProduct->imagepath = $sProductImageUrl;
+            $oProduct->save();
+        }
+
+        $video = $request->product_video;
+        if($video) {
+            $namefile = $video->getClientOriginalName();
+            $recfilename = time().".".$namefile;
+            $video_path = $uploadFolder .'/'.$recfilename;
+            Storage::putFileAs($uploadFolder,$video,$recfilename,'public');
+
+            $oProduct->video_link = $video_path;
+            $oProduct->save();
+        }
+
+        if($request->product_youtube_link) {
+            $youtube_link = $request->product_youtube_link;
+            $longUrlRegex = '/youtube.com\/((?:embed)|(?:watch))((?:\?v\=)|(?:\/))([a-zA-Z0-9_-]+)/i';
+
+            if (preg_match($longUrlRegex, $youtube_link, $matches)) {
+                $youtube_id = $matches[count($matches) - 1];
+            }
+            $youtube_link = 'https://www.youtube.com/embed/' . $youtube_id;
+            $oProduct->youtube_link = $youtube_link;
             $oProduct->save();
         }
 

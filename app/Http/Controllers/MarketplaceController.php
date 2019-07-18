@@ -20,6 +20,15 @@ use DB;
 
 class MarketplaceController extends Controller
 {
+    public function __construct() {
+        $this->middleware(function ($request, $next){
+            if(!Session::has('userid') || Session::get('userid') == "" || Session::get('userid') == null) {
+                return redirect('login');
+            }
+            return $next($request);
+        });
+    }
+
     /**
      * Display a listing of the resource.
      *
