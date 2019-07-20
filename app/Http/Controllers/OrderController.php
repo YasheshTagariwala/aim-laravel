@@ -226,7 +226,7 @@ class OrderController extends Controller
 
         $toemailid= $useremail;
         $toemailid1= $request->email;
-        $data = array( 'replytoemail' => 'conctact@aim.org', 'subject' => $subject, 'content' => $msgcontent);
+        $data = array( 'replytoemail' => 'aim@acroplisinfotech.com', 'subject' => $subject, 'content' => $msgcontent);
 
 
         Mail::send('home.reminder', $data, function ($m) use ($data, $toemailid, $toemailid1)  {

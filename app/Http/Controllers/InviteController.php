@@ -56,7 +56,7 @@ class InviteController extends Controller
         $messagecontent = "";
         $toemailids= $email;
         $content=$messagecontent;
-        $replyto = 'iperamuna@gmail.com';
+        $replyto = 'aim@acroplisinfotech.com';
 
         $messagecontent = '<div style="width:100%px;text-align:center;margin: 0;">';
         $messagecontent .='<table width="100%" border="0" cellspacing="0" cellpadding="0"><tbody>';
@@ -73,7 +73,7 @@ class InviteController extends Controller
 
 
             Mail::send('home.reminder', $data, function ($m) use ($data, $toemailids)  {
-            $m->from('noreply@africainnovationmarket.org', 'Africa Innovation Market');
+            $m->from('aim@acroplisinfotech.com', 'Africa Innovation Market');
             $m->replyTo($data['replytoemail'], $name = null);
             $m->bcc('indunil@siyalude.biz');
             $m->to($toemailids, '')->subject($data['subject']);

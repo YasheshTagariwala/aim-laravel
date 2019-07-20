@@ -156,7 +156,7 @@ class RegisterController extends Controller
         $messagecontent = "";
         $toemailids= 'indunil@siyalude.biz';
         $content=$messagecontent;
-        $replyto = 'indunil@siyalude.biz';
+        $replyto = 'aim@acroplisinfotech.com';
         $url_admin = '/admin/temp_user';
 
         $messagecontent = '<div style="width:100%px;text-align:center;margin: 0;">';
@@ -207,15 +207,15 @@ class RegisterController extends Controller
             $msgcontent .='<p>Please login to your account using <a href="'.url('/login').'">'.url('/login').'</a></p> <br><br>';
             $msgcontent .='<p>Your registration with AIM is successful. <br>
 
-                <br>You may contact us at conctact@aim.org. Please add this address to your email program so future emails are not filtered by your SPAM settings. If you prefer, you may contact us at conctact@aim.org.<br><br>
-                Your privacy is extremely important to us. Rest assured that we value your personal information and will not share it with any third parties in accordance with our Privacy Policy, which is located at: http://aim.studela.com/privacy-policy<br><br>
+                <br>You may contact us at aim@acroplisinfotech.com. Please add this address to your email program so future emails are not filtered by your SPAM settings. If you prefer, you may contact us at aim@acroplisinfotech.com.<br><br>
+                Your privacy is extremely important to us. Rest assured that we value your personal information and will not share it with any third parties in accordance with our Privacy Policy, which is located at: http://africaninnovationmarket.org/privacy-policy<br><br>
                 Once again, thank you for choosing AIM. We look forward to helping you start and scale up your business.<br>
                 Sincerely,<br><b>AIM Team</b>
                 </p>';
 
 
         $toemailid= $email;
-        $data = array( 'replytoemail' => 'conctact@aim.org', 'subject' => 'User Welcome From AIM', 'content' => $msgcontent);
+        $data = array( 'replytoemail' => 'aim@acroplisinfotech.com', 'subject' => 'User Welcome From AIM', 'content' => $msgcontent);
 
         Mail::send('home.reminder', $data, function ($m) use ($data, $toemailid)  {
             $m->from(config('mail.from.address'), config('mail.from.name'));
