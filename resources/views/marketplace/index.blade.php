@@ -24,7 +24,7 @@ $categories = DB::table('categories')->where('groupid','1')->get(); ?>
                     </form>
                 </div>
                 <ul class="sec_list">
-                    <li><a href="{{url('/')}}/market-place/product">Add Product Enquiry</a></li>
+                    <li><a href="{{url('/')}}/market-place/add-product-enquiry">Add Product Enquiry</a></li>
                     <li><div></div></li>
                     <li><a href="{{url('/')}}/requirement-list">Product Enquirys</a></li>
                 </ul>

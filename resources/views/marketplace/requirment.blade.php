@@ -19,35 +19,23 @@
                                       <tr>
                                         <th class="numeric">Images</th>
                                         <th class="numeric">Name</th>
-                                        <th class="numeric">Min-max Price</th>
-                                        <th class="numeric">Assign Product</th>
+                                        <th class="numeric">Price</th>
+                                        <th class="numeric">Action</th>
                                       </tr>
                                     </thead>
-                                    <tbody>                  
-                                        <tr>
-                                            <td class="numeric"><img src="{{url('/')}}/assets_new/images/placeholder.png" style="width: 100px; height: 100px" width="100" height="100"></td>
-                                            <td data-title="Name" class="numeric">RR</td>
-                                            <td data-title="Min-max Price" class="numeric">$ - $</td>
-                                            <td data-title="Assign Product" class="numeric"><a href="{{url('/market-place')}}/enquiry-details" class="btn btn-sm btn-primary">Enquiry Details </a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="numeric"><img src="{{url('/')}}/assets_new/images/placeholder.png" style="width: 100px; height: 100px" width="100" height="100"></td>
-                                            <td data-title="Name" class="numeric">RR</td>
-                                            <td data-title="Min-max Price" class="numeric">$ - $</td>
-                                            <td data-title="Assign Product" class="numeric"><a href="{{url('/market-place')}}/enquiry-details" class="btn btn-sm btn-primary">Enquiry Details </a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="numeric"><img src="{{url('/')}}/assets_new/images/placeholder.png" style="width: 100px; height: 100px" width="100" height="100"></td>
-                                            <td data-title="Name" class="numeric">RR</td>
-                                            <td data-title="Min-max Price" class="numeric">$ - $</td>
-                                            <td data-title="Assign Product" class="numeric"><a href="{{url('/market-place')}}/enquiry-details" class="btn btn-sm btn-primary">Enquiry Details </a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="numeric"><img src="{{url('/')}}/assets_new/images/placeholder.png" style="width: 100px; height: 100px" width="100" height="100"></td>
-                                            <td data-title="Name" class="numeric">RR</td>
-                                            <td data-title="Min-max Price" class="numeric">$ - $</td>
-                                            <td data-title="Assign Product" class="numeric"><a href="{{url('/market-place')}}/enquiry-details" class="btn btn-sm btn-primary">Enquiry Details </a></td>
-                                        </tr>   
+                                    <tbody>
+                                        @foreach($enquiry_lists as $enquiry_list)
+                                            <tr>
+                                                <td class="numeric">
+                                                    <img src="{{$enquiry_list->product->imagepath}}" style="width: 100px; height: 100px" width="100" height="100">
+                                                </td>
+                                                <td data-title="Name" class="numeric">{{$enquiry_list->product->name}}</td>
+                                                <td data-title="Min-max Price" class="numeric">${{$enquiry_list->product->sale_price}}</td>
+                                                <td data-title="Assign Product" class="numeric">
+                                                    <a href="{{url('/market-place/enquiry-details/'.$enquiry_list->id)}}" class="btn btn-sm btn-primary">Enquiry Details </a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                     <tfoot></tfoot>
                                 </table>

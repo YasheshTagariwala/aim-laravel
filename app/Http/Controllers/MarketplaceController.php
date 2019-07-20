@@ -9,6 +9,8 @@ use App\Models\MarketPlaceSocialLinks;
 use App\Models\OrderProductQty;
 use App\Models\Orders;
 use App\Models\Products;
+use App\Models\ProductsEnquiry;
+use App\Models\ProductsEnquiryComment;
 use App\Models\UserDetails;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -122,14 +124,47 @@ class MarketplaceController extends Controller
         return view("marketplace.report");
     }
 
-    public function requirment()
-    {
-        return view("marketplace.requirment");
+    public function productEnquiry() {
+        $userid = Session::get('userid');
+        $products = Products::where('userid','!=',$userid)->get();
+        return view("marketplace.enquiry",['products' => $products]);
     }
 
-    public function requirment_details()
+    public function addProductEnquiry(Request $request) {
+        $userid = Session::get('userid');
+        $enquiry = new ProductsEnquiry();
+        $enquiry->product_id = $request->product_name;
+        $enquiry->product_description = $request->short_message;
+        $enquiry->userid = $userid;
+        $enquiry->save();
+
+        return redirect('market-place')->with('message','Enquiry Added Successfully');
+    }
+
+    public function addProductEnquiryComment(Request $request) {
+        $userid = Session::get('userid');
+        $comment = new ProductsEnquiryComment();
+        $comment->enquiry_id = $request->enquiry_id;
+        $comment->comment = $request->comment;
+        $comment->userid = $userid;
+        $comment->save();
+
+        return redirect()->to('/market-place/enquiry-details/'.$request->enquiry_id)->with('message','Comment Added Successfully');
+    }
+
+    public function requirment()
     {
-        return view("marketplace.requirment-r");
+        $userid = Session::get('userid');
+        $enquiries = ProductsEnquiry::whereHas('product',function ($query) use($userid){
+            $query->where('userid',$userid);
+        })->with('product')->get();
+        return view("marketplace.requirment",['enquiry_lists' => $enquiries]);
+    }
+
+    public function requirment_details($id)
+    {
+        $enquiry = ProductsEnquiry::with('product','comments')->find($id);
+        return view("marketplace.requirment-r",['enquiry' => $enquiry]);
     }
 
     public function messages()
