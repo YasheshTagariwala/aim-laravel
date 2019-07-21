@@ -1,4 +1,5 @@
-        <header> 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/easy-autocomplete/1.3.5/easy-autocomplete.min.css">
+        <header>
                         <?php $is_login = Session::get('is_login'); ?>           
             <nav class="navbar navbar-fixed-top" role="navigation">               
                 <div class="col-lg-4 col-md-4 col-sm-3">
@@ -171,11 +172,7 @@ function doGTranslate(lang_pair){if(lang_pair.value)lang_pair=lang_pair.value;if
                                         <ul class="nav navbar-nav nav-big">
                                             <li class="search">
                                                 <form method="get" id="searchform" action="#">
-                                                    <input class="form-control btn-primary" value="" name="s" id="s" placeholder="Search for..." type="text">
-                                                    <input name="post_type[]" value="investor" type="hidden">
-                                                    <input name="post_type[]" value="project" type="hidden">
-                                                    <input name="post_type[]" value="supporter" type="hidden">
-                                                    <input name="post_type[]" value="organization" type="hidden">                      
+                                                    <input class="form-control btn-primary" value="" name="s" id="search_user" placeholder="Search for..." type="text">
                                                     <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                                                 </form>
                                             </li>

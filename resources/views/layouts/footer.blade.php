@@ -108,6 +108,7 @@
             </div>
         </footer>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/easy-autocomplete/1.3.5/jquery.easy-autocomplete.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tooltipster/3.3.0/js/jquery.tooltipster.min.js"></script>
         <script type="text/javascript">
             jQuery(document).ready(function() {
@@ -116,6 +117,29 @@
                     onlyOne: false,
                     position: 'right'
                 });
+
+                var options = {
+                    url: "/users-list",
+                    getValue: "name",
+                    template: {
+                        type: "description",
+                        fields: {
+                            description: "email"
+                        }
+                    },
+                    list: {
+                        onSelectItemEvent: function() {
+                            var selectedItemValue = $("#search_user").getSelectedItemData().id;
+                            $('#searchform').attr('action','{{url('/profile')}}/' + selectedItemValue);
+                        },
+                        match: {
+                            enabled: true
+                        }
+                    },
+                    theme: "plate-dark"
+                };
+
+                $('#search_user').easyAutocomplete(options);
             });
             jQuery('#subscriptionform').submit(function(event){
                 event.preventDefault()

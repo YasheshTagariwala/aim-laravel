@@ -77,6 +77,8 @@ Route::get('/privacy-policy','HomeController@privacy');
 Route::post('/contact/store','HomeController@save_contact');
 Route::post('/add_invite','HomeController@add_invite');
 Route::get('/full-calendar','HomeController@calendar');
+Route::get('/users-list','HomeController@usersList');
+Route::get('/profile/{id}','HomeController@userProfile');
 
 //OrganizationController
 Route::get('/organization','OrganizationController@index');

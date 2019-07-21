@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\EntrepreneurCompanies;
+use App\Models\Products;
 use App\Models\ProjectDonations;
 use App\Models\ProjectFunding;
 use App\Models\Subscriptions;
@@ -420,5 +421,31 @@ class HomeController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function usersList() {
+        $users = UserDetails::select()->where(function ($query) {
+            if(Session::has('userid')) {
+                $query->where('id','!=',Session::get('userid'));
+            }
+        })->get();
+
+        $users_list = [];
+
+        foreach ($users as $user) {
+            $users_list[] = [
+                "name" => $user->firstname .' '. $user->lastname,
+                "email" => $user->email,
+                'id' => $user->id
+            ];
+        }
+
+        return response()->json($users_list,200);
+    }
+
+    public function userProfile($id) {
+        $user = UserDetails::find($id);
+        $products = Products::where('userid',$id)->get();
+        return view('home.profile',['user' => $user,'products' => $products]);
     }
 }
