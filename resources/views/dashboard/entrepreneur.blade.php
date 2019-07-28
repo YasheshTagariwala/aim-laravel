@@ -313,6 +313,32 @@
                                                                 </div>
                                                             </section>
                                                         </div>
+                                                        @php
+                                                            $status = \App\Models\ProjectStatus::where('project_id',$project[0]->id)->where('delete_status',0)->get();
+                                                        @endphp
+                                                        @if(count($status) > 0)
+                                                            @foreach($status as $state)
+                                                                <div class="timeline-container top-circle">
+                                                                    <section id="cd-timeline" class="cd-container">
+                                                                        <div class="cd-timeline-block ">
+                                                                            <div class="cd-timeline-img cd-warning"><i
+                                                                                    class="fa fa-tag"></i></div>
+                                                                            <div class="cd-timeline-content bgtwo bounce-in">
+                                                                                <h2>{{$state->title}}</h2>
+                                                                                {{$state->content}}
+                                                                                <span
+                                                                                    class="cd-date"><span>{{$state->updated_at}}</span>
+                                                                            <h3 class="percentage-completed"><span
+                                                                                    class="timer"
+                                                                                    data-to="{{$state->progress}}"
+                                                                                    data-speed="2500"></span>% <small>completed</small></h3>
+                                                                        </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </section>
+                                                                </div>
+                                                            @endforeach
+                                                        @endif
                                                     @else
                                                         <div class="alert alert-warning alert-dismissable"> No Data
                                                             Found
@@ -1879,9 +1905,9 @@
                     <div><!-- Project Status -->
                         <div class="panel panel-white">
                             <div class="panel-body border-top">
-                                <a href="{{url('/entrepreneur')}}/project" class="btn btn-primary pull-right">Update
-                                    Project Status</a>
+                                <a href="{{url('/entrepreneur')}}/project" class="btn btn-primary pull-right">Update Project Status</a>
                                 @if(count($project) > 0)
+                                    <a href="{{url('/entrepreneur')}}/project/add-status/{{$project[0]->id}}" class="btn btn-primary pull-right">Add Project Status</a>
                                     <section id="cd-timeline" class="cd-container">
                                         <div class="cd-timeline-block">
                                             <div class="cd-timeline-img cd-warning"><i class="fa fa-tag"></i></div>
@@ -1905,6 +1931,33 @@
                                             </div>
                                         </div>
                                     </section>
+                                    @php
+                                        $status = \App\Models\ProjectStatus::where('project_id',$project[0]->id)->where('delete_status',0)->get();
+                                    @endphp
+                                    @if(count($status) > 0)
+                                        @foreach($status as $state)
+                                            <section id="cd-timeline" class="cd-container">
+                                                <div class="cd-timeline-block">
+                                                    <div class="cd-timeline-img cd-warning"><i class="fa fa-tag"></i></div>
+                                                    <div class="cd-timeline-content">
+                                                        <h2>{{$state->title}}</h2>
+                                                        <p>{{$state->content}}</p>
+                                                        <div class="readmore">
+                                                            <a href="#" title="title" data-toggle="modal"
+                                                               data-target="#viewmoepopup"
+                                                               class="btn btn-info btn-o btn-wide pull-right viewstatus">
+                                                                Read More <i class="fa fa-arrow-circle-right"></i></a>
+                                                            <div class="hidden-card-description">
+                                                                <h5>{{$state->title}}</h5>
+                                                                <p>{{$state->content}}</p>
+                                                            </div>
+                                                            <span class="cd-date"><span>{{$state->updated_at}}</span>   <h3 class="percentage-completed"><span class="timer" data-to="{{$state->progress}}" data-speed="2500"></span>% <small>completed</small></h3></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </section>
+                                        @endforeach
+                                    @endif
                                 @else
 
                                     <div class="clearfix"></div>

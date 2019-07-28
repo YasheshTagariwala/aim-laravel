@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProjectStatus;
 use Illuminate\Http\Request;
 use DB;
 use Session;
@@ -90,5 +91,23 @@ class ProjectController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function addStatus($id) {
+        return view('entrepreneur.project-status',['project_id' => $id]);
+    }
+
+    public function addStatusStore(Request $request) {
+        $userid = Session::get('userid');
+        $status = new ProjectStatus();
+        $status->project_id = $request->project_id;
+        $status->title = $request->title;
+        $status->description = $request->content;
+        $status->progress = $request->percentage;
+        $status->created_by = $userid;
+        $status->updated_by = $userid;
+        $status->save();
+
+        return redirect('entrepreneur');
     }
 }
