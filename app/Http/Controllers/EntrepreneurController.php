@@ -119,6 +119,7 @@ class EntrepreneurController extends Controller
         else if($request->savefor == '2'){
 
             $project_img = $request->project_img;
+            $certificatePath = [];
             if($project_img)
              {
                  $certificatePath = [];
@@ -156,7 +157,7 @@ class EntrepreneurController extends Controller
             }
              $category = implode(',', $request->category) ;
             $certificatePath = implode(",",$certificatePath);
-             
+
          DB::table('ent_company')->insert(['overview' => $request->overview,'category' =>$category ,
              'p_yr_revenue' => $request->p_yr_revenue,'c_yr_revenue' => $request->c_yr_revenue,
              'n_yr_revenue' => $request->n_yr_revenue,'founded_date' => $request->founded_date,
@@ -343,9 +344,10 @@ class EntrepreneurController extends Controller
             ->join('ent_company', 'entrepreneurs.created_by', '=', 'ent_company.created_by')
             ->join('ent_businessplan', 'entrepreneurs.created_by', '=', 'ent_businessplan.created_by')
             ->join('ent_funding', 'entrepreneurs.created_by', '=', 'ent_funding.created_by')
-            ->select('entrepreneurs.*', 'ent_company.*', 'ent_businessplan.*', 'ent_funding.*')->where('entrepreneurs.id',$id)
+            ->select('entrepreneurs.*', 'ent_company.*', 'ent_businessplan.*', 'ent_funding.*')
+            ->where('entrepreneurs.id',$id)
             ->get();
-        //print_r($entrepreneur); exit();
+//        print_r($entrepreneur); exit();
         return view('entrepreneur.show',compact('entrepreneur'));
     }
 
