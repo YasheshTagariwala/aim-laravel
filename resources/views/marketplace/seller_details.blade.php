@@ -62,7 +62,7 @@
                                                     <img src="{{url('/')}}/assets_new/images/WP-stdavatar.png" pagespeed_url_hash="4195747638" onload="pagespeed.CriticalImages.checkImageForCriticality(this);" width="200" height="200">
                                                 </div>
                                                 <div class="vendor_address">
-                                                    <p><i class="fa fa-envelope-o fa-mail" aria-hidden="true"></i><label>{{ $user->email }}</label></p>
+                                                    <p><i class="fa fa-envelope-o fa-mail" aria-hidden="true"></i><label style="color: #000000">{{ $user->email }}</label></p>
                                                 </div>
                                             </div>
                                             <div class="description">
@@ -152,9 +152,9 @@
                                                         </div>
                                                     </div>
                                                 @endforeach
-                                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                                    <a href="top-rated-products.html"><button type="button" class="btn btn-default btn-block btn-raise btn_veiw_all">View All</button></a>
-                                                </div>
+                                                {{--<div class="col-md-12 col-sm-12 col-xs-12">--}}
+                                                    {{--<a href="top-rated-products.html"><button type="button" class="btn btn-default btn-block btn-raise btn_veiw_all">View All</button></a>--}}
+                                                {{--</div>--}}
                                             </div><!-- row -->
                                         </div>
                                     @else
@@ -167,6 +167,65 @@
                                         </aside>
                                     @endif
                                     <div class="clear"></div>
+
+                                    <div class="container">
+                                        <h2>Seller Ratings</h2>
+                                        @if(count($seller_ratings) > 0)
+                                            @foreach($seller_ratings as $rating)
+                                                <div class="col-md-12">
+                                                    Name :- {{$rating->user->firstname}} {{$rating->user->lastname}} <br>
+                                                    Rating :-
+                                                    @for($i = 0;$i < $rating->rating;$i++)
+                                                        <p class="fa fa-star"></p>
+                                                    @endfor
+                                                    <br>
+                                                    Review :- {{$rating->review}}<br>
+                                                    Date :- {{date('Y-m-d',strtotime($rating->updated_at))}}<br>
+                                                </div>
+                                            @endforeach
+                                        @else
+                                            No Ratings Yet
+                                        @endif
+                                    </div>
+                                    <br><br><br>
+                                    <div class="container">
+                                        <form action="{{url('/market-place/seller/ratingstore')}}" method="post">
+                                            <input type="hidden" name="seller_id" value="{{$user->id}}">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    {{csrf_field()}}
+                                                    <div class="form-group">
+                                                        <label class="control-label">Rating</label>
+                                                        <div class="control">
+                                                            <select name="rating" class="form-control" required>
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                                <option value="4">4</option>
+                                                                <option value="5">5</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Review</label>
+                                                        <div class="control">
+                                                            <textarea name="review" required class="form-control"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md 1">
+                                                    <div class="form-group">
+                                                        <label class="control-label"></label>
+                                                        <div class="control">
+                                                            <button class="btn btn-primary" type="submit">Save</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -81,6 +81,7 @@ class ProductController extends Controller
                   'end_date' => $request->end_date,
                   'tags' => $request->tags,
                   'userid' => $userid,
+                  'featured' => $request->get('featured',0),
                   'created_by' => $userid];
          
         $oProduct = Products::create($aData);

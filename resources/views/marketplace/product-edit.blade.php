@@ -58,6 +58,10 @@
                                             <br/>Uncategorized <input name="category[]" value="Uncategorized" size="40" class="" type="checkbox" @if(in_array('Uncategorized', $categories)) checked @endif>
                                         </div>
                                         <div class="form-group">
+                                            <label >Featured? <span class="acf-required">*</span></label>
+                                            <input name="featured" value="1" size="40" class="" type="checkbox" @if(old('featured',$product->featured) == 1) checked @endif>
+                                        </div>
+                                        <div class="form-group">
                                             <label >Product Tag <span class="acf-required">*</span></label>                             
                                             <input name="tags" value="{{ old('tags', $product->tags) }}"  size="40" class="form-control" type="text" required="">
                                         </div>

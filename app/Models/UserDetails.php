@@ -21,4 +21,7 @@ class UserDetails extends Model  {
         'username', 'email', 'password', 'provider', 'provider_id'
     ];
 
+    public function ratings() {
+        return $this->hasMany(SellerRating::class,'seller_id','id');
+    }
 }

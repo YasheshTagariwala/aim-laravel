@@ -262,11 +262,102 @@ $categories = DB::table('categories')->where('groupid','1')->get(); ?>
                 <!-- featured project -->
                 <div class="tab-pane text-style 12345" id="feature">
                     <div class="row">
-                        <div class="woocommerce columns-4"><p class="woocommerce-info no_products">No products found </p></div>
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                            <a href="#"><button type="button" class="btn btn-default btn-block btn-raise btn_veiw_all">View All</button></a>
-                        </div>
+                        @foreach($products as $product)
+                            @if($product->featured == 1)
+                                <div class="col-md-2 col-xs-12 img_sec">
+                                    <div class="reach" style="height: 289px;">
+                                        <div class="animate_img">
+                                            <div class="loop_prdt_img">
+                                                <img src="{{$product->imagepath}}" class="attachment-shop_catalog img-responsive size-shop_catalog img-responsive wp-post-image" alt="5" srcset="{{$product->imagepath}} 300w, images/5.jpg 150w, {{$product->imagepath}} 180w" sizes="(max-width: 300px) 100vw, 300px" pagespeed_url_hash="816394685" onload="pagespeed.CriticalImages.checkImageForCriticality(this);" width="300" height="300">
+                                            </div>
+                                            <div class="textbox">
+                                                <div class="v_center">
+                                                    <form class="cart1" action="{{url('/')}}/buynow" method="post">
+                                                        {{csrf_field()}}
+                                                        <input name="product_id" value="{{$product->id}}" type="hidden">
+                                                        <button type="submit" class="btn btn-primary btn-lg btn-block">BUY NOW</button>
+                                                    </form>
+                                                    <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#myModal{{$product->id}}">DETAILS</button>
+                                                    @php
+                                                        $ratings = $product->ratings;
+                                                        $rates = [0 => 0,1 => 0,2 => 0,3 => 0,4 => 0];
+                                                        foreach ($ratings as $rating) {
+                                                            $rates[$rating->rating] += 1;
+                                                        }
+                                                    @endphp
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix">
+                                            <h6>{{$product->name}}
+                                                <form method="post" action="{{url('/product/add-to-favorite')}}">
+                                                    {{ csrf_field() }}
+                                                    <input type="hidden" value="{{$product->id}}" name="id">
+                                                    <button type="submit" class="btn"><i class="far fa-heart" style="color: red"></i></button>
+                                                </form>
+                                            </h6>
+                                            <div class="mar_rating">
+                                                @for ($i = 0;$i < array_search(max($rates),$rates);$i++)
+                                                    <i class="fas fa-star" style="color: orange"></i>
+                                                @endfor
+                                            </div>
+                                        </div>
+                                        <div class="modal fade" id="myModal{{$product->id}}" role="dialog">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="">
+                                                        <button type="button" class="close" data-dismiss="modal">x</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col-md-5 col-sm-5 col-xs-12">
+                                                                <div class="pop_img">
+                                                                    <figure>
+                                                                        <img src="{{$product->imagepath}}" class="attachment-shop_catalog img-responsive size-shop_catalog img-responsive wp-post-image" alt="5" srcset="{{$product->imagepath}} 300w, images/5.jpg 150w, {{$product->imagepath}} 180w" sizes="(max-width: 300px) 100vw, 300px" pagespeed_url_hash="816394685" onload="pagespeed.CriticalImages.checkImageForCriticality(this);" width="300" height="300">
+                                                                    </figure>
+                                                                    <ul>
+                                                                        <li id="shareit-menu" class="share" tabindex="1000"><a class="addthis_button_compact">
+                                                                                <i class="fa fa-plus" aria-hidden="true"></i> Share</a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-7 col-sm-7 col-xs-12">
+                                                                <div class="pop_content">
+                                                                    <h6>{{$product->name}}</h6>
+                                                                    <p></p><p>{{$product->description}}</p>
+                                                                    <p></p>
+                                                                    <h1>
+                                                                        <i class="fa" aria-hidden="true"></i> <span><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>{{$product->sale_price}}</span></span>
+                                                                    </h1>
+                                                                    <div class="buttons_pop">
+                                                                        <a rel="nofollow" href="{{url('/')}}/addcart/{{$product->id}}" data-quantity="1" data-product_id="4524" data-product_sku="" class="btn btn-default btn-lg add_tocart buttons_pop product_type_simple add_to_cart_button ajax_add_to_cart">Add to cart</a>
+
+                                                                        <form class="cart1" action="{{url('/')}}/buynow" method="post">
+                                                                            {{csrf_field()}}
+                                                                            <input name="product_id" value="{{$product->id}}" type="hidden">
+                                                                            <input name="add-to-cart" value="4524" type="hidden">
+                                                                            <button type="submit" class="btn btn-default btn-lg buy_now"><i class="fa fa-usd" aria-hidden="true"></i> BUY NOW</button>
+                                                                        </form>
+                                                                    </div>
+                                                                    <a id="id-4524" href="{{url('/product')}}/{{$product->id}}" title="Product 3"><button type="button" class="btn btn-default btn-lg btn-block">More Details</button></a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
                     </div><!-- row -->
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <a href="{{url('/')}}/requirement-list">
+                            <button type="button" class="btn btn-default btn-block btn-raise btn_veiw_all">View All</button>
+                        </a>
+                    </div>
                 </div><!-- pan -->
             </div><!-- tab content -->
             @endif
@@ -326,7 +417,20 @@ $categories = DB::table('categories')->where('groupid','1')->get(); ?>
                             <h6>{{ $sellers->firstname }} {{ $sellers->lastname }}</h6>
                             <div class="row lead">
                                 <div style="width:100%; height:50px; margin-bottom:5px; padding-left:15px;">
-                                    <div>No Rating Yet</div>
+                                    @if(count($sellers->ratings) > 0)
+                                        @php
+                                            $ratings = $sellers->ratings;
+                                            $rates = [0 => 0,1 => 0,2 => 0,3 => 0,4 => 0];
+                                            foreach ($ratings as $rating) {
+                                                $rates[$rating->rating] += 1;
+                                            }
+                                        @endphp
+                                        @for ($i = 0;$i < array_search(max($rates),$rates);$i++)
+                                            <i class="fas fa-star" style="color: orange"></i>
+                                        @endfor
+                                    @else
+                                        <div>No Rating Yet</div>
+                                    @endif
                                 </div>
                             </div>
                         </div>

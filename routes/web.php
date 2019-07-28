@@ -139,6 +139,7 @@ Route::post('/marketplace/store','MarketplaceController@store');
 Route::get('/marketplace/media/{id}/delete', 'MarketplaceController@deleteMarketPlaceMedia');
 Route::post('/market-place/custom-enquiry/store', 'MarketplaceController@customEnquiryStore');
 Route::get('/market-place/product-favorite', 'MarketplaceController@productFavorite');
+Route::post('/market-place/seller/ratingstore', 'MarketplaceController@storeSellerRating');
 
 
 //ProductController

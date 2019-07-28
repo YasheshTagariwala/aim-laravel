@@ -14,6 +14,7 @@ use App\Models\Products;
 use App\Models\ProductsEnquiry;
 use App\Models\ProductsEnquiryComment;
 use App\Models\ProductsFavorite;
+use App\Models\SellerRating;
 use App\Models\UserDetails;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -375,7 +376,8 @@ class MarketplaceController extends Controller
     public function sellerDetails(Request $request,$userid) {
         $user = UserDetails::find($userid);
         $products = Products::where('userid',$userid)->get();
-        return view("marketplace.seller_details",['user' => $user,'products' => $products]);
+        $ratings = SellerRating::where('seller_id',$userid)->get();
+        return view("marketplace.seller_details",['user' => $user,'products' => $products,'seller_ratings' => $ratings]);
     }
 
     /**
@@ -576,6 +578,23 @@ class MarketplaceController extends Controller
         $userid = Session::get('userid');
         $oProducts = Products::whereIn('id',ProductsFavorite::where('userid',$userid)->where('delete_status',0)->pluck('product_id'))->get();
         return view("marketplace.product-favorite-list", ['products' => $oProducts]);
+    }
+
+    public function storeSellerRating(Request $request) {
+        $userid = Session::get('userid');
+        $rating = SellerRating::where('userid',$userid)->where('seller_id',$request->seller_id)->first();
+        if($rating) {
+            $rating->delete_status = 0;
+            $rating->save();
+        }else {
+            $rating = new SellerRating();
+            $rating->userid = $userid;
+            $rating->seller_id = $request->seller_id;
+            $rating->rating = $request->rating;
+            $rating->review = $request->review;
+            $rating->save();
+        }
+        return redirect()->back()->with('message','Seller rating added');
     }
 
 }
