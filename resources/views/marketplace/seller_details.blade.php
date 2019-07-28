@@ -1,7 +1,42 @@
 @extends('layouts.master')
 @section('title', $user->firstname .' '.$user->lastname.' | WCMp Vendors')
 @section('pagebody')
+    <style>
+        div.stars {
+            width: 270px;
+            display: inline-block;
+        }
 
+        input.star { display: none; }
+
+        label.star {
+            float: right;
+            padding: 10px;
+            font-size: 36px;
+            color: #444;
+            transition: all .2s;
+        }
+
+        input.star:checked ~ label.star:before {
+            content: '\f005';
+            color: #FD4;
+            transition: all .25s;
+        }
+
+        input.star-5:checked ~ label.star:before {
+            color: #FE7;
+            text-shadow: 0 0 20px #952;
+        }
+
+        input.star-1:checked ~ label.star:before { color: #F62; }
+
+        label.star:hover { transform: rotate(-15deg) scale(1.3); }
+
+        label.star:before {
+            content: '\f006';
+            font-family: FontAwesome;
+        }
+    </style>
  
 <section class="sliders">
         <div class="container">
@@ -192,34 +227,48 @@
                                         <form action="{{url('/market-place/seller/ratingstore')}}" method="post">
                                             <input type="hidden" name="seller_id" value="{{$user->id}}">
                                             <div class="row">
-                                                <div class="col-md-3">
-                                                    {{csrf_field()}}
-                                                    <div class="form-group">
-                                                        <label class="control-label">Rating</label>
-                                                        <div class="control">
-                                                            <select name="rating" class="form-control" required>
-                                                                <option value="1">1</option>
-                                                                <option value="2">2</option>
-                                                                <option value="3">3</option>
-                                                                <option value="4">4</option>
-                                                                <option value="5">5</option>
-                                                            </select>
+                                                <div class="col-md-6">
+                                                    <div class="col-md-12">
+                                                        {{csrf_field()}}
+                                                        <div class="form-group">
+                                                            <label class="control-label">Rating</label>
+                                                            <div class="control">
+                                                                <div class="col-md-5">
+                                                                    <input class="star star-5" id="star-5" type="radio" value="5" name="rating"/>
+                                                                    <label class="star star-5" for="star-5"></label>
+                                                                    <input class="star star-4" id="star-4" type="radio" value="4" name="rating"/>
+                                                                    <label class="star star-4" for="star-4"></label>
+                                                                    <input class="star star-3" id="star-3" type="radio" value="3" name="rating"/>
+                                                                    <label class="star star-3" for="star-3"></label>
+                                                                    <input class="star star-2" id="star-2" type="radio" value="2" name="rating"/>
+                                                                    <label class="star star-2" for="star-2"></label>
+                                                                    <input class="star star-1" id="star-1" type="radio" value="1" name="rating"/>
+                                                                    <label class="star star-1" for="star-1"></label>
+                                                                </div>
+                                                                {{--<select name="rating" class="form-control" required>--}}
+                                                                {{--<option value="1">1</option>--}}
+                                                                {{--<option value="2">2</option>--}}
+                                                                {{--<option value="3">3</option>--}}
+                                                                {{--<option value="4">4</option>--}}
+                                                                {{--<option value="5">5</option>--}}
+                                                                {{--</select>--}}
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-8">
-                                                    <div class="form-group">
-                                                        <label class="control-label">Review</label>
-                                                        <div class="control">
-                                                            <textarea name="review" required class="form-control"></textarea>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Review</label>
+                                                            <div class="control">
+                                                                <textarea name="review" required class="form-control"></textarea>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-md 1">
-                                                    <div class="form-group">
-                                                        <label class="control-label"></label>
-                                                        <div class="control">
-                                                            <button class="btn btn-primary" type="submit">Save</button>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="control-label"></label>
+                                                            <div class="control">
+                                                                <button class="btn btn-primary" type="submit">Save</button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
