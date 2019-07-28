@@ -41,4 +41,7 @@ class OrdersAddresses extends Model  {
                             'delete_status',
                             'deleted_at'];
 
+     public function order() {
+         return $this->hasOne(Orders::class,'id','order_id');
+     }
 }

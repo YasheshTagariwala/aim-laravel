@@ -37,6 +37,16 @@ $categories = DB::table('categories')->where('groupid','1')->get(); ?>
             </ul>
         </div>
     </section>
+
+<section class="myaccount-body">
+    <div class="myaccount-document">
+        <div class="container">
+            @if(Session::has('message'))
+                <p class="alert alert-info">{{ Session::get('message') }}</p>
+            @endif
+        </div>
+    </div>
+</section>
     <!-- section for images -->
     <section class="mourinze_tomato">
         <div class="container">
@@ -68,12 +78,29 @@ $categories = DB::table('categories')->where('groupid','1')->get(); ?>
                                                     <button type="submit" class="btn btn-primary btn-lg btn-block">BUY NOW</button>
                                                 </form>
                                                 <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#myModal{{$product->id}}">DETAILS</button>
+                                                @php
+                                                    $ratings = $product->ratings;
+                                                    $rates = [0 => 0,1 => 0,2 => 0,3 => 0,4 => 0];
+                                                    foreach ($ratings as $rating) {
+                                                        $rates[$rating->rating] += 1;
+                                                    }
+                                                @endphp
                                             </div>
                                         </div>
                                     </div>
                                     <div class="clearfix">
-                                        <h6>{{$product->name}}</h6>
-                                        <div class="mar_rating"></div>
+                                        <h6>{{$product->name}}
+                                            <form method="post" action="{{url('/product/add-to-favorite')}}">
+                                                {{ csrf_field() }}
+                                                <input type="hidden" value="{{$product->id}}" name="id">
+                                                <button type="submit" class="btn"><i class="far fa-heart" style="color: red"></i></button>
+                                            </form>
+                                        </h6>
+                                        <div class="mar_rating">
+                                            @for ($i = 0;$i < array_search(max($rates),$rates);$i++)
+                                                <i class="fas fa-star" style="color: orange"></i>
+                                            @endfor
+                                        </div>
                                     </div>
                                     <div class="modal fade" id="myModal{{$product->id}}" role="dialog">
                                         <div class="modal-dialog modal-lg">
@@ -153,12 +180,29 @@ $categories = DB::table('categories')->where('groupid','1')->get(); ?>
                                                     <button type="submit" class="btn btn-primary btn-lg btn-block">BUY NOW</button>
                                                 </form>
                                                 <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#myModal{{$product->id}}">DETAILS</button>
+                                                @php
+                                                    $ratings = $product->ratings;
+                                                    $rates = [0 => 0,1 => 0,2 => 0,3 => 0,4 => 0];
+                                                    foreach ($ratings as $rating) {
+                                                        $rates[$rating->rating] += 1;
+                                                    }
+                                                @endphp
                                             </div>
                                         </div>
                                     </div>
                                     <div class="clearfix">
-                                        <h6>{{$product->name}}</h6>
-                                        <div class="mar_rating"></div>
+                                        <h6>{{$product->name}}
+                                            <form method="post" action="{{url('/product/add-to-favorite')}}">
+                                                {{ csrf_field() }}
+                                                <input type="hidden" value="{{$product->id}}" name="id">
+                                                <button type="submit" class="btn"><i class="far fa-heart" style="color: red"></i></button>
+                                            </form>
+                                        </h6>
+                                        <div class="mar_rating">
+                                            @for ($i = 0;$i < array_search(max($rates),$rates);$i++)
+                                                <i class="fas fa-star" style="color: orange"></i>
+                                            @endfor
+                                        </div>
                                     </div>
                                     <div class="modal fade" id="myModal{{$product->id}}" role="dialog">
                                         <div class="modal-dialog modal-lg">

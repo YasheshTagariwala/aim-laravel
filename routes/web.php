@@ -138,6 +138,7 @@ Route::get('/market-place/enquiry-details/{id}','MarketplaceController@requirmen
 Route::post('/marketplace/store','MarketplaceController@store');
 Route::get('/marketplace/media/{id}/delete', 'MarketplaceController@deleteMarketPlaceMedia');
 Route::post('/market-place/custom-enquiry/store', 'MarketplaceController@customEnquiryStore');
+Route::get('/market-place/product-favorite', 'MarketplaceController@productFavorite');
 
 
 //ProductController
@@ -148,6 +149,9 @@ Route::get('/product-recent','ProductController@recent');
 Route::get('/requirement-list','ProductController@requirement_lists');
 Route::get('/requirement-new','ProductController@requirement_new');
 Route::post('/product/store','ProductController@store');
+Route::post('/product/ratingstore','ProductController@ratingStore');
+Route::post('/product/add-to-favorite','ProductController@addToFavorite');
+Route::post('/product/delete-favorite','ProductController@deleteFavorite');
 
 
 //BlogController

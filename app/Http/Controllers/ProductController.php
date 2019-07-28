@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Orders;
 use App\Models\Products;
+use App\Models\ProductsFavorite;
+use App\Models\ProductsRating;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Storage;
@@ -19,8 +23,13 @@ class ProductController extends Controller
      */
     public function index($id)
     {
+        $userid = Session::get('userid');
         $oProduct = Products::find($id);
-        return view("product.index", ['product' => $oProduct]);
+        $product_ratings = ProductsRating::where('product_id',$id)->get();
+        $rating = Orders::whereHas('orderProducts',function($query) use ($id){
+            $query->where('product_id',$id);
+        })->where('created_by', '=', $userid)->where('delete_status', '=', 0)->get();
+        return view("product.index", ['product' => $oProduct,'product_ratings' => $product_ratings,'rating' => $rating]);
     }
 
     public function recent()
@@ -215,5 +224,44 @@ class ProductController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function ratingStore(Request $request) {
+        $userid = Session::get('userid');
+        $rating = ProductsRating::where('userid',$userid)->where('product_id',$request->get('product_id'))->first();
+        if(!$rating) {
+            $rating = new ProductsRating();
+        }
+        $rating->product_id = $request->get('product_id');
+        $rating->rating = $request->get('rating');
+        $rating->userid = $userid;
+        $rating->review = $request->get('review');
+        $rating->save();
+
+        return redirect( '/product/' . $request->get('product_id'));
+    }
+
+    public function addToFavorite(Request $request) {
+        $userid = Session::get('userid');
+        $product_favorite = ProductsFavorite::where('product_id',$request->id)->where('userid',$userid)->first();
+        if($product_favorite) {
+            $product_favorite->delete_status = 0;
+            $product_favorite->save();
+            return redirect()->back()->with('message','Product added to your favorites');
+        }else {
+            $product_favorite = new ProductsFavorite();
+            $product_favorite->product_id = $request->id;
+            $product_favorite->userid = $userid;
+            $product_favorite->save();
+            return redirect()->back()->with('message','Product added to your favorites');
+        }
+    }
+
+    public function deleteFavorite(Request $request) {
+        $userid = Session::get('userid');
+        ProductsFavorite::where('product_id',$request->id)
+            ->where('userid',$userid)
+            ->update(['delete_status' => 1]);
+        return response()->json(['status' => true],200);
     }
 }

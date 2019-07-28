@@ -24,7 +24,8 @@
                                 <h4>Product Manager</h4>    
                                       <li><a href="{{url('/market-place')}}/product"><img src="{{url('/')}}/assets_new/images/listarrow1.png">Add Product</a></li>
                                       <li><a href="{{url('/market-place')}}/product-list"><img src="{{url('/')}}/assets_new/images/listarrow1.png">Products Lists</a></li>
-                                <h4>Orders</h4> 
+                                      <li><a href="{{url('/market-place')}}/product-favorite"><img src="{{url('/')}}/assets_new/images/listarrow1.png">Favorite Products Lists</a></li>
+                                <h4>Orders</h4>
                                     <li><a href="{{url('/market-place')}}/orders"><span class="icon_stand ic6"> </span> <span class="writtings"><img src="{{url('/')}}/assets_new/images/listarrow1.png">Orders</span></a></li>
                                     <li><a href="{{url('/market-place')}}/report"><img src="{{url('/')}}/assets_new/images/listarrow1.png">Status / Reports</a></li>                             
                                     <li class="parent">

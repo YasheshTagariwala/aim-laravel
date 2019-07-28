@@ -41,4 +41,7 @@ class OrderPayments extends Model  {
         $this->attributes['amount'] = $value / 100;
     }
 
+    public function order() {
+        return $this->hasOne(Orders::class,'id','order_id');
+    }
 }

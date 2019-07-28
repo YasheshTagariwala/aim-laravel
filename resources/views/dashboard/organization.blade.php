@@ -712,7 +712,7 @@ fit: true
           jQuery( '.js-alert-test' ).click( function () {
             alert( 'Button Clicked: Event was maintained' );
           } );
-          fakewaffle.responsiveTabs( [ 'xs', 'sm' ] );
+          // fakewaffle.responsiveTabs( [ 'xs', 'sm' ] );
       } )( jQuery );
 
     </script>
@@ -733,167 +733,167 @@ fit: true
 
 
 
-sales_chart =
-
-  {
-
-    data:
-
-    {
-
-      d1: []
-
-    },
-
-
-
-    plot: null,
-
-
-
-    options:
-
-    {
-
-      grid:
-
-      {
-
-        autoHighlight: false,
-
-        backgroundColor: null,
-
-        color: '#c6f4eb',
-
-        borderWidth: 0,
-
-        borderColor: "transparent",
-
-        clickable: true,
-
-        hoverable: true
-
-      },
-
-      series: {
-
-        lines: {
-
-          show: true,
-
-          fill: false,
-
-          lineWidth: 2,
-
-          steps: false
-
-        },
-
-        points: {
-
-          show:true,
-
-          radius: 3,
-
-          lineWidth: 2,
-
-          fill: true,
-
-          fillColor: "#000"
-
-        }
-
-      },
-
-      xaxis: {
-
-          mode: "time",
-
-    timeformat: "%d/%m"   },
-
-      yaxis: {
-
-        tickSize: 3000,
-
-        tickColor: '#F1F2F7'
-
-      },
-
-      legend: { show:false },
-
-      shadowSize: 0,
-
-      tooltip: true,
-
-      tooltipOpts: {
-
-        content: "%s : %y.3",
-
-        shifts: {
-
-          x: -30,
-
-          y: -50
-
-        },
-
-        defaultTheme: false
-
-      }
-
-    },
-
-
-
-    placeholder: "#sales-chart",
-
-
-
-    init: function()
-
-    {
-
-      this.options.colors = ["#3598db"];
-
-      this.options.grid.backgroundColor = null;
-
-
-
-      var that = this;
-
-
-
-      if (this.plot == null)
-
-      {
-
-        this.data.d1 = <?php echo json_encode(''); ?>;
-
-
-
-      }
-
-        //var months = ["January", "February", "March", "April", "May", "Juny", "July", "August", "September", "October", "November", "December"];
-
-      this.plot = jQuery.plot(
-
-        jQuery(this.placeholder),
-
-        [{
-
-          label: "Data 1",
-
-          data: this.data.d1,
-
-          lines: { fill: 0.00 },
-
-          points: { fillColor: "#fff" }
-
-        }], this.options);
-
-    }
-
-  };
+// sales_chart =
+//
+//   {
+//
+//     data:
+//
+//     {
+//
+//       d1: []
+//
+//     },
+//
+//
+//
+//     plot: null,
+//
+//
+//
+//     options:
+//
+//     {
+//
+//       grid:
+//
+//       {
+//
+//         autoHighlight: false,
+//
+//         backgroundColor: null,
+//
+//         color: '#c6f4eb',
+//
+//         borderWidth: 0,
+//
+//         borderColor: "transparent",
+//
+//         clickable: true,
+//
+//         hoverable: true
+//
+//       },
+//
+//       series: {
+//
+//         lines: {
+//
+//           show: true,
+//
+//           fill: false,
+//
+//           lineWidth: 2,
+//
+//           steps: false
+//
+//         },
+//
+//         points: {
+//
+//           show:true,
+//
+//           radius: 3,
+//
+//           lineWidth: 2,
+//
+//           fill: true,
+//
+//           fillColor: "#000"
+//
+//         }
+//
+//       },
+//
+//       xaxis: {
+//
+//           mode: "time",
+//
+//     timeformat: "%d/%m"   },
+//
+//       yaxis: {
+//
+//         tickSize: 3000,
+//
+//         tickColor: '#F1F2F7'
+//
+//       },
+//
+//       legend: { show:false },
+//
+//       shadowSize: 0,
+//
+//       tooltip: true,
+//
+//       tooltipOpts: {
+//
+//         content: "%s : %y.3",
+//
+//         shifts: {
+//
+//           x: -30,
+//
+//           y: -50
+//
+//         },
+//
+//         defaultTheme: false
+//
+//       }
+//
+//     },
+//
+//
+//
+//     placeholder: "#sales-chart",
+//
+//
+//
+//     init: function()
+//
+//     {
+//
+//       this.options.colors = ["#3598db"];
+//
+//       this.options.grid.backgroundColor = null;
+//
+//
+//
+//       var that = this;
+//
+//
+//
+//       if (this.plot == null)
+//
+//       {
+
+        //this.data.d1 = <?php //echo json_encode(''); ?>;
+
+
+
+      // }
+
+  //       //var months = ["January", "February", "March", "April", "May", "Juny", "July", "August", "September", "October", "November", "December"];
+  //
+  //     this.plot = jQuery.plot(
+  //
+  //       jQuery(this.placeholder),
+  //
+  //       [{
+  //
+  //         label: "Data 1",
+  //
+  //         data: this.data.d1,
+  //
+  //         lines: { fill: 0.00 },
+  //
+  //         points: { fillColor: "#fff" }
+  //
+  //       }], this.options);
+  //
+  //   }
+  //
+  // };
 
 
 
@@ -965,7 +965,7 @@ sales_chart =
 
 
 
-   sales_chart.init();
+   // sales_chart.init();
 
 
 
@@ -977,55 +977,55 @@ sales_chart =
 
 jQuery(document).ready(function($) {
 
-var p = '';
-jQuery.post(ajaxurl,{ action:'gybi_get_investors_country'},function(data) {
-    var i =0;
-            //var plants = data;
-
-
-//console.log(array);
-        // }, 'json');
-    //Vector Maps
-    var map = function() {
-//var plants = [p];     
-
-        
-        var plants = [
-    {name: 'Investor 1, New York, USA', coords: [40.7127, -74.0059], status: 'closed', offsets: [0, 2]},
-    {name: 'Investor 2, Washington, USA<br/>', coords: [20.593684,78.96288], status: 'open', offsets: [0, 2]},
-    {name: 'Investor 2, Washington, USA\nInvestor 3, Boston, USA', coords: [47.5000, -120.5000], status: 'open', offsets: [0, 2]}
-    ];
-        console.log(plants);
-        jQuery('#map').vectorMap({
-            map: 'world_mill_en',
-            backgroundColor: 'transparent',
-            regionStyle: {
-                initial: {
-                    fill: '#3598db',
-                },
-                hover: {
-                    "fill-opacity": 0.8
-                }
-            },
-            markers: plants.map(function(h){ return {name: h.name, latLng: h.coords} }),
-               labels: false,
-         series: {
-      markers: [{
-        attribute: 'image',
-        scale: {
-          'closed': '/gybi/wp-content/uploads/ultimatemember/19/profile_photo-190.jpg?1429955016',
-          'activeUntil2018': '/gybi/wp-content/uploads/ultimatemember/6/profile_photo-190.jpg?1429955016',
-          'activeUntil2022': '/gybi/wp-content/uploads/ultimatemember/20/profile_photo-190.jpg?1429955016'
-        },
-        values: plants.reduce(function(p, c, i){ p[i] = c.status; return p }, {}),
-        legend: false
-      }]
-    }
-        });
-
-    };
-    map();
-}, 'json');
+// var p = '';
+// jQuery.post(ajaxurl,{ action:'gybi_get_investors_country'},function(data) {
+//     var i =0;
+//             //var plants = data;
+//
+//
+// //console.log(array);
+//         // }, 'json');
+//     //Vector Maps
+//     var map = function() {
+// //var plants = [p];
+//
+//
+//         var plants = [
+//     {name: 'Investor 1, New York, USA', coords: [40.7127, -74.0059], status: 'closed', offsets: [0, 2]},
+//     {name: 'Investor 2, Washington, USA<br/>', coords: [20.593684,78.96288], status: 'open', offsets: [0, 2]},
+//     {name: 'Investor 2, Washington, USA\nInvestor 3, Boston, USA', coords: [47.5000, -120.5000], status: 'open', offsets: [0, 2]}
+//     ];
+//         console.log(plants);
+//         jQuery('#map').vectorMap({
+//             map: 'world_mill_en',
+//             backgroundColor: 'transparent',
+//             regionStyle: {
+//                 initial: {
+//                     fill: '#3598db',
+//                 },
+//                 hover: {
+//                     "fill-opacity": 0.8
+//                 }
+//             },
+//             markers: plants.map(function(h){ return {name: h.name, latLng: h.coords} }),
+//                labels: false,
+//          series: {
+//       markers: [{
+//         attribute: 'image',
+//         scale: {
+//           'closed': '/gybi/wp-content/uploads/ultimatemember/19/profile_photo-190.jpg?1429955016',
+//           'activeUntil2018': '/gybi/wp-content/uploads/ultimatemember/6/profile_photo-190.jpg?1429955016',
+//           'activeUntil2022': '/gybi/wp-content/uploads/ultimatemember/20/profile_photo-190.jpg?1429955016'
+//         },
+//         values: plants.reduce(function(p, c, i){ p[i] = c.status; return p }, {}),
+//         legend: false
+//       }]
+//     }
+//         });
+//
+//     };
+//     map();
+// }, 'json');
    
 
     jQuery('#calendar').fullCalendar({
@@ -1052,7 +1052,7 @@ jQuery.post(ajaxurl,{ action:'gybi_get_investors_country'},function(data) {
 
             url : "",
 
-            data : { action: "entterprenuer_events_details",  userid:   },
+            data : { action: "entterprenuer_events_details",  userid:   0},
 
             method: 'post'
 

@@ -26,15 +26,15 @@
                                 <div class="row">
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <div class="btn-group button_ds">
-                                            <span>Showing Payment History for : </span> 01-10-2018-31-10-2018
+                                            <span>Showing Payment History for : </span> {{ date('F') }} {{ date('Y') }}
                                         </div>
                                         <div class="wcmp_form1">    
                                             <div class="transaction_settings">
-                                                <form method="get" id="wcmp_transaction_filter" class="">
+                                                <form method="get" id="wcmp_transaction_filter" class="" action="{{url('/market-place/payment-history')}}">
                                                     <div class="wcmp_form1 ">
                                                         <p>Select Date Range :</p>
-                                                        <input id="wcmp_from_date" name="from_date" class="pickdate gap1" placeholder="From" value =""/>
-                                                        <input id="wcmp_to_date" name="to_date" class="pickdate" placeholder="To" value =""/>
+                                                        <input type="date" id="wcmp_from_date" name="from_date" class="pickdate gap1" placeholder="From" value =""/>
+                                                        <input type="date" id="wcmp_to_date" name="to_date" class="pickdate" placeholder="To" value =""/>
                                                         <button type="submit" name="order_export_submit" id="submit"  class="wcmp_black_btn" >Show</button>
                                                     </div>
                                                 </form>
@@ -55,18 +55,32 @@
                                                                 <td>Fee</td>
                                                                 <td>Net Earnings</td>
                                                             </tr>
-                                                                
+                                                            @if(count($payments) > 0)
+                                                                @foreach($payments as $payment)
+                                                                    <tr>
+                                                                        <td></td>
+                                                                        <td>{{date('Y-m-d',strtotime($payment->created_at))}}</td>
+                                                                        <td>{{$payment->transaction_id}}</td>
+                                                                        <td>{{$payment->order->order_no}}</td>
+                                                                        <td>{{$payment->provider_fee}}</td>
+                                                                        <td>{{$payment->amount}}</td>
+                                                                    </tr>
+                                                                @endforeach
+                                                            @else
+                                                                <tr><td colspan="6">No Payments</td></tr>
+                                                            @endif
                                                         </tbody>
                                                     </table>
-                                                </div>
-                                                <div class="wcmp_table_loader">
-                                                    <form method="post" name="export_transaction" style="float: left;">                         
-                                                        <button type="submit" name="export_transaction" class="wcmp_black_btn">Download CSV</button>
-                                                    </form>                     
-                                                    <div class="clear"></div>
+                                                    {{$payments->links()}}
                                                 </div>
                                             </form>
-                                            <p style="clear: both;">Sorry. No transactions are available.</p>
+                                            <div class="wcmp_table_loader">
+                                                <form method="get" name="export_transaction" style="float: left;" action="{{url('/market-place/payment-history')}}">
+                                                    <button type="submit" class="wcmp_black_btn">Download CSV</button>
+                                                    <input type="hidden" name="download" value="csv">
+                                                </form>
+                                                <div class="clear"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

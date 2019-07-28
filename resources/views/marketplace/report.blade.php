@@ -26,32 +26,32 @@
                                 <div class="row">
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <div class="btn-group button_ds">
-                                            <span>Showing stats and reports for :  October 2018</span>      
+                                            <span>Showing stats and reports for :  {{ date('F') }} {{ date('Y') }}</span>
                                         </div>
-                                        <form name="wcmp_vendor_dashboard_stat_report" method="get" >
+                                        <form name="wcmp_vendor_dashboard_stat_report" method="get" action="{{url('/market-place/report')}}">
                                             <div class="wcmp_form1 ">
                                                 <p>Select Date Range :</p>
-                                                <input type="text" name="wcmp_stat_start_dt" value="" class="pickdate gap1 wcmp_stat_start_dt">
-                                                <input type="text" name="wcmp_stat_end_dt" value="" class="pickdate wcmp_stat_end_dt">
+                                                <input type="date" name="wcmp_stat_start_dt" value="" class="pickdate gap1 wcmp_stat_start_dt">
+                                                <input type="date" name="wcmp_stat_end_dt" value="" class="pickdate wcmp_stat_end_dt">
                                                 <button name="submit_button" type="submit" value="Show" class="wcmp_black_btn ">Show</button>
                                             </div>
                                         </form>
                                         <div class="wcmp_ass_holder_box">
                                             <div class="wcmp_displaybox2 today_sl">
                                                 <h4>Total Sales</h4>
-                                                <h3><sup>$</sup>0</h3>
+                                                <h3><sup>$</sup>{{$totalSales}}</h3>
                                             </div>
                                             <div class="wcmp_displaybox2 today_ear">
                                                 <h4>My Earnings</h4>
-                                                <h3><sup>$</sup>0</h3>
+                                                <h3><sup>$</sup>{{$totalEarning}}</h3>
                                             </div>
                                             <div class="clear"></div>
                                             <p>&nbsp; </p>
-                                            <div class="wcmp_displaybox3">Total number of <span>Order placed</span><h3>0</h3></div>
-                                            <div class="wcmp_displaybox3">Number of <span>Purchased Products</span><h3>0</h3></div>
+                                            <div class="wcmp_displaybox3">Total number of <span>Order placed</span><h3>{{$totalPurchased}}</h3></div>
+                                            <div class="wcmp_displaybox3">Number of <span>Purchased Products</span><h3>{{$totalPurchased}}</h3></div>
                                             <div class="wcmp_displaybox3">Number of <span>Coupons used</span><h3>0</h3></div>
                                             <div class="wcmp_displaybox3">Total <span>Coupon Discount </span> value <h3>$0</h3></div>
-                                            <div class="wcmp_displaybox3">Number of <span>Unique Customers </span><h3>0</h3></div>
+                                            <div class="wcmp_displaybox3">Number of <span>Unique Customers </span><h3>{{$totalUnqiueCustomer}}</h3></div>
                                             <div class="clear"></div>
                                         </div>
                                         <div class="wcmp_mixed_txt" > 

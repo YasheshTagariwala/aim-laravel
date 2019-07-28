@@ -10,22 +10,22 @@
     ?>
     <title>@yield('title') | Africa Innovation Market</title> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{url('/')}}/assets_new/css/font-awesome.min.css">
+    {{--<link rel="stylesheet" href="{{url('/')}}/assets_new/css/font-awesome.min.css">--}}
     <link rel="stylesheet" href="{{url('/')}}/assets_new/css/bootstrap.min.css">
     <link rel="shortcut icon" href="{{url('/')}}/assets_new/img/favicon.ico" />
     <link href="{{url('/')}}/assets_new/includes/css/gybi.css" rel="stylesheet" type="text/css">
     <link href="{{url('/')}}/assets_new/css/gybi-styles.css" rel="stylesheet" type="text/css">
     <link href="{{url('/')}}/assets_new/css/slider.css" rel="stylesheet" type="text/css">
     <link href="{{url('/')}}/assets_new/css/fonts.css" rel="stylesheet">    
-    <link rel='stylesheet' id='tooltipster-css-css' href='{{url("/")}}/assets_new/css/tooltipster.css?ver=4.6.1' type='text/css' media='all'/>
-    <link rel='stylesheet' id='ssb-css-css' href='{{url("/")}}/assets_new/css/ssb-style.css?ver=4.6.1' type='text/css' media='all'/>
-    <link rel='stylesheet' id='ssb-admin-css-css' href='{{url("/")}}/assets_new/css/ssb-admin.css?ver=4.6.1' type='text/css' media='all'/>
-    <link rel='stylesheet' id='ParaAdmin-css' href='{{url("/")}}/assets_new/css/ParaAdmin.css?ver=4.6.1' type='text/css' media='all'/>
+    {{--<link rel='stylesheet' id='tooltipster-css-css' href='{{url("/")}}/assets_new/css/tooltipster.css?ver=4.6.1' type='text/css' media='all'/>--}}
+    {{--<link rel='stylesheet' id='ssb-css-css' href='{{url("/")}}/assets_new/css/ssb-style.css?ver=4.6.1' type='text/css' media='all'/>--}}
+    {{--<link rel='stylesheet' id='ssb-admin-css-css' href='{{url("/")}}/assets_new/css/ssb-admin.css?ver=4.6.1' type='text/css' media='all'/>--}}
+    {{--<link rel='stylesheet' id='ParaAdmin-css' href='{{url("/")}}/assets_new/css/ParaAdmin.css?ver=4.6.1' type='text/css' media='all'/>--}}
     <link href="{{url('/')}}/assets_new/css/vendor_dashboard.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
     <script type='text/javascript' src='{{url("/")}}/assets_new/js/wp-jquery.js'></script>
-    <script type='text/javascript' src='{{url("/")}}/assets_new/js/wp-jquery-migrate.min.js'></script>
+    {{--<script type='text/javascript' src='{{url("/")}}/assets_new/js/wp-jquery-migrate.min.js'></script>--}}
 
     @if($routecontroller == "HomeController" || $routecontroller == "EntrepreneurController" || $routecontroller == "SupporterController" || $routecontroller == "OrganizationController" || $routecontroller == "InvestorController")    
 
@@ -59,20 +59,19 @@
 
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script type="text/javascript" src="{{url('/')}}/assets_new/js/300/addthis_widget.js#pubid=ra-5531caff78e1f8ac" async="async"></script>
+{{--<script type="text/javascript" src="{{url('/')}}/assets_new/js/300/addthis_widget.js#pubid=ra-5531caff78e1f8ac" async="async"></script>--}}
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{{url('/')}}/assets_new/js/bootstrap.min.js"></script>
     <script src="{{url('/')}}/assets_new/js/application.js"></script>
 
-    <script src="{{url('/')}}/assets_new/libs/waypoints/2.0.3/waypoints.min.js"></script>
-    <script type='text/javascript' src='{{url("/")}}/assets_new/js/jquery.tooltipster.js?ver=4.6.1'></script>    
-    <script type='text/javascript' src='{{url("/")}}/assets_new/js/ssb-scripts.js?ver=4.6.1'></script>
-    <script type='text/javascript' src='{{url("/")}}/assets_new/js/jquery.tablednd.js?ver=4.6.1'></script>
-    <script type='text/javascript' src='{{url("/")}}/assets_new/js/ParaAdmin.js?ver=4.6.1'></script>
+    {{--<script src="{{url('/')}}/assets_new/libs/waypoints/2.0.3/waypoints.min.js"></script>--}}
+    {{--<script type='text/javascript' src='{{url("/")}}/assets_new/js/jquery.tooltipster.js?ver=4.6.1'></script>    --}}
+    {{--<script type='text/javascript' src='{{url("/")}}/assets_new/js/ssb-scripts.js?ver=4.6.1'></script>--}}
+    {{--<script type='text/javascript' src='{{url("/")}}/assets_new/js/jquery.tablednd.js?ver=4.6.1'></script>--}}
+    {{--<script type='text/javascript' src='{{url("/")}}/assets_new/js/ParaAdmin.js?ver=4.6.1'></script>--}}
     <script src="{{url('/')}}/assets_new/js/jquery.counterup.min.js"></script>
     <script src="{{url('/')}}/assets_new/includes/js/jquery.circliful.js"></script>
     <script src="{{url('/')}}/assets_new/includes/js/gybi.js"></script>
-
 
     <!-- flags -->
     <script src="{{url('/')}}/assets_new/js/jquery.flagstrap.min.js"></script>
@@ -87,6 +86,25 @@
     <script type="text/javascript" src="{{url('/')}}/assets_new/js/responsiveCarousel.min.js"></script>
     <!-- easy-responsive-tabs -->
     <script type="text/javascript" src="{{url('/')}}/assets_new/js/easy-responsive-tabs.js"></script>
+
+
+
+    <link href="{{url('/')}}/assets_new/includes/css/MetroJs.min.css" rel="stylesheet" type="text/css">
+    <link href="{{url('/')}}/assets_new/includes/css/pages.css" rel="stylesheet" type="text/css">
+    <link href="{{url('/')}}/assets_new/includes/css/fullcalendar.min.css" rel="stylesheet" type="text/css">
+    <script src="{{url('/')}}/assets_new/includes/js/moment.min.js"></script>
+    <script src="{{url('/')}}/assets_new/includes/js/fullcalendar.min.js"></script>
+    <script src="{{url('/')}}/assets_new/includes/js/calendar.js"></script>
+    <script src="{{url('/')}}/assets_new/includes/plugins/flot/application.js"></script>
+    <script src="{{url('/')}}/assets_new/includes/plugins/flot/jquery.countTo.js"></script>
+    <script src="{{url('/')}}/assets_new/includes/js/perfect-scrollbar.jquery.min.js"></script>
+    <script src="{{url('/')}}/assets_new/includes/plugins/flot/MetroJs.min.js"></script>
+
+    <script src="{{url('/')}}/assets_new/includes/plugins/flot/jquery.colorhelpers.min.js"></script>
+    <script src="{{url('/')}}/assets_new/includes/plugins/flot/morris.min.js"></script>
+    <script src="{{url('/')}}/assets_new/includes/plugins/flot/raphael.2.1.0.min.js"></script>
+    <script src="{{url('/')}}/assets_new/includes/plugins/flot/jquery-jvectormap-2.0.2.min.js"></script>
+    <script src="{{url('/')}}/assets_new/includes/plugins/flot/jquery-jvectormap-world-mill-en.js"></script>
 
 <script>
 jQuery(document).ready(function(e) {

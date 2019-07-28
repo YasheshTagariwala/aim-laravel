@@ -62,7 +62,46 @@ class SupporterController extends Controller
          $country = '';
             }
 
-         DB::table('supporters')->insert(['expertise' => $request->expertise,'category' => $request->category,'country_interest' => $country,'area_interest' => $request->area_interest,'women_stage' => $request->women_stage,'expectation' => $request->expect,'created_by' => $userid,'updated_by' => $userid]);
+        $plogo = $request->profile_img;
+        if($plogo)
+        {
+
+            $destinationPath1 = $_SERVER['DOCUMENT_ROOT'].'/files/documents';
+            $timestamp1 = str_replace([' ', ':'], '-', date("YmdHis"));
+            $namefile1 = $plogo->getClientOriginalName();
+            $recfilename1 = preg_replace('/\s+/', '', $namefile1);
+            $recfilename1 = $timestamp1."_123_".$recfilename1;
+            $upload_success1 = Input::file('profile_img')->move($destinationPath1, $recfilename1);
+            $certificatePath1 = ('http://'.$_SERVER['HTTP_HOST']."/files/documents/".$recfilename1);
+
+        }
+
+        $video = $request->profile_video;
+        $video_path = "";
+        if($video) {
+            $destinationPath = $_SERVER['DOCUMENT_ROOT'].'/files/documents';
+            $timestamp = str_replace([' ', ':'], '-', date("YmdHis"));
+            $namefile = $video->getClientOriginalName();
+            $recfilename = preg_replace('/\s+/', '', $namefile);
+            $recfilename = $timestamp."_123_".$recfilename;
+            $upload_success = $video->move($destinationPath, $recfilename);
+            $video_path = ('http://'.$_SERVER['HTTP_HOST']."/files/documents/".$recfilename);
+        }
+        $youtube_link = "";
+        if($request->profile_youtube_link) {
+            $youtube_link = $request->profile_youtube_link;
+            $longUrlRegex = '/youtube.com\/((?:embed)|(?:watch))((?:\?v\=)|(?:\/))([a-zA-Z0-9_-]+)/i';
+
+            if (preg_match($longUrlRegex, $youtube_link, $matches)) {
+                $youtube_id = $matches[count($matches) - 1];
+            }
+            $youtube_link = 'https://www.youtube.com/embed/' . $youtube_id;
+        }
+
+         DB::table('supporters')->insert(['expertise' => $request->expertise
+             ,'category' => $request->category,'country_interest' => $country,'area_interest' => $request->area_interest,'women_stage' => $request->women_stage
+             ,'expectation' => $request->expect,'created_by' => $userid,'updated_by' => $userid
+            ,'image' => $certificatePath1, 'video_link' => $video_path,'youtube_link' => $youtube_link,]);
          return redirect('/supporter')->with('message', 'Supporter Details Added Successfully');
     }
 
@@ -122,7 +161,53 @@ class SupporterController extends Controller
          $country = '';
             }
 
-         DB::table('supporters')->where('id',$id)->update(['expertise' => $request->expertise,'category' => $request->category,'country_interest' => $country,'area_interest' => $request->area_interest,'women_stage' => $request->women_stage,'expectation' => $request->expect,'created_by' => $userid,'updated_by' => $userid]);
+        $plogo = $request->profile_img;
+        if($plogo)
+        {
+
+            $destinationPath1 = $_SERVER['DOCUMENT_ROOT'].'/files/documents';
+            $timestamp1 = str_replace([' ', ':'], '-', date("YmdHis"));
+            $namefile1 = $plogo->getClientOriginalName();
+            $recfilename1 = preg_replace('/\s+/', '', $namefile1);
+            $recfilename1 = $timestamp1."_123_".$recfilename1;
+            $upload_success1 = Input::file('profile_img')->move($destinationPath1, $recfilename1);
+            $certificatePath1 = ('http://'.$_SERVER['HTTP_HOST']."/files/documents/".$recfilename1);
+
+        }else {
+            $certificatePath1 = $request->profile_img_done;
+        }
+
+        $video = $request->profile_video;
+        $video_path = "";
+        if($video) {
+            $destinationPath = $_SERVER['DOCUMENT_ROOT'].'/files/documents';
+            $timestamp = str_replace([' ', ':'], '-', date("YmdHis"));
+            $namefile = $video->getClientOriginalName();
+            $recfilename = preg_replace('/\s+/', '', $namefile);
+            $recfilename = $timestamp."_123_".$recfilename;
+            $upload_success = $video->move($destinationPath, $recfilename);
+            $video_path = ('http://'.$_SERVER['HTTP_HOST']."/files/documents/".$recfilename);
+        }else {
+            $video_path = $request->profile_video_done;
+        }
+        $youtube_link = "";
+        if($request->profile_youtube_link) {
+            $youtube_link = $request->profile_youtube_link;
+            $longUrlRegex = '/youtube.com\/((?:embed)|(?:watch))((?:\?v\=)|(?:\/))([a-zA-Z0-9_-]+)/i';
+
+            if (preg_match($longUrlRegex, $youtube_link, $matches)) {
+                $youtube_id = $matches[count($matches) - 1];
+            }
+            $youtube_link = 'https://www.youtube.com/embed/' . $youtube_id;
+        }else {
+            $youtube_link = $request->profile_youtube_link_done;
+        }
+
+         DB::table('supporters')->where('id',$id)->update(['expertise' => $request->expertise
+             ,'category' => $request->category,'country_interest' => $country
+             ,'area_interest' => $request->area_interest,'women_stage' => $request->women_stage
+             ,'image' => $certificatePath1, 'video_link' => $video_path,'youtube_link' => $youtube_link
+             ,'expectation' => $request->expect,'created_by' => $userid,'updated_by' => $userid]);
          return redirect('/supporter')->with('message', 'Supporter Details Added Successfully');
     }
 

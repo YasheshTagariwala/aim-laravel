@@ -35,4 +35,8 @@ class Products extends Model  {
         return url('assets_new/images/WP-stdavatar.png');
     }
 
+    public function ratings() {
+        return $this->hasMany(ProductsRating::class,'product_id','id');
+    }
+
 }

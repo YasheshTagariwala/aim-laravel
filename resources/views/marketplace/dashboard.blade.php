@@ -38,19 +38,19 @@
                                             <div class="col-md-4 col-sm-4">
                                                 <div class="today_sl">
                                                     <p>Todays Sales</p>
-                                                    <h1><sup>$</sup>0<span>.00</span></h1>
+                                                    <h1><sup>$</sup>{{$todaySales}}</h1>
                                                 </div>
                                             </div>
                                             <div class="col-md-4 col-sm-4">
                                                 <div class="today_ear">
                                                     <p>Todays Earnings</p>
-                                                    <h1><sup>$</sup>0<span>.00</span></h1>
+                                                    <h1><sup>$</sup>{{$todayEarning}}</h1>
                                                 </div>
                                             </div>
                                             <div class="col-md-4 col-sm-4">
                                                 <div class="net_bal">
                                                     <p>Net Balance</p>
-                                                    <h1><sup>$</sup>0<span>.00</span></h1>
+                                                    <h1><sup>$</sup>{{$netBalance}}</h1>
                                                 </div>
                                             </div>
                                             <div class="col-md-12 sale_tb">
@@ -109,19 +109,19 @@
                                             <div class="col-md-4 col-sm-4">
                                                 <div class="today_sl">
                                                     <p>Weekly Sales</p>
-                                                    <h1><sup>$</sup>0<span>.00</span></h1>
+                                                    <h1><sup>$</sup>{{$weeklySales}}</h1>
                                                 </div>
                                             </div>
                                             <div class="col-md-4 col-sm-4">
                                                 <div class="today_ear">
                                                     <p>Weekly Earnings</p>
-                                                    <h1><sup>$</sup>0<span>.00</span></h1>
+                                                    <h1><sup>$</sup>{{$weeklyEarning}}</h1>
                                                 </div>
                                             </div>
                                             <div class="col-md-4 col-sm-4">
                                                 <div class="net_bal">
                                                     <p>Weekly Balance</p>
-                                                    <h1><sup>$</sup>0<span>.00</span></h1>
+                                                    <h1><sup>$</sup>{{$weeklyBalance}}</h1>
                                                 </div>
                                             </div>
                                             <div class="col-md-12 sale_tb">

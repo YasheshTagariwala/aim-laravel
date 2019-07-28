@@ -355,7 +355,7 @@
                                 jQuery('#calendar').fullCalendar({
                                     events:  {
                                         url : "",
-                                        data : { action: "events_details",  supportid:   },
+                                        data : { action: "events_details",  supportid:  0 },
                                         method: 'post'
                                     },
                                     header: {
@@ -518,6 +518,58 @@
                                                     <div class="form-group">
                                                         <label >What do you expect ?  <span class="acf-required">*</span></label>                                
                                                         <textarea name="expect" cols="40" rows="10" class="form-control" required="" placeholder="Enter Your Expectations...">@if(count($supporter) > 0) {{$supporter[0]->expectation}} @endif</textarea>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                                                                <label style="display: block;">Video
+                                                                    <!-- <i class="fa fa-question-circle" ></i> --></label>
+                                                                @if(count($supporter) > 0)
+                                                                    <input name="profile_video" id="friend_name-0" value=""
+                                                                           accept="video/*" class="btn" type="file">
+                                                                    <video height="340" width="340" controls
+                                                                           src="{{$supporter[0]->video_link}}"></video>
+                                                                    <input type="hidden" name="profile_video_done"
+                                                                           value="{{$supporter[0]->video_link}}">
+                                                                @else
+                                                                    <input name="profile_video" id="friend_name-0" value=""
+                                                                           accept="video/*" class="btn" type="file">
+                                                                @endif
+                                                                OR
+                                                                <label style="display: block;">Youtube Link
+                                                                    <!-- <i class="fa fa-question-circle" ></i> --></label>
+                                                                @if(count($supporter) > 0)
+                                                                    <iframe height="340" width="340"
+                                                                            src="{{$supporter[0]->youtube_link}}"></iframe>
+                                                                    <input type="hidden" name="profile_youtube_link_done"
+                                                                           value="{{$supporter[0]->youtube_link}}">
+                                                                    <input name="profile_youtube_link" id="friend_name-0"
+                                                                           value="{{$supporter[0]->youtube_link}}"
+                                                                           class="form-control" type="text">
+                                                                @else
+                                                                    <input name="profile_youtube_link" id="friend_name-0"
+                                                                           value="" class="form-control" type="text">
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                                                                <label style="display: block;">Profile Image
+                                                                    <!-- <i class="fa fa-question-circle" ></i> --></label>
+                                                                @if(count($supporter) > 0)
+                                                                    <div class="col-md-2">
+                                                                        <img src="{{$supporter[0]->image}}" alt="" height="120"
+                                                                             width="120"/>
+                                                                    </div>
+                                                                    <input type="hidden" name="profile_img_done"
+                                                                           value="{{$supporter[0]->image}}">
+                                                                @endif
+                                                                <div id="project_image_rows">
+                                                                    <input name="profile_img" id="friend_name-0" value=""
+                                                                           class="btn" type="file">
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                     <input value="Save" class="btn btn-primary" type="submit">
                                                 </form>
@@ -1038,7 +1090,7 @@ fit: true
           jQuery( '.js-alert-test' ).click( function () {
             alert( 'Button Clicked: Event was maintained' );
           } );
-          fakewaffle.responsiveTabs( [ 'xs', 'sm' ] );
+          // fakewaffle.responsiveTabs( [ 'xs', 'sm' ] );
       } )( jQuery );
 
     </script>
@@ -1053,173 +1105,167 @@ fit: true
     </script>
     <script>
 
-(function($)
-
-{
-
-
-
-sales_chart =
-
-  {
-
-    data:
-
-    {
-
-      d1: []
-
-    },
-
-
-
-    plot: null,
-
-
-
-    options:
-
-    {
-
-      grid:
-
-      {
-
-        autoHighlight: false,
-
-        backgroundColor: null,
-
-        color: '#c6f4eb',
-
-        borderWidth: 0,
-
-        borderColor: "transparent",
-
-        clickable: true,
-
-        hoverable: true
-
-      },
-
-      series: {
-
-        lines: {
-
-          show: true,
-
-          fill: false,
-
-          lineWidth: 2,
-
-          steps: false
-
-        },
-
-        points: {
-
-          show:true,
-
-          radius: 3,
-
-          lineWidth: 2,
-
-          fill: true,
-
-          fillColor: "#000"
-
-        }
-
-      },
-
-      xaxis: {
-
-          mode: "time",
-
-    timeformat: "%d/%m"   },
-
-      yaxis: {
-
-        tickSize: 3000,
-
-        tickColor: '#F1F2F7'
-
-      },
-
-      legend: { show:false },
-
-      shadowSize: 0,
-
-      tooltip: true,
-
-      tooltipOpts: {
-
-        content: "%s : %y.3",
-
-        shifts: {
-
-          x: -30,
-
-          y: -50
-
-        },
-
-        defaultTheme: false
-
-      }
-
-    },
-
-
-
-    placeholder: "#sales-chart",
-
-
-
-    init: function()
-
-    {
-
-      this.options.colors = ["#3598db"];
-
-      this.options.grid.backgroundColor = null;
-
-
-
-      var that = this;
-
-
-
-      if (this.plot == null)
-
-      {
-
-        this.data.d1 = <?php $jsondata=''; echo json_encode($jsondata); ?>;
-
-
-
-      }
-
-        //var months = ["January", "February", "March", "April", "May", "Juny", "July", "August", "September", "October", "November", "December"];
-
-      this.plot = jQuery.plot(
-
-        jQuery(this.placeholder),
-
-        [{
-
-          label: "Data 1",
-
-          data: this.data.d1,
-
-          lines: { fill: 0.00 },
-
-          points: { fillColor: "#fff" }
-
-        }], this.options);
-
-    }
-
-  };
+(function($) {
+// sales_chart =
+//   {
+//
+//     data:
+//
+//     {
+//
+//       d1: []
+//
+//     },
+//
+//
+//
+//     plot: null,
+//
+//
+//
+//     options:
+//
+//     {
+//
+//       grid:
+//
+//       {
+//
+//         autoHighlight: false,
+//
+//         backgroundColor: null,
+//
+//         color: '#c6f4eb',
+//
+//         borderWidth: 0,
+//
+//         borderColor: "transparent",
+//
+//         clickable: true,
+//
+//         hoverable: true
+//
+//       },
+//
+//       series: {
+//
+//         lines: {
+//
+//           show: true,
+//
+//           fill: false,
+//
+//           lineWidth: 2,
+//
+//           steps: false
+//
+//         },
+//
+//         points: {
+//
+//           show:true,
+//
+//           radius: 3,
+//
+//           lineWidth: 2,
+//
+//           fill: true,
+//
+//           fillColor: "#000"
+//
+//         }
+//
+//       },
+//
+//       xaxis: {
+//
+//           mode: "time",
+//
+//     timeformat: "%d/%m"   },
+//
+//       yaxis: {
+//
+//         tickSize: 3000,
+//
+//         tickColor: '#F1F2F7'
+//
+//       },
+//
+//       legend: { show:false },
+//
+//       shadowSize: 0,
+//
+//       tooltip: true,
+//
+//       tooltipOpts: {
+//
+//         content: "%s : %y.3",
+//
+//         shifts: {
+//
+//           x: -30,
+//
+//           y: -50
+//
+//         },
+//
+//         defaultTheme: false
+//
+//       }
+//
+//     },
+//
+//
+//
+//     placeholder: "#sales-chart",
+//
+//
+//
+//     init: function()
+//
+//     {
+//
+//       this.options.colors = ["#3598db"];
+//
+//       this.options.grid.backgroundColor = null;
+//
+//
+//
+//       var that = this;
+//
+//
+//
+//       if (this.plot == null)
+//
+//       {
+
+       // this.data.d1 = <?php //$jsondata=''; echo json_encode($jsondata); ?>;
+
+
+  //
+  //     }
+  //
+  //       //var months = ["January", "February", "March", "April", "May", "Juny", "July", "August", "September", "October", "November", "December"];
+  //
+  //     this.plot = jQuery.plot(
+  //
+  //       jQuery(this.placeholder),
+  //
+  //       [{
+  //
+  //         label: "Data 1",
+  //
+  //         data: this.data.d1,
+  //
+  //         lines: { fill: 0.00 },
+  //
+  //         points: { fillColor: "#fff" }
+  //
+  //       }], this.options);
+  //
+  //   }
+  //
+  // };
 
 
 
@@ -1291,7 +1337,7 @@ sales_chart =
 
 
 
-   sales_chart.init();
+   // sales_chart.init();
 
 
 
@@ -1303,55 +1349,55 @@ sales_chart =
 
 jQuery(document).ready(function($) {
 
-var p = '';
-jQuery.post(ajaxurl,{ action:'gybi_get_investors_country'},function(data) {
-    var i =0;
-            //var plants = data;
-
-
-//console.log(array);
-        // }, 'json');
-    //Vector Maps
-    var map = function() {
-//var plants = [p];     
-
-        
-        var plants = [
-    {name: 'Investor 1, New York, USA', coords: [40.7127, -74.0059], status: 'closed', offsets: [0, 2]},
-    {name: 'Investor 2, Washington, USA<br/>', coords: [20.593684,78.96288], status: 'open', offsets: [0, 2]},
-    {name: 'Investor 2, Washington, USA\nInvestor 3, Boston, USA', coords: [47.5000, -120.5000], status: 'open', offsets: [0, 2]}
-    ];
-        console.log(plants);
-        jQuery('#map').vectorMap({
-            map: 'world_mill_en',
-            backgroundColor: 'transparent',
-            regionStyle: {
-                initial: {
-                    fill: '#3598db',
-                },
-                hover: {
-                    "fill-opacity": 0.8
-                }
-            },
-            markers: plants.map(function(h){ return {name: h.name, latLng: h.coords} }),
-               labels: false,
-         series: {
-      markers: [{
-        attribute: 'image',
-        scale: {
-          'closed': '/gybi/wp-content/uploads/ultimatemember/19/profile_photo-190.jpg?1429955016',
-          'activeUntil2018': '/gybi/wp-content/uploads/ultimatemember/6/profile_photo-190.jpg?1429955016',
-          'activeUntil2022': '/gybi/wp-content/uploads/ultimatemember/20/profile_photo-190.jpg?1429955016'
-        },
-        values: plants.reduce(function(p, c, i){ p[i] = c.status; return p }, {}),
-        legend: false
-      }]
-    }
-        });
-
-    };
-    map();
-}, 'json');
+// var p = '';
+// jQuery.post(ajaxurl,{ action:'gybi_get_investors_country'},function(data) {
+//     var i =0;
+//             //var plants = data;
+//
+//
+// //console.log(array);
+//         // }, 'json');
+//     //Vector Maps
+//     var map = function() {
+// //var plants = [p];
+//
+//
+//         var plants = [
+//     {name: 'Investor 1, New York, USA', coords: [40.7127, -74.0059], status: 'closed', offsets: [0, 2]},
+//     {name: 'Investor 2, Washington, USA<br/>', coords: [20.593684,78.96288], status: 'open', offsets: [0, 2]},
+//     {name: 'Investor 2, Washington, USA\nInvestor 3, Boston, USA', coords: [47.5000, -120.5000], status: 'open', offsets: [0, 2]}
+//     ];
+//         console.log(plants);
+//         jQuery('#map').vectorMap({
+//             map: 'world_mill_en',
+//             backgroundColor: 'transparent',
+//             regionStyle: {
+//                 initial: {
+//                     fill: '#3598db',
+//                 },
+//                 hover: {
+//                     "fill-opacity": 0.8
+//                 }
+//             },
+//             markers: plants.map(function(h){ return {name: h.name, latLng: h.coords} }),
+//                labels: false,
+//          series: {
+//       markers: [{
+//         attribute: 'image',
+//         scale: {
+//           'closed': '/gybi/wp-content/uploads/ultimatemember/19/profile_photo-190.jpg?1429955016',
+//           'activeUntil2018': '/gybi/wp-content/uploads/ultimatemember/6/profile_photo-190.jpg?1429955016',
+//           'activeUntil2022': '/gybi/wp-content/uploads/ultimatemember/20/profile_photo-190.jpg?1429955016'
+//         },
+//         values: plants.reduce(function(p, c, i){ p[i] = c.status; return p }, {}),
+//         legend: false
+//       }]
+//     }
+//         });
+//
+//     };
+//     map();
+// }, 'json');
    
 
     jQuery('#calendar').fullCalendar({
@@ -1378,7 +1424,7 @@ jQuery.post(ajaxurl,{ action:'gybi_get_investors_country'},function(data) {
 
             url : "",
 
-            data : { action: "entterprenuer_events_details",  userid:   },
+            data : { action: "entterprenuer_events_details",  userid: 0  },
 
             method: 'post'
 

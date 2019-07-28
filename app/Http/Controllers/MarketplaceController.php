@@ -6,11 +6,14 @@ use App\Models\BankAccountDetails;
 use App\Models\MarketPlaceMedia;
 use App\Models\MarketPlaceSettings;
 use App\Models\MarketPlaceSocialLinks;
+use App\Models\OrderPayments;
 use App\Models\OrderProductQty;
 use App\Models\Orders;
+use App\Models\OrdersAddresses;
 use App\Models\Products;
 use App\Models\ProductsEnquiry;
 use App\Models\ProductsEnquiryComment;
+use App\Models\ProductsFavorite;
 use App\Models\UserDetails;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -61,7 +64,39 @@ class MarketplaceController extends Controller
 
     public function dashboard()
     {
-        return view("marketplace.dashboard");
+        $userid = Session::get('userid');
+        $todaySales = Orders::whereHas('orderProducts',function($query) use($userid){
+            $query->whereHas('product',function($query) use ($userid){
+                $query->where('userid','=',$userid);
+            });
+        })->where(DB::raw('DATE(created_at)'),date('Y-m-d'))->get()->sum('amount');
+
+        $todayEarning = OrderPayments::whereHas('order',function($query) use ($userid){
+            $query->whereHas('orderProducts',function($query) use($userid){
+                $query->whereHas('product',function($query) use ($userid){
+                    $query->where('userid','=',$userid);
+                });
+            });
+        })->where(DB::raw('DATE(created_at)'),date('Y-m-d'))->get()->sum('amount');
+
+        $weeklySales = Orders::whereHas('orderProducts',function($query) use($userid){
+            $query->whereHas('product',function($query) use ($userid){
+                $query->where('userid','=',$userid);
+            });
+        })->whereBetween(DB::raw('DATE(created_at)'),[date('Y-m-d',strtotime(date('Y-m-d') ." -1 week")),date('Y-m-d')])->get()->sum('amount');
+
+        $weeklyEarning = OrderPayments::whereHas('order',function($query) use ($userid){
+            $query->whereHas('orderProducts',function($query) use($userid){
+                $query->whereHas('product',function($query) use ($userid){
+                    $query->where('userid','=',$userid);
+                });
+            });
+        })->whereBetween(DB::raw('DATE(created_at)'),[date('Y-m-d',strtotime(date('Y-m-d') ." -1 week")),date('Y-m-d')])->get()->sum('amount');
+
+
+        return view("marketplace.dashboard",['todaySales' => $todaySales
+            ,'todayEarning' => $todayEarning,'netBalance' => $todaySales - $todayEarning
+            ,'weeklySales' => $weeklySales,'weeklyEarning' => $weeklyEarning,'weeklyBalance' => $weeklySales - $weeklyEarning]);
     }
 
     public function settings()
@@ -108,20 +143,134 @@ class MarketplaceController extends Controller
         return view("marketplace.product-list", ['products' => $oProducts]);
     }
 
-    public function orders()
+    public function orders(Request $request)
     {
-        $mStartDate = Carbon::now()->startOfMonth();
-        $mEndDate = Carbon::now()->endOfMonth();
         $userid = Session::get('userid');
+        if($request->has('download')) {
+            $oOrders = Orders::where('created_by', '=', $userid)
+                ->where('delete_status', '=', 0)->get();
 
-        $oOrders = Orders::where('created_by', '=', $userid)->where('delete_status', '=', 0)->get();
-        //$oOrders->whereBetween('created_at', [$mStartDate, $mEndDate])->get();
-        return view("marketplace.orders", ['orders' => $oOrders]);
+            $orderArray[] = [
+                "Order No","Name","Email",'Phone','Address','Country','State','City','Pincode','Date','Earning','Payment Status'
+            ];
+
+            foreach ($oOrders as $order) {
+                $orderArray[] = [
+                    $order->order_no,
+                    $order->orderAddress->firstname.' '.$order->orderAddress->lastname,
+                    $order->orderAddress->email,
+                    $order->orderAddress->phone,
+                    $order->orderAddress->appartmentno .' '.$order->orderAddress->address,
+                    $order->orderAddress->country,
+                    $order->orderAddress->state,
+                    $order->orderAddress->city,
+                    $order->orderAddress->zipcode,
+                    date('Y-m-d',strtotime($order->created_at)),
+                    $order->amount,
+                    $order->status
+                ];
+            }
+
+            $headers = [
+                "Content-type" => "text/csv",
+            ];
+            $f = fopen('orders.csv', 'w');
+
+            foreach ($orderArray as $line) {
+                fputcsv($f, $line, ",");
+            }
+            fclose($f);
+
+            return response()->download('orders.csv', 'orders.csv', $headers);
+
+        }else {
+            $mStartDate = $request->has('wcmp_start_date_order') ? $request->get('wcmp_start_date_order') : Carbon::now()->startOfMonth();
+            $mEndDate = $request->has('wcmp_end_date_order') ? $request->get('wcmp_end_date_order') : Carbon::now()->endOfMonth();
+            $mStartDate = date('Y-m-d',strtotime($mStartDate));
+            $mEndDate = date('Y-m-d',strtotime($mEndDate));
+            $userid = Session::get('userid');
+
+            $oOrders = Orders::where('created_by', '=', $userid)
+                ->whereBetween(DB::raw('DATE(created_at)'),[$mStartDate,$mEndDate])
+                ->where('delete_status', '=', 0)->paginate(10);
+            //$oOrders->whereBetween('created_at', [$mStartDate, $mEndDate])->get();
+            return view("marketplace.orders", ['orders' => $oOrders]);
+        }
     }
 
-    public function report()
+    public function report(Request $request)
     {
-        return view("marketplace.report");
+        $userid = Session::get('userid');
+        if($request->has('download')) {
+            $oOrders = Orders::where('created_by', '=', $userid)
+                ->where('delete_status', '=', 0)->get();
+
+            $orderArray[] = [
+                "Order No","Name","Email",'Phone','Address',
+                'Country','State','City','Pincode','Date','Earning','Payment Status'
+            ];
+
+            foreach ($oOrders as $order) {
+                $orderArray[] = [
+                    $order->order_no,
+                    $order->orderAddress->firstname.' '.$order->orderAddress->lastname,
+                    $order->orderAddress->email,
+                    $order->orderAddress->phone,
+                    $order->orderAddress->appartmentno .' '.$order->orderAddress->address,
+                    $order->orderAddress->country,
+                    $order->orderAddress->state,
+                    $order->orderAddress->city,
+                    $order->orderAddress->zipcode,
+                    date('Y-m-d',strtotime($order->created_at)),
+                    $order->amount,
+                    $order->status
+                ];
+            }
+
+            $headers = [
+                "Content-type" => "text/csv",
+            ];
+            $f = fopen('report.csv', 'w');
+
+            foreach ($orderArray as $line) {
+                fputcsv($f, $line, ",");
+            }
+            fclose($f);
+            return response()->download('report.csv', 'report.csv', $headers);
+        }else {
+            $mStartDate = $request->has('wcmp_stat_start_dt') ? $request->get('wcmp_start_date_order') : Carbon::now()->startOfMonth();
+            $mEndDate = $request->has('wcmp_stat_end_dt') ? $request->get('wcmp_end_date_order') : Carbon::now()->endOfMonth();
+            $mStartDate = date('Y-m-d',strtotime($mStartDate));
+            $mEndDate = date('Y-m-d',strtotime($mEndDate));
+
+            $totalSales = Orders::whereHas('orderProducts',function($query) use($userid){
+                $query->whereHas('product',function($query) use ($userid){
+                    $query->where('userid','=',$userid);
+                });
+            })->whereBetween(DB::raw('DATE(created_at)'),[$mStartDate,$mEndDate])->get()->sum('amount');
+
+            $totalPurchased = Orders::where('created_by', '=', $userid)->get()->count();
+
+            $totalEarning = OrderPayments::whereHas('order',function($query) use ($userid){
+                $query->whereHas('orderProducts',function($query) use($userid){
+                    $query->whereHas('product',function($query) use ($userid){
+                        $query->where('userid','=',$userid);
+                    });
+                });
+            })->whereBetween(DB::raw('DATE(created_at)'),[$mStartDate,$mEndDate])->get()->sum('amount');
+
+            $totalUnqiueCustomer = OrdersAddresses::select('email')->distinct()->whereHas('order',function($query) use ($userid){
+                $query->whereHas('orderProducts',function($query) use($userid){
+                    $query->whereHas('product',function($query) use ($userid){
+                        $query->where('userid','=',$userid);
+                    });
+                });
+            })->whereBetween(DB::raw('DATE(created_at)'),[$mStartDate,$mEndDate])->get()->count();
+
+            return view("marketplace.report",['totalSales' => $totalSales
+                ,'totalEarning' => $totalEarning,'totalUnqiueCustomer' => $totalUnqiueCustomer
+                ,'totalPurchased' => $totalPurchased]);
+        }
     }
 
     public function productEnquiry() {
@@ -172,9 +321,50 @@ class MarketplaceController extends Controller
         return view("marketplace.messages");
     }
 
-    public function payment()
+    public function payment(Request $request)
     {
-        return view("marketplace.payment");
+        $userid = Session::get('userid');
+        if($request->has('download')) {
+            $payments = OrderPayments::whereHas('order',function($query) use($userid){
+                $query->where('created_by', '=', $userid);
+                $query->where('delete_status', '=', 0);
+            })->get();
+
+            $orderArray[] = [
+                "Date","Transc.ID","Order IDs",'Fee','Net Earnings'
+            ];
+
+            foreach ($payments as $payment) {
+                $orderArray[] = [
+                    date('Y-m-d',strtotime($payment->created_at)),
+                    $payment->transaction_id,
+                    $payment->order->order_no,
+                    $payment->provider_fee,
+                    $payment->amount
+                ];
+            }
+
+            $headers = [
+                "Content-type" => "text/csv",
+            ];
+            $f = fopen('payment_history.csv', 'w');
+
+            foreach ($orderArray as $line) {
+                fputcsv($f, $line, ",");
+            }
+            fclose($f);
+            return response()->download('payment_history.csv', 'payment_history.csv', $headers);
+        }else {
+            $mStartDate = $request->has('from_date') ? $request->get('from_date') : Carbon::now()->startOfMonth();
+            $mEndDate = $request->has('to_date') ? $request->get('to_date') : Carbon::now()->endOfMonth();
+            $mStartDate = date('Y-m-d',strtotime($mStartDate));
+            $mEndDate = date('Y-m-d',strtotime($mEndDate));
+            $payments = OrderPayments::whereHas('order',function($query) use($userid){
+                $query->where('created_by', '=', $userid);
+                $query->where('delete_status', '=', 0);
+            })->whereBetween(DB::raw('DATE(created_at)'),[$mStartDate,$mEndDate])->paginate(10);
+            return view("marketplace.payment",['payments' => $payments]);
+        }
     }
 
     public function exeleadmen()
@@ -380,6 +570,12 @@ class MarketplaceController extends Controller
         DB::table('custom_product_enquiries')->insert($customEnquiry);
 
         return redirect('market-place')->with(['status' => 'success', 'message' => 'Enquiry Sent Successfully']);
+    }
+
+    public function productFavorite() {
+        $userid = Session::get('userid');
+        $oProducts = Products::whereIn('id',ProductsFavorite::where('userid',$userid)->where('delete_status',0)->pluck('product_id'))->get();
+        return view("marketplace.product-favorite-list", ['products' => $oProducts]);
     }
 
 }
