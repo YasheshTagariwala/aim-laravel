@@ -3,7 +3,9 @@
 @section('pagebody')
 
  <!-- section for images -->
-    
+    @php
+        $categories = DB::table('categories')->where('groupid','1')->get(); ?>
+    @endphp
   <section class="custom_requi">
             <div class="container">
                 <div class="center-block slider_content">
@@ -16,42 +18,21 @@
                 <div class="row disp-tbl w-100 ">
                     <div class="col-md-3 checkbox_side dis-tcell">
                         <h3>categories</h3>
-                        <form id="search" method="get">   
+                        <form id="search" method="get">
+                            @foreach($categories as $category)
+                                <div class="clearfix">
+                                    <div class="squaredFour">
+                                        <input id="squaredFour{{$category->name}}" value="{{$category->name}}" name="category[]" onchange="" type="checkbox">
+                                        <label for="squaredFour{{$category->name}}"></label>
+                                    </div>
+                                    <span>{{$category->name}}</span>
+                                </div>
+                            @endforeach
                             <div class="clearfix">
                                 <div class="squaredFour">
-                                    <input id="squaredFourit-and-technology" value="it-and-technology" name="category[]" onchange="" type="checkbox">
-                                    <label for="squaredFourit-and-technology"></label>
+                                    <input type="submit" value="Search" class="btn btn-primary">
                                 </div>
-                                <span>Diaspora</span> 
-                            </div>     
-                            <div class="clearfix">
-                                <div class="squaredFour">
-                                    <input id="squaredFoursocial-entrepreneur" value="social-entrepreneur" name="category[]" onchange="" type="checkbox">
-                                    <label for="squaredFoursocial-entrepreneur"></label>
-                                </div>
-                                <span>Social Entrepreneur</span> 
-                            </div>        
-                            <div class="clearfix">
-                                <div class="squaredFour">
-                                    <input id="squaredFourservice-entrepreneurship" value="service-entrepreneurship" name="category[]" onchange="" type="checkbox">
-                                    <label for="squaredFourservice-entrepreneurship"></label>
-                                </div>
-                                <span>Women</span> 
-                            </div>      
-                            <div class="clearfix">
-                                <div class="squaredFour">
-                                    <input id="squaredFouragri-business" value="agri-business" name="category[]" onchange="" type="checkbox">
-                                    <label for="squaredFouragri-business"></label>
-                                </div>
-                                <span>Youth</span> 
-                            </div>    
-                            <div class="clearfix">
-                                <div class="squaredFour">
-                                    <input id="squaredFouruncategorized" value="uncategorized" name="category[]" onchange="" type="checkbox">
-                                    <label for="squaredFouruncategorized"></label>
-                                </div>
-                                <span>Uncategorized</span> 
-                            </div>   
+                            </div>
                         </form>
                     </div>        
                     <div class="col-md-9 col-sm-9 col-xs-12 dis-tcell">
@@ -67,6 +48,7 @@
                             </div>
                         </article>
                         @endforeach
+                        {{$products->render()}}
                     </div>
                 </div>
                 <nav class="text-center"></nav>
@@ -108,50 +90,43 @@
             <div class="container">
                 <div class="row">
                     <h2 class="vendor-headding-custom">Top sellers</h2>
-                    <div class="col-md-2 col-sm-2 col-xs-12 img_sec">
-                        <div class="images_12_sell" style="height: 350px;">
-                            <div class="animate_img">
-                                <a href="{{ url('market-place/exeleadmen') }}">
-                                    <img class="img-responsive vendor_img" src="images/WP-stdavatar.png" id="vendor_image_display" width="125">
-                                </a>
-                                <div class="textbox">
-                                    <div class="v_center">
-                                        <a href="{{ url('market-place/exeleadmen') }}">
-                                            <button type="button" class="btn btn-primary btn-lg btn-block">DETAILS</button>
-                                        </a>                     
+                    @foreach($top_seller as $sellers)
+                        <div class="col-md-2 col-sm-2 col-xs-12 img_sec">
+                            <div class="images_12_sell" style="height: 350px;">
+                                <div class="animate_img">
+                                    <a href="{{ url('market-place/seller/'.$sellers->id) }}">
+                                        <img class="img-responsive vendor_img" src="{{url('/')}}/assets_new/images/WP-stdavatar.png" id="vendor_image_display" width="125">
+                                    </a>
+                                    <div class="textbox">
+                                        <div class="v_center">
+                                            <a href="{{ url('market-place/seller/'.$sellers->id) }}">
+                                                <button type="button" class="btn btn-primary btn-lg btn-block">DETAILS</button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h6>{{ $sellers->firstname }} {{ $sellers->lastname }}</h6>
+                                <div class="row lead">
+                                    <div style="width:100%; height:50px; margin-bottom:5px; padding-left:15px;">
+                                        @if(count($sellers->ratings) > 0)
+                                            @php
+                                                $ratings = $sellers->ratings;
+                                                $rates = [0 => 0,1 => 0,2 => 0,3 => 0,4 => 0];
+                                                foreach ($ratings as $rating) {
+                                                    $rates[$rating->rating] += 1;
+                                                }
+                                            @endphp
+                                            @for ($i = 0;$i < array_search(max($rates),$rates);$i++)
+                                                <i class="fas fa-star" style="color: orange"></i>
+                                            @endfor
+                                        @else
+                                            <div>No Rating Yet</div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
-                            <h6>Exeleadmen INTERNATIONAL CONSULTING</h6>
-                            <div class="row lead">
-                                <div style="width:100%; height:50px; margin-bottom:5px; padding-left:15px;">
-                                    <div>No Rating Yet</div>
-                                </div>
-                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-2 col-sm-2 col-xs-12 img_sec">
-                        <div class="images_12_sell" style="height: 350px;">
-                            <div class="animate_img">
-                                <a href="{{ url('market-place/exeleadmen') }}">
-                                    <img class="img-responsive vendor_img" src="images/WP-stdavatar.png" id="vendor_image_display" width="125">
-                                </a>
-                                <div class="textbox">
-                                    <div class="v_center">
-                                        <a href="{{ url('market-place/exeleadmen') }}">
-                                            <button type="button" class="btn btn-primary btn-lg btn-block">DETAILS</button>
-                                        </a>                     
-                                    </div>
-                                </div>
-                            </div>
-                            <h6>Exeleadmen INTERNATIONAL CONSULTING</h6>
-                            <div class="row lead">
-                                <div style="width:100%; height:50px; margin-bottom:5px; padding-left:15px;">
-                                    <div>No Rating Yet</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                         
                 </div><!-- row -->
             </div><!-- container -->

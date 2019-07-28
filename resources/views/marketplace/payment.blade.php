@@ -71,7 +71,7 @@
                                                             @endif
                                                         </tbody>
                                                     </table>
-                                                    {{$payments->links()}}
+                                                    {{$payments->render()}}
                                                 </div>
                                             </form>
                                             <div class="wcmp_table_loader">

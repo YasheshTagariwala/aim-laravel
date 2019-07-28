@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\OrderProductQty;
 use App\Models\Orders;
 use App\Models\Products;
 use App\Models\ProductsFavorite;
 use App\Models\ProductsRating;
+use App\Models\UserDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Input;
@@ -37,10 +39,25 @@ class ProductController extends Controller
         return view("product.recent");
     }
 
-    public function requirement_lists()
+    public function requirement_lists(Request $request)
     {
-        $oProducts = Products::where('delete_status','0')->get();
-        return view("product.requirements", ["products" => $oProducts]);
+        $oProducts = Products::where('delete_status','0')->where(function($query) use ($request) {
+            if ($request->has('category')) {
+                $category = $request->get('category');
+                foreach ($category as $cat) {
+                    $query->orWhere('categories','like','%'.$cat.'%');
+                }
+            }
+        })->paginate(10);
+        $top_seller = OrderProductQty::select(DB::raw('product_id,sum(qty) as qty'))->groupBy('product_id')->orderBY('qty','desc')->limit(5)->pluck('product_id');
+        $top_seller = Products::whereIn('id',$top_seller)->pluck('userid');
+        if($top_seller) {
+            $top_seller = array_unique($top_seller->toArray());
+        }else {
+            $top_seller = [];
+        }
+        $top_seller = UserDetails::whereIn('id',$top_seller)->get();
+        return view("product.requirements", ["products" => $oProducts,'top_seller' => $top_seller]);
     }
 
     public function requirement_new()

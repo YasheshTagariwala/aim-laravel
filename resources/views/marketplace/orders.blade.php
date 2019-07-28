@@ -83,7 +83,7 @@
                                                                 </tr>
                                                             @endif
                                                         </table>
-                                                        {{ $orders->links() }}
+                                                        {{ $orders->render() }}
                                                         @foreach($orders as $order)
                                                             <div class="modal fade" id="myModal{{$order->id}}" role="dialog" tabindex="-1" aria-hidden="true">
                                                                 <div class="modal-dialog modal-lg">
