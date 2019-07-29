@@ -108,7 +108,7 @@
                                 <h6>{{ $sellers->firstname }} {{ $sellers->lastname }}</h6>
                                 <div class="row lead">
                                     <div style="width:100%; height:50px; margin-bottom:5px; padding-left:15px;">
-                                        @if(count($sellers->ratings) > 0)
+                                        @if(count((array)$sellers->ratings) > 0)
                                             @php
                                                 $ratings = $sellers->ratings;
                                                 $rates = [0 => 0,1 => 0,2 => 0,3 => 0,4 => 0];
