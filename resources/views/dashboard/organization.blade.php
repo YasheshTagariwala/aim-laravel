@@ -39,9 +39,9 @@
                                 <li class="side_menu" id="Orders"><a href="{{url('/market-place/dashboard')}}">MarketPlace </a></li></a>
                             </ul>
                             <ul class="resp-tabs-list right-tab  clearfix">
-                                <li class="side_menu" id="messages"><a href="{{url('/messages')}}"><i class="fa fa-commenting-o" aria-hidden="true"></i></a></li>
+                                <li class="side_menu" id="messages"><a href="{{url('/messages')}}"><i class="fa fa-commenting" aria-hidden="true"></i></a></li>
                                 <li class="side_menu" id="account"><a href="{{url('/account')}}"><i class="fa fa-user" aria-hidden="true"></i></a></li> 
-                                <li class="logout"><a href="{{url('/logout')}}"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
+                                <li class="logout"><a href="{{url('/logout')}}"><i class="fas fa-sign-out-alt" aria-hidden="true"></i></a></li>
                             </ul>
                         </div>
                         <div class="resp-tabs-container">
@@ -151,26 +151,38 @@
                                                     <div class="actions pull-right"> <i class="fa fa-chevron-down"></i> </div>
                                                 </div>
                                                 <div class="panel-body" >
-                                                    <div class="table-responsive project-stats"  >  
-                                                        <!--table class="table">
-                                                            <thead>
-                                                               <tr>
-                                                                   <th>Country</th>
-                                                                   <th>Entrepreneurs </th>
-                                                                   <th>Investors</th>
-                                                                   <th>Supporters</th>
-                                                               </tr>
-                                                            </thead>
-                                                            <tbody>
+                                                    <div class="table-responsive project-stats"  >
+                                                        @if(count((array)$users) > 0)
+                                                            <table class="table">
+                                                                <thead>
                                                                 <tr>
-                                                                   <td>Name</td>
-                                                                   <td>Enterpreaners</th>
-                                                                   <td>Investor</td>
-                                                                   <td>Supporter</td>
-                                                               </tr>                               
-                                                           </tbody>
-                                                        </table-->
-                                                        <div class="alert alert-warning alert-dismissable">You currently do not have any Entrepreneurs, Investors or Supporters in your network .</div>                         
+                                                                    <th>Type</th>
+                                                                    <th>Name</th>
+                                                                    <th>Email</th>
+                                                                    <th>Phone</th>
+                                                                    {{--<th>Action</th>--}}
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach($users as $user)
+                                                                        <tr>
+                                                                            @if($user->groupid == 1)
+                                                                                <td>Entrepreneur</td>
+                                                                            @elseif($user->groupid == 3)
+                                                                                <td>Supporter</td>
+                                                                            @elseif($user->groupid == 4)
+                                                                                <td>Investor</td>
+                                                                            @endif
+                                                                            <td>{{$user->firstname .' '.$user->lastname}}</td>
+                                                                            <td>{{$user->email}}</td>
+                                                                            <td>{{$user->phone}}</td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                </tbody>
+                                                            </table>
+                                                        @else
+                                                            <div class="alert alert-warning alert-dismissable">You currently do not have any Entrepreneurs, Investors or Supporters in your network .</div>
+                                                        @endif
                                                     </div>
                                                 </div>
                                                 <div class="panel-footer text-center"> <a class="go_link" href="javascript:void(0)" data-href="enterplace">View All Projects</a> </div>

@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;                                       
+use App\Models\Orders;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests;
 use App\entrepreneur;
@@ -29,7 +30,7 @@ class EntrepreneurController extends Controller
         $user_invites = DB::table('user_invites')->where('invited_by',Session::get('userid'))->get();
         $blogs = DB::table('blogs')->where('created_by',Session::get('userid'))->get();
         $project = DB::table('projects')->where('created_by',Session::get('userid'))->get();
-        $orders = DB::table('orders')->where('created_by',Session::get('userid'))->get();
+        $orders = Orders::where('created_by',Session::get('userid'))->get();
         $recentblogs = DB::table('blogs')->skip(0)->take(1)->get();
         $recentmsgs = DB::table('messages')->where('created_by',Session::get('userid'))->orWhere('created_by','0')->skip(0)->take(5)->get();
         $project_fundings = DB::table('project_funding')->where('project_from',Session::get('userid'))->get();

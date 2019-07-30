@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UserDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests;
@@ -34,8 +35,11 @@ class OrganizationController extends Controller
         $entrepreneurs = DB::table('projects')
         ->join('userdetails', 'projects.created_by', '=', 'userdetails.id')
         ->where('userdetails.groupid','1')->get();
+        $users = UserDetails::where('groupid','!=',2)->get();
         //print_r($project_donations); exit();
-        return view("dashboard.organization",compact("organization","blogs","user_invites","projects","project_donations","project_funding","orders","entrepreneurs","user_invites","recentblogs"));
+        return view("dashboard.organization",compact("organization","blogs"
+            ,"user_invites","projects","project_donations","project_funding","orders"
+            ,"entrepreneurs","user_invites","recentblogs",'users'));
     }
 
     /**

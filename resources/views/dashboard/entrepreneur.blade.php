@@ -35,18 +35,17 @@
                             <li class="side_menu" id="campaign">Campaign</li>
                             <li class="side_menu" id="blog">Blog</li>
                             <li class="side_menu" id="Orders"><a href="#">Orders</a></li>
-                            <li class="side_menu" id="Orders"><a
-                                    href="{{url('/market-place/dashboard')}}">MarketPlace </a></li>
-                            </a>
+                            <li class="side_menu" id="Orders"><a href="{{url('/market-place/dashboard')}}">MarketPlace </a></li>
                         </ul>
                         <ul class="resp-tabs-list right-tab  clearfix">
-                            <li class="side_menu" id="messages"><a href="{{url('/messages')}}"><i
-                                        class="fa fa-commenting-o" aria-hidden="true"></i></a></li>
-                            <li class="side_menu" id="account"><a href="{{url('/account')}}"><i class="fa fa-user"
-                                                                                                aria-hidden="true"></i></a>
+                            <li class="side_menu" id="messages"><a href="{{url('/messages')}}">
+                                    <i class="fa fa-commenting" aria-hidden="true"></i></a></li>
+                            <li class="side_menu" id="account"><a href="{{url('/account')}}">
+                                    <i class="fa fa-user" aria-hidden="true"></i></a>
                             </li>
-                            <li class="logout"><a href="{{url('/logout')}}"><i class="fa fa-sign-out"
-                                                                               aria-hidden="true"></i></a></li>
+                            <li class="logout"><a href="{{url('/logout')}}">
+                                    <i class="fas fa-sign-out-alt"></i></a>
+                            </li>
                         </ul>
                     </div>
                     <div class="resp-tabs-container">
@@ -1152,18 +1151,18 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <input name="productrowcount" id="productrowcount" value="1" type="hidden">
+                                            <input name="savefor" value="31" type="hidden">
+                                            <div class="acf-form-submit">
+                                                <input value="Add More" class="button button-success button-large" type="button"
+                                                       onclick="add_product();">
+                                            </div>
+                                            <div class="acf-form-submit">
+                                                <input value="Save" class="button button-primary button-large" type="submit">
+                                            </div>
+                                            <hr>
+                                        </form>
                                     </div>
-                                    <input name="productrowcount" id="productrowcount" value="1" type="hidden">
-                                    <input name="savefor" value="31" type="hidden">
-                                    <div class="acf-form-submit">
-                                        <input value="Add More" class="button button-success button-large" type="button"
-                                               onclick="add_product();">
-                                    </div>
-                                    <div class="acf-form-submit">
-                                        <input value="Save" class="button button-primary button-large" type="submit">
-                                    </div>
-                                    <hr>
-                                    </form>
                                     <form id="post" class="" action="{{url('/')}}/entrepreneur/store" method="post"
                                           enctype="multipart/form-data">
                                         {{csrf_field()}}
@@ -1266,120 +1265,26 @@
                                         </div>
                                     </form>
                                 </div>
-                            </div>
-                            <div class="tab-pane" id="panel_183">
-                            <!--  <img src="{{url('/')}}/assets_new/images/project_four.png" alt="" /> -->
-                                <div class="cust-afc-ifrm">
-                                    <form id="post" class="" action="{{url('/')}}/entrepreneur/store" method="post"
-                                          enctype="multipart/form-data">
-                                        {{csrf_field()}}
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
-                                                    <label
-                                                        style="display: block;margin-bottom:20px;">Management </label>
-                                                    <div class="repeater-cust">
-                                                        <div class="row">
-                                                            <div class="col-md-3 col-sm-3 col-lg-3 col-xs-12">
-                                                                <label style="display: block;">Full Name
-                                                                    <!-- <i class="fa fa-question-circle" ></i> --></label>
-                                                            </div>
-                                                            <div class="col-md-9 col-sm-9 col-lg-9 col-xs-12">
-                                                                <input name="name1" id="friend_name-0" value=""
-                                                                       class="form-control" type="text" required=""
-                                                                       placeholder="Enter Your Name...">
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-3 col-sm-3 col-lg-3 col-xs-12">
-                                                                <label style="display: block;">Position
-                                                                    <!-- <i class="fa fa-question-circle" ></i> --></label>
-                                                            </div>
-                                                            <div class="col-md-9 col-sm-9 col-lg-9 col-xs-12">
-                                                                <input name="position1" id="friend_name-0" value=""
-                                                                       class="form-control" type="text" required=""
-                                                                       placeholder="Enter Your Position...">
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-3 col-sm-3 col-lg-3 col-xs-12">
-                                                                <label style="display: block;">Email
-                                                                    <!-- <i class="fa fa-question-circle" ></i> --></label>
-                                                            </div>
-                                                            <div class="col-md-9 col-sm-9 col-lg-9 col-xs-12">
-                                                                <input name="email1" id="friend_name-0" value=""
-                                                                       class="form-control" type="email" required=""
-                                                                       placeholder="Enter Your Email...">
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-3 col-sm-3 col-lg-3 col-xs-12">
-                                                                <label style="display: block;">Description
-                                                                    <!-- <i class="fa fa-question-circle" ></i> --></label>
-                                                            </div>
-                                                            <div class="col-md-9 col-sm-9 col-lg-9 col-xs-12">
-                                                                <textarea name="description1" class="form-control"
-                                                                          type="text" required=""
-                                                                          placeholder="Enter the Description..."></textarea>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-3 col-sm-3 col-lg-3 col-xs-12">
-                                                                <label style="display: block;">Photograph
-                                                                    <!-- <i class="fa fa-question-circle" ></i> --></label>
-                                                            </div>
-                                                            <div class="col-md-9 col-sm-9 col-lg-9 col-xs-12">
-                                                                <input name="photograph1" id="friend_name-0" value=""
-                                                                       class="btn" type="file">
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-3 col-sm-3 col-lg-3 col-xs-12">
-                                                                <label style="display: block;">LinkedIn URL
-                                                                    <!-- <i class="fa fa-question-circle" ></i> --></label>
-                                                            </div>
-                                                            <div class="col-md-9 col-sm-9 col-lg-9 col-xs-12">
-                                                                <input name="linked_url1" id="friend_name-0" value=""
-                                                                       class="form-control" type="text" required=""
-                                                                       placeholder="Enter Your LinkedIn URL...">
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-3 col-sm-3 col-lg-3 col-xs-12">
-                                                                <label style="display: block;">Facebook URL
-                                                                    <!-- <i class="fa fa-question-circle" ></i> --></label>
-                                                            </div>
-                                                            <div class="col-md-9 col-sm-9 col-lg-9 col-xs-12">
-                                                                <input name="fb_url1" id="friend_name-0" value=""
-                                                                       class="form-control" type="text" required=""
-                                                                       placeholder="Enter Your Facebook URL...">
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-3 col-sm-3 col-lg-3 col-xs-12">
-                                                                <label style="display: block;">Twitter URL
-                                                                    <!-- <i class="fa fa-question-circle" ></i> --></label>
-                                                            </div>
-                                                            <div class="col-md-9 col-sm-9 col-lg-9 col-xs-12">
-                                                                <input name="tw_url1" id="friend_name-0" value=""
-                                                                       class="form-control" type="text" required=""
-                                                                       placeholder="Enter Your Twitter URL...">
-                                                            </div>
-                                                        </div><!--
-                                                                <div class="acf-form-submit">
-                                                                    <input value="Add New Team Member" class="btn" type="submit">
-                                                                </div> -->
-                                                        <hr>
-                                                        <?php for ($teamrow = 2; $teamrow <= 10 ; $teamrow++) { ?>
-                                                        <div id="teamrow{{$teamrow}}" style="display: none;">
+                                <div class="tab-pane" id="panel_183">
+                                <!--  <img src="{{url('/')}}/assets_new/images/project_four.png" alt="" /> -->
+                                    <div class="cust-afc-ifrm">
+                                        <form id="post" class="" action="{{url('/')}}/entrepreneur/store" method="post"
+                                              enctype="multipart/form-data">
+                                            {{csrf_field()}}
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                                                        <label
+                                                            style="display: block;margin-bottom:20px;">Management </label>
+                                                        <div class="repeater-cust">
                                                             <div class="row">
                                                                 <div class="col-md-3 col-sm-3 col-lg-3 col-xs-12">
                                                                     <label style="display: block;">Full Name
                                                                         <!-- <i class="fa fa-question-circle" ></i> --></label>
                                                                 </div>
                                                                 <div class="col-md-9 col-sm-9 col-lg-9 col-xs-12">
-                                                                    <input name="name{{$teamrow}}" id="friend_name-0"
-                                                                           value="" class="form-control" type="text"
+                                                                    <input name="name1" id="friend_name-0" value=""
+                                                                           class="form-control" type="text" required=""
                                                                            placeholder="Enter Your Name...">
                                                                 </div>
                                                             </div>
@@ -1389,9 +1294,8 @@
                                                                         <!-- <i class="fa fa-question-circle" ></i> --></label>
                                                                 </div>
                                                                 <div class="col-md-9 col-sm-9 col-lg-9 col-xs-12">
-                                                                    <input name="position{{$teamrow}}"
-                                                                           id="friend_name-0" value=""
-                                                                           class="form-control" type="text"
+                                                                    <input name="position1" id="friend_name-0" value=""
+                                                                           class="form-control" type="text" required=""
                                                                            placeholder="Enter Your Position...">
                                                                 </div>
                                                             </div>
@@ -1401,8 +1305,8 @@
                                                                         <!-- <i class="fa fa-question-circle" ></i> --></label>
                                                                 </div>
                                                                 <div class="col-md-9 col-sm-9 col-lg-9 col-xs-12">
-                                                                    <input name="email{{$teamrow}}" id="friend_name-0"
-                                                                           value="" class="form-control" type="email"
+                                                                    <input name="email1" id="friend_name-0" value=""
+                                                                           class="form-control" type="email" required=""
                                                                            placeholder="Enter Your Email...">
                                                                 </div>
                                                             </div>
@@ -1412,9 +1316,9 @@
                                                                         <!-- <i class="fa fa-question-circle" ></i> --></label>
                                                                 </div>
                                                                 <div class="col-md-9 col-sm-9 col-lg-9 col-xs-12">
-                                                                    <textarea name="description{{$teamrow}}"
-                                                                              class="form-control" type="text"
-                                                                              placeholder="Enter the Description..."></textarea>
+                                                                <textarea name="description1" class="form-control"
+                                                                          type="text" required=""
+                                                                          placeholder="Enter the Description..."></textarea>
                                                                 </div>
                                                             </div>
                                                             <div class="row">
@@ -1423,9 +1327,8 @@
                                                                         <!-- <i class="fa fa-question-circle" ></i> --></label>
                                                                 </div>
                                                                 <div class="col-md-9 col-sm-9 col-lg-9 col-xs-12">
-                                                                    <input name="photograph{{$teamrow}}"
-                                                                           id="friend_name-0" value="" class="btn"
-                                                                           type="file">
+                                                                    <input name="photograph1" id="friend_name-0" value=""
+                                                                           class="btn" type="file">
                                                                 </div>
                                                             </div>
                                                             <div class="row">
@@ -1434,9 +1337,8 @@
                                                                         <!-- <i class="fa fa-question-circle" ></i> --></label>
                                                                 </div>
                                                                 <div class="col-md-9 col-sm-9 col-lg-9 col-xs-12">
-                                                                    <input name="linked_url{{$teamrow}}"
-                                                                           id="friend_name-0" value=""
-                                                                           class="form-control" type="text"
+                                                                    <input name="linked_url1" id="friend_name-0" value=""
+                                                                           class="form-control" type="text" required=""
                                                                            placeholder="Enter Your LinkedIn URL...">
                                                                 </div>
                                                             </div>
@@ -1446,8 +1348,8 @@
                                                                         <!-- <i class="fa fa-question-circle" ></i> --></label>
                                                                 </div>
                                                                 <div class="col-md-9 col-sm-9 col-lg-9 col-xs-12">
-                                                                    <input name="fb_url{{$teamrow}}" id="friend_name-0"
-                                                                           value="" class="form-control" type="text"
+                                                                    <input name="fb_url1" id="friend_name-0" value=""
+                                                                           class="form-control" type="text" required=""
                                                                            placeholder="Enter Your Facebook URL...">
                                                                 </div>
                                                             </div>
@@ -1457,159 +1359,256 @@
                                                                         <!-- <i class="fa fa-question-circle" ></i> --></label>
                                                                 </div>
                                                                 <div class="col-md-9 col-sm-9 col-lg-9 col-xs-12">
-                                                                    <input name="tw_url{{$teamrow}}" id="friend_name-0"
-                                                                           value="" class="form-control" type="text"
-                                                                           placeholder="Enter Your Twitter URl...">
+                                                                    <input name="tw_url1" id="friend_name-0" value=""
+                                                                           class="form-control" type="text" required=""
+                                                                           placeholder="Enter Your Twitter URL...">
                                                                 </div>
                                                             </div><!--
                                                                 <div class="acf-form-submit">
                                                                     <input value="Add New Team Member" class="btn" type="submit">
+                                                                </div> -->
+                                                            <hr>
+                                                            <?php for ($teamrow = 2; $teamrow <= 10 ; $teamrow++) { ?>
+                                                            <div id="teamrow{{$teamrow}}" style="display: none;">
+                                                                <div class="row">
+                                                                    <div class="col-md-3 col-sm-3 col-lg-3 col-xs-12">
+                                                                        <label style="display: block;">Full Name
+                                                                            <!-- <i class="fa fa-question-circle" ></i> --></label>
+                                                                    </div>
+                                                                    <div class="col-md-9 col-sm-9 col-lg-9 col-xs-12">
+                                                                        <input name="name{{$teamrow}}" id="friend_name-0"
+                                                                               value="" class="form-control" type="text"
+                                                                               placeholder="Enter Your Name...">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-3 col-sm-3 col-lg-3 col-xs-12">
+                                                                        <label style="display: block;">Position
+                                                                            <!-- <i class="fa fa-question-circle" ></i> --></label>
+                                                                    </div>
+                                                                    <div class="col-md-9 col-sm-9 col-lg-9 col-xs-12">
+                                                                        <input name="position{{$teamrow}}"
+                                                                               id="friend_name-0" value=""
+                                                                               class="form-control" type="text"
+                                                                               placeholder="Enter Your Position...">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-3 col-sm-3 col-lg-3 col-xs-12">
+                                                                        <label style="display: block;">Email
+                                                                            <!-- <i class="fa fa-question-circle" ></i> --></label>
+                                                                    </div>
+                                                                    <div class="col-md-9 col-sm-9 col-lg-9 col-xs-12">
+                                                                        <input name="email{{$teamrow}}" id="friend_name-0"
+                                                                               value="" class="form-control" type="email"
+                                                                               placeholder="Enter Your Email...">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-3 col-sm-3 col-lg-3 col-xs-12">
+                                                                        <label style="display: block;">Description
+                                                                            <!-- <i class="fa fa-question-circle" ></i> --></label>
+                                                                    </div>
+                                                                    <div class="col-md-9 col-sm-9 col-lg-9 col-xs-12">
+                                                                    <textarea name="description{{$teamrow}}"
+                                                                              class="form-control" type="text"
+                                                                              placeholder="Enter the Description..."></textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-3 col-sm-3 col-lg-3 col-xs-12">
+                                                                        <label style="display: block;">Photograph
+                                                                            <!-- <i class="fa fa-question-circle" ></i> --></label>
+                                                                    </div>
+                                                                    <div class="col-md-9 col-sm-9 col-lg-9 col-xs-12">
+                                                                        <input name="photograph{{$teamrow}}"
+                                                                               id="friend_name-0" value="" class="btn"
+                                                                               type="file">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-3 col-sm-3 col-lg-3 col-xs-12">
+                                                                        <label style="display: block;">LinkedIn URL
+                                                                            <!-- <i class="fa fa-question-circle" ></i> --></label>
+                                                                    </div>
+                                                                    <div class="col-md-9 col-sm-9 col-lg-9 col-xs-12">
+                                                                        <input name="linked_url{{$teamrow}}"
+                                                                               id="friend_name-0" value=""
+                                                                               class="form-control" type="text"
+                                                                               placeholder="Enter Your LinkedIn URL...">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-3 col-sm-3 col-lg-3 col-xs-12">
+                                                                        <label style="display: block;">Facebook URL
+                                                                            <!-- <i class="fa fa-question-circle" ></i> --></label>
+                                                                    </div>
+                                                                    <div class="col-md-9 col-sm-9 col-lg-9 col-xs-12">
+                                                                        <input name="fb_url{{$teamrow}}" id="friend_name-0"
+                                                                               value="" class="form-control" type="text"
+                                                                               placeholder="Enter Your Facebook URL...">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-3 col-sm-3 col-lg-3 col-xs-12">
+                                                                        <label style="display: block;">Twitter URL
+                                                                            <!-- <i class="fa fa-question-circle" ></i> --></label>
+                                                                    </div>
+                                                                    <div class="col-md-9 col-sm-9 col-lg-9 col-xs-12">
+                                                                        <input name="tw_url{{$teamrow}}" id="friend_name-0"
+                                                                               value="" class="form-control" type="text"
+                                                                               placeholder="Enter Your Twitter URl...">
+                                                                    </div>
+                                                                </div><!--
+                                                                <div class="acf-form-submit">
+                                                                    <input value="Add New Team Member" class="btn" type="submit">
                                                                 </div> --></div>
-                                                        <?php } ?>
+                                                            <?php } ?>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <input name="savefor" value="4" type="hidden">
-                                        <input name="teamrowcount" id="teamrowcount" value="1" type="hidden">
-                                        <div class="acf-form-submit">
-                                            <input value="Add More" class="button button-success button-large"
-                                                   type="button" onclick="add_team();">
-                                        </div>
-                                        <div class="acf-form-submit">
-                                            <input value="Save" class="button button-primary button-large"
-                                                   type="submit">
-                                        </div>
-                                    </form>
-                                    <div class="row">
-                                        @if(count($ent_mgmnt_team) > 0)
-                                            <table class="table disktop-view">
-                                                <thead>
-                                                <tr>
-                                                    <th>Logo</th>
-                                                    <th>Organization Name</th>
-                                                    <th>Position</th>
-                                                    <th>Email</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                @foreach($ent_mgmnt_team as $ent_mgmnt)
-                                                    <tr>
-                                                        <td><img src="{{$ent_mgmnt->photograph}}"
-                                                                 class="gravatar img-circle  avatar avatar-50 um-avatar"
-                                                                 width="50" height="50" alt=""></td>
-                                                        <th><a href="#">{{$ent_mgmnt->name}}</a></th>
-                                                        <td>{{$ent_mgmnt->position}}</td>
-                                                        <td>{{$ent_mgmnt->email}}</td>
-                                                    </tr>
-                                                @endforeach
-                                                </tbody>
-                                            </table>
-                                        @else
-                                            <div class="alert alert-warning alert-dismissable">There Are No
-                                                Organizations.
+                                            <input name="savefor" value="4" type="hidden">
+                                            <input name="teamrowcount" id="teamrowcount" value="1" type="hidden">
+                                            <div class="acf-form-submit">
+                                                <input value="Add More" class="button button-success button-large"
+                                                       type="button" onclick="add_team();">
                                             </div>
-                                        @endif
+                                            <div class="acf-form-submit">
+                                                <input value="Save" class="button button-primary button-large"
+                                                       type="submit">
+                                            </div>
+                                        </form>
+                                        <div class="row">
+                                            @if(count($ent_mgmnt_team) > 0)
+                                                <table class="table disktop-view">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Logo</th>
+                                                        <th>Organization Name</th>
+                                                        <th>Position</th>
+                                                        <th>Email</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach($ent_mgmnt_team as $ent_mgmnt)
+                                                        <tr>
+                                                            <td><img src="{{$ent_mgmnt->photograph}}"
+                                                                     class="gravatar img-circle  avatar avatar-50 um-avatar"
+                                                                     width="50" height="50" alt=""></td>
+                                                            <th><a href="#">{{$ent_mgmnt->name}}</a></th>
+                                                            <td>{{$ent_mgmnt->position}}</td>
+                                                            <td>{{$ent_mgmnt->email}}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                    </tbody>
+                                                </table>
+                                            @else
+                                                <div class="alert alert-warning alert-dismissable">There Are No
+                                                    Organizations.
+                                                </div>
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="tab-pane" id="panel_180">
-                            <!-- <img src="{{url('/')}}/assets_new/images/project_five.png" alt="" /> -->
-                                <div class="cust-afc-ifrm">
-                                    <form id="post" class=""
-                                          @if(count($ent_funding) > 0) action="{{url('/')}}/entrepreneur/{{$ent_funding[0]->id}}/update"
-                                          @else action="{{url('/')}}/entrepreneur/store" @endif method="post"
-                                          enctype="multipart/form-data">
-                                        {{csrf_field()}}
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
-                                                    <label style="display: block;">Goal
-                                                        <!-- <i class="fa fa-question-circle" ></i> --></label>
-                                                    <input name="goal" id="friend_name-0"
-                                                           @if(count($ent_funding) > 0) value="{{$ent_funding[0]->goal}}"
-                                                           @else value="" @endif class="form-control" type="text"
-                                                           required="" required="" placeholder="Enter Your Goal...">
-                                                </div>
-                                                <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
-                                                    <label style="display: block;">Fund Raised So Far
-                                                        <!-- <i class="fa fa-question-circle" ></i> --></label>
-                                                    <input name="fund_for" id="friend_name-0"
-                                                           @if(count($ent_funding) > 0) value="{{$ent_funding[0]->fund_for}}"
-                                                           @else value="" @endif class="form-control" type="text"
-                                                           required="" placeholder="Enter the fund raised so far...">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
-                                                    <label style="display: block;">Funding type
-                                                        <!-- <i class="fa fa-question-circle" ></i> --></label>
-                                                    <select class="form-control" name="fund_type">
-                                                        <option value="Equity" selected="selected">Equity</option>
-                                                        <option value="Convertible Debt">Convertible Debt</option>
-                                                        <option value="Debt Financing">Debt Financing</option>
-                                                        <option value="Grant">Grant</option>
-                                                        <option value="Royalty">Royalty</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
-                                                    <label style="display: block;">Private Funding
-                                                        <!-- <i class="fa fa-question-circle" ></i> --></label>
-                                                    <input name="fund_pvt" id="friend_name-0"
-                                                           @if(count($ent_funding) > 0) value="{{$ent_funding[0]->fund_pvt}}"
-                                                           @else value="" @endif class="form-control" type="text"
-                                                           required="" placeholder="Enter the Private Funding...">
+                                <div class="tab-pane" id="panel_180">
+                                <!-- <img src="{{url('/')}}/assets_new/images/project_five.png" alt="" /> -->
+                                    <div class="cust-afc-ifrm">
+                                        <form id="post" class=""
+                                              @if(count($ent_funding) > 0) action="{{url('/')}}/entrepreneur/{{$ent_funding[0]->id}}/update"
+                                              @else action="{{url('/')}}/entrepreneur/store" @endif method="post"
+                                              enctype="multipart/form-data">
+                                            {{csrf_field()}}
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                                        <label style="display: block;">Goal
+                                                            <!-- <i class="fa fa-question-circle" ></i> --></label>
+                                                        <input name="goal" id="friend_name-0"
+                                                               @if(count($ent_funding) > 0) value="{{$ent_funding[0]->goal}}"
+                                                               @else value="" @endif class="form-control" type="text"
+                                                               required="" required="" placeholder="Enter Your Goal...">
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                                        <label style="display: block;">Fund Raised So Far
+                                                            <!-- <i class="fa fa-question-circle" ></i> --></label>
+                                                        <input name="fund_for" id="friend_name-0"
+                                                               @if(count($ent_funding) > 0) value="{{$ent_funding[0]->fund_for}}"
+                                                               @else value="" @endif class="form-control" type="text"
+                                                               required="" placeholder="Enter the fund raised so far...">
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
-                                                    <label style="display: block;">Pre-Money Valuation
-                                                        <!-- <i class="fa fa-question-circle" ></i> --></label>
-                                                    <input name="pre_money" id="friend_name-0"
-                                                           @if(count($ent_funding) > 0) value="{{$ent_funding[0]->pre_money}}"
-                                                           @else value="" @endif class="form-control" type="text"
-                                                           required="" placeholder="Enter Pre-Money valuation...">
-                                                </div>
-                                                <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
-                                                    <label style="display: block;">Interest / Dividend
-                                                        <!-- <i class="fa fa-question-circle" ></i> --></label>
-                                                    <input name="interest" id="friend_name-0"
-                                                           @if(count($ent_funding) > 0) value="{{$ent_funding[0]->interest}}"
-                                                           @else value="" @endif class="form-control" type="text"
-                                                           required="" placeholder="Enter the Interest...">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
-                                                    <label style="display: block;">Previous Funding
-                                                        <!-- <i class="fa fa-question-circle" ></i> --></label>
-                                                    <input name="prev_fund" id="friend_name-0"
-                                                           @if(count($ent_funding) > 0) value="{{$ent_funding[0]->prev_fund}}"
-                                                           @else value="" @endif class="form-control" type="text"
-                                                           required="" placeholder="Enter the Previous funding...">
-                                                </div>
-                                                <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
-                                                    <label style="display: block;">Funding Commitments
-                                                        <!-- <i class="fa fa-question-circle" ></i> --></label>
-                                                    <input name="fund_commitment" id="friend_name-0"
-                                                           @if(count($ent_funding) > 0) value="{{$ent_funding[0]->fund_commitment}}"
-                                                           @else value="" @endif class="form-control" type="text"
-                                                           required="" placeholder="Enter Your Funding Commitments...">
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                                        <label style="display: block;">Funding type
+                                                            <!-- <i class="fa fa-question-circle" ></i> --></label>
+                                                        <select class="form-control" name="fund_type">
+                                                            <option value="Equity" selected="selected">Equity</option>
+                                                            <option value="Convertible Debt">Convertible Debt</option>
+                                                            <option value="Debt Financing">Debt Financing</option>
+                                                            <option value="Grant">Grant</option>
+                                                            <option value="Royalty">Royalty</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                                        <label style="display: block;">Private Funding
+                                                            <!-- <i class="fa fa-question-circle" ></i> --></label>
+                                                        <input name="fund_pvt" id="friend_name-0"
+                                                               @if(count($ent_funding) > 0) value="{{$ent_funding[0]->fund_pvt}}"
+                                                               @else value="" @endif class="form-control" type="text"
+                                                               required="" placeholder="Enter the Private Funding...">
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <input name="savefor" value="5" type="hidden">
-                                        <div class="acf-form-submit">
-                                            <input value="Save" class="button button-primary button-large"
-                                                   type="submit">
-                                        </div>
-                                    </form>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                                        <label style="display: block;">Pre-Money Valuation
+                                                            <!-- <i class="fa fa-question-circle" ></i> --></label>
+                                                        <input name="pre_money" id="friend_name-0"
+                                                               @if(count($ent_funding) > 0) value="{{$ent_funding[0]->pre_money}}"
+                                                               @else value="" @endif class="form-control" type="text"
+                                                               required="" placeholder="Enter Pre-Money valuation...">
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                                        <label style="display: block;">Interest / Dividend
+                                                            <!-- <i class="fa fa-question-circle" ></i> --></label>
+                                                        <input name="interest" id="friend_name-0"
+                                                               @if(count($ent_funding) > 0) value="{{$ent_funding[0]->interest}}"
+                                                               @else value="" @endif class="form-control" type="text"
+                                                               required="" placeholder="Enter the Interest...">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                                        <label style="display: block;">Previous Funding
+                                                            <!-- <i class="fa fa-question-circle" ></i> --></label>
+                                                        <input name="prev_fund" id="friend_name-0"
+                                                               @if(count($ent_funding) > 0) value="{{$ent_funding[0]->prev_fund}}"
+                                                               @else value="" @endif class="form-control" type="text"
+                                                               required="" placeholder="Enter the Previous funding...">
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                                        <label style="display: block;">Funding Commitments
+                                                            <!-- <i class="fa fa-question-circle" ></i> --></label>
+                                                        <input name="fund_commitment" id="friend_name-0"
+                                                               @if(count($ent_funding) > 0) value="{{$ent_funding[0]->fund_commitment}}"
+                                                               @else value="" @endif class="form-control" type="text"
+                                                               required="" placeholder="Enter Your Funding Commitments...">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <input name="savefor" value="5" type="hidden">
+                                            <div class="acf-form-submit">
+                                                <input value="Save" class="button button-primary button-large"
+                                                       type="submit">
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1617,90 +1616,89 @@
                             <div class="form" style="">
                             </div>
                         </form>
-                    </div>
-                    <div id="invite"><!-- Invite -->
-                        <div><!-- Invite -->
-                            <div class="row">
-                                <div class="col-md-12 invite-friends">
-                                    <div class="ajax-loader" style="display:none">
-                                        <img style="margin-top:200px"
-                                             src="{{url('/')}}/assets_new/images/ajax-loader.gif"/>
-                                    </div>
-                                    <div class="panel panel-white container-wrapper dashboard-forms">
-                                        <h1>Invitation</h1>
-                                        <div id="secure_invite_form">
-                                            <form action="/invite/send" method="post"
-                                                  class="secure_invite_form form-controll">
-                                                {{csrf_field()}}
-                                                <div class="row refer-head">
-                                                    <div class="col-md-5 col-sm-5 col-inputs">
-                                                        <label class="">Name</label>
-                                                    </div>
-                                                    <div class="col-md-5 col-sm-5 col-inputs">
-                                                        <label class="">Email</label>
-                                                    </div>
-                                                    <div class="col-md-2 col-sm-2 col-inputs">
-                                                        <a href="#" class="underline details" onclick="add_invite();">ADD</a>
-                                                    </div>
-                                                </div>
-                                                <div class="row refer refer-body">
-                                                    <div class="refer-col">
-                                                        <div class="col-md-4 col-sm-4 col-inputs">
-                                                            <input name="name1" id="friend_name-0" value=""
-                                                                   class="form-control" placeholder="Name" type="text"
-                                                                   required="">
-                                                        </div>
-                                                        <div class="col-md-4 col-sm-4 col-inputs">
-                                                            <input name="email1" id="friend_email-0" value=""
-                                                                   class="form-control" placeholder="Email" type="email"
-                                                                   required="">
-                                                        </div>
-                                                        <div class="col-md-4 col-sm-4 col-inputs">
-                                                            <select name="groupid1" class="form-control" required="">
-                                                                <option value="4">Investor</option>
-                                                                <option value="3">Supporter</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <?php for($i = 2;$i <= 10;$i++) { ?>
-                                                    <div id="viewnew_row{{$i}}"></div>
-                                                    <?php } ?>
-                                                    <input name="row_count" id="row_count" value="1" type="hidden">
-                                                    <div class="col-md-12 col-inputs">
-                                                        <input id="secure_invite_send" name="submit"
-                                                               class="btn btn-primary" value="Invitation Sent"
-                                                               type="submit">
-                                                    </div>
-                                                </div>
-                                                <fieldset></fieldset>
-                                            </form>
+                        <div id="invite"><!-- Invite -->
+                            <div><!-- Invite -->
+                                <div class="row">
+                                    <div class="col-md-12 invite-friends">
+                                        <div class="ajax-loader" style="display:none">
+                                            <img style="margin-top:200px"
+                                                 src="{{url('/')}}/assets_new/images/ajax-loader.gif"/>
                                         </div>
-                                        <div class="sowresult">
-                                            <table class="table table-bordered table-striped">
-                                                <thead>
-                                                <tr class="first-tr">
-                                                    <td>Invitations</td>
-                                                    <td>Invitations Accepted</td>
-                                                    <td>Points Earned</td>
-                                                    <!-- <td></td> -->
-                                                </tr>
-                                                </thead>
-                                                <tbody>  @if(count($user_invites) > 0)
-                                                    <tr>
-                                                        <td data-label="Invitations">{{$user_invites->count()}}</td>
-                                                        <td data-label="Invitations  Accepted">{{$user_invites->where('invite_status','1')->count()}}</td>
-                                                        <td data-label="Points Earned">{{$user_invites->where('invite_status','1')->count()}}</td>
-                                                        <!-- <td data-label="Details"><a href="javascript:void(0)" class="underline details">Show Details</a></td> -->
+                                        <div class="panel panel-white container-wrapper dashboard-forms">
+                                            <h1>Invitation</h1>
+                                            <div id="secure_invite_form">
+                                                <form action="/invite/send" method="post"
+                                                      class="secure_invite_form form-controll">
+                                                    {{csrf_field()}}
+                                                    <div class="row refer-head">
+                                                        <div class="col-md-5 col-sm-5 col-inputs">
+                                                            <label class="">Name</label>
+                                                        </div>
+                                                        <div class="col-md-5 col-sm-5 col-inputs">
+                                                            <label class="">Email</label>
+                                                        </div>
+                                                        <div class="col-md-2 col-sm-2 col-inputs">
+                                                            <a href="#" class="underline details" onclick="add_invite();">ADD</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row refer refer-body">
+                                                        <div class="refer-col">
+                                                            <div class="col-md-4 col-sm-4 col-inputs">
+                                                                <input name="name1" id="friend_name-0" value=""
+                                                                       class="form-control" placeholder="Name" type="text"
+                                                                       required="">
+                                                            </div>
+                                                            <div class="col-md-4 col-sm-4 col-inputs">
+                                                                <input name="email1" id="friend_email-0" value=""
+                                                                       class="form-control" placeholder="Email" type="email"
+                                                                       required="">
+                                                            </div>
+                                                            <div class="col-md-4 col-sm-4 col-inputs">
+                                                                <select name="groupid1" class="form-control" required="">
+                                                                    <option value="4">Investor</option>
+                                                                    <option value="3">Supporter</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <?php for($i = 2;$i <= 10;$i++) { ?>
+                                                        <div id="viewnew_row{{$i}}"></div>
+                                                        <?php } ?>
+                                                        <input name="row_count" id="row_count" value="1" type="hidden">
+                                                        <div class="col-md-12 col-inputs">
+                                                            <input id="secure_invite_send" name="submit"
+                                                                   class="btn btn-primary" value="Invitation Sent"
+                                                                   type="submit">
+                                                        </div>
+                                                    </div>
+                                                    <fieldset></fieldset>
+                                                </form>
+                                            </div>
+                                            <div class="sowresult">
+                                                <table class="table table-bordered table-striped">
+                                                    <thead>
+                                                    <tr class="first-tr">
+                                                        <td>Invitations</td>
+                                                        <td>Invitations Accepted</td>
+                                                        <td>Points Earned</td>
+                                                        <!-- <td></td> -->
                                                     </tr>
-                                                @else
-                                                    <tr>
-                                                        <td data-label="Invitations">0</td>
-                                                        <td data-label="Invitations  Accepted">0</td>
-                                                        <td data-label="Points Earned">0</td>
-                                                        <!-- <td data-label="Details"><a href="javascript:void(0)" class="underline details">Show Details</a></td> -->
-                                                    </tr>
-                                                @endif
-                                                <!-- <tr class="invitation-list" style="display:none;" >
+                                                    </thead>
+                                                    <tbody>  @if(count($user_invites) > 0)
+                                                        <tr>
+                                                            <td data-label="Invitations">{{$user_invites->count()}}</td>
+                                                            <td data-label="Invitations  Accepted">{{$user_invites->where('invite_status','1')->count()}}</td>
+                                                            <td data-label="Points Earned">{{$user_invites->where('invite_status','1')->count()}}</td>
+                                                            <!-- <td data-label="Details"><a href="javascript:void(0)" class="underline details">Show Details</a></td> -->
+                                                        </tr>
+                                                    @else
+                                                        <tr>
+                                                            <td data-label="Invitations">0</td>
+                                                            <td data-label="Invitations  Accepted">0</td>
+                                                            <td data-label="Points Earned">0</td>
+                                                            <!-- <td data-label="Details"><a href="javascript:void(0)" class="underline details">Show Details</a></td> -->
+                                                        </tr>
+                                                    @endif
+                                                    <!-- <tr class="invitation-list" style="display:none;" >
                                                                 <td colspan="4" class="graybg-invite ">
                                                                     <div style="display: block;">
                                                                         <div class="row">
@@ -1713,114 +1711,31 @@
                                                                     </div>
                                                                 </td>
                                                             </tr> -->
-                                                </tbody>
-                                            </table>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="cust-afc-ifrm"><!-- Business Plan -->
-                    <!--  <img src="{{url('/')}}/assets_new/images/business-plan-images.png" alt="" /> -->
-                        <form id="post" class="" action="{{url('/')}}/entrepreneur/store" method="post"
-                              enctype="multipart/form-data">
-                            {{csrf_field()}}
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
-                                        <label style="display: block;">Your Idea
-                                            <!-- <i class="fa fa-question-circle" ></i> --></label>
-                                        <textarea name="idea1" class="form-control" type="text" required=""
-                                                  placeholder="Enter Your Idea..."></textarea>
-                                    </div>
-                                    <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
-                                        <label style="display: block;">Your Business Model
-                                            <!-- <i class="fa fa-question-circle" ></i> --></label>
-                                        <textarea name="women_model1" class="form-control" type="text" required=""
-                                                  placeholder="Enter Your Business model..."></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
-                                        <label style="display: block;">Your Customer
-                                            <!-- <i class="fa fa-question-circle" ></i> --></label>
-                                        <textarea name="customer1" class="form-control" type="text" required=""
-                                                  placeholder="Enter Your Customer..."></textarea>
-                                    </div>
-                                    <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
-                                        <label style="display: block;">Your Market
-                                            <!-- <i class="fa fa-question-circle" ></i> --></label>
-                                        <textarea name="market1" class="form-control" type="text" required=""
-                                                  placeholder="Enter Your Market..."></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
-                                        <label style="display: block;">Your Industry
-                                            <!-- <i class="fa fa-question-circle" ></i> --></label>
-                                        <textarea name="industry1" class="form-control" type="text" required=""
-                                                  placeholder="Enter Your Industry..."></textarea>
-                                    </div>
-                                    <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
-                                        <label style="display: block;">Your Product
-                                            <!-- <i class="fa fa-question-circle" ></i> --></label>
-                                        <textarea name="product1" class="form-control" type="text" required=""
-                                                  placeholder="Enter Your Product..."></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
-                                        <label style="display: block;">Your Campaign
-                                            <!-- <i class="fa fa-question-circle" ></i> --></label>
-                                        <textarea name="campaign1" class="form-control" type="text" required=""
-                                                  placeholder="Enter Your Campaign..."></textarea>
-                                    </div>
-                                    <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
-                                        <label style="display: block;">Your Budget
-                                            <!-- <i class="fa fa-question-circle" ></i> --></label>
-                                        <textarea name="budget1" class="form-control" type="text" required=""
-                                                  placeholder="Enter Your Budget..."></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
-                                        <label style="display: block;">Your Team
-                                            <!-- <i class="fa fa-question-circle" ></i> --></label>
-                                        <textarea name="team1" class="form-control" type="text" required=""
-                                                  placeholder="Enter Your Team..."></textarea>
-                                    </div>
-                                    <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
-                                        <label style="display: block;">Your Pitch
-                                            <!-- <i class="fa fa-question-circle" ></i> --></label>
-                                        <textarea name="pitch1" class="form-control" type="text" required=""
-                                                  placeholder="Enter Your Pitch..."></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <?php for ($planrow = 2; $planrow <= 10 ; $planrow++) { ?>
-                            <div id="planrow{{$planrow}}" style="display: none;">
-                                <hr>
+                        <div class="cust-afc-ifrm"><!-- Business Plan -->
+                        <!--  <img src="{{url('/')}}/assets_new/images/business-plan-images.png" alt="" /> -->
+                            <form id="post" class="" action="{{url('/')}}/entrepreneur/store" method="post"
+                                  enctype="multipart/form-data">
+                                {{csrf_field()}}
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
                                             <label style="display: block;">Your Idea
                                                 <!-- <i class="fa fa-question-circle" ></i> --></label>
-                                            <textarea name="idea{{$planrow}}" class="form-control" type="text"
+                                            <textarea name="idea1" class="form-control" type="text" required=""
                                                       placeholder="Enter Your Idea..."></textarea>
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
                                             <label style="display: block;">Your Business Model
                                                 <!-- <i class="fa fa-question-circle" ></i> --></label>
-                                            <textarea name="women_model{{$planrow}}" class="form-control" type="text"
+                                            <textarea name="women_model1" class="form-control" type="text" required=""
                                                       placeholder="Enter Your Business model..."></textarea>
                                         </div>
                                     </div>
@@ -1830,13 +1745,13 @@
                                         <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
                                             <label style="display: block;">Your Customer
                                                 <!-- <i class="fa fa-question-circle" ></i> --></label>
-                                            <textarea name="customer{{$planrow}}" class="form-control" type="text"
+                                            <textarea name="customer1" class="form-control" type="text" required=""
                                                       placeholder="Enter Your Customer..."></textarea>
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
                                             <label style="display: block;">Your Market
                                                 <!-- <i class="fa fa-question-circle" ></i> --></label>
-                                            <textarea name="market{{$planrow}}" class="form-control" type="text"
+                                            <textarea name="market1" class="form-control" type="text" required=""
                                                       placeholder="Enter Your Market..."></textarea>
                                         </div>
                                     </div>
@@ -1846,13 +1761,13 @@
                                         <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
                                             <label style="display: block;">Your Industry
                                                 <!-- <i class="fa fa-question-circle" ></i> --></label>
-                                            <textarea name="industry{{$planrow}}" class="form-control" type="text"
+                                            <textarea name="industry1" class="form-control" type="text" required=""
                                                       placeholder="Enter Your Industry..."></textarea>
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
                                             <label style="display: block;">Your Product
                                                 <!-- <i class="fa fa-question-circle" ></i> --></label>
-                                            <textarea name="product{{$planrow}}" class="form-control" type="text"
+                                            <textarea name="product1" class="form-control" type="text" required=""
                                                       placeholder="Enter Your Product..."></textarea>
                                         </div>
                                     </div>
@@ -1862,13 +1777,13 @@
                                         <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
                                             <label style="display: block;">Your Campaign
                                                 <!-- <i class="fa fa-question-circle" ></i> --></label>
-                                            <textarea name="campaign{{$planrow}}" class="form-control" type="text"
+                                            <textarea name="campaign1" class="form-control" type="text" required=""
                                                       placeholder="Enter Your Campaign..."></textarea>
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
                                             <label style="display: block;">Your Budget
                                                 <!-- <i class="fa fa-question-circle" ></i> --></label>
-                                            <textarea name="budget{{$planrow}}" class="form-control" type="text"
+                                            <textarea name="budget1" class="form-control" type="text" required=""
                                                       placeholder="Enter Your Budget..."></textarea>
                                         </div>
                                     </div>
@@ -1878,284 +1793,368 @@
                                         <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
                                             <label style="display: block;">Your Team
                                                 <!-- <i class="fa fa-question-circle" ></i> --></label>
-                                            <textarea name="team{{$planrow}}" class="form-control" type="text"
+                                            <textarea name="team1" class="form-control" type="text" required=""
                                                       placeholder="Enter Your Team..."></textarea>
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
                                             <label style="display: block;">Your Pitch
                                                 <!-- <i class="fa fa-question-circle" ></i> --></label>
-                                            <textarea name="pitch{{$planrow}}" class="form-control" type="text"
+                                            <textarea name="pitch1" class="form-control" type="text" required=""
                                                       placeholder="Enter Your Pitch..."></textarea>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <?php } ?>
-                            <input name="planrowcount" id="planrowcount" value="1" type="hidden">
-                            <input name="savefor" value="6" type="hidden">
-                            <div class="acf-form-submit">
-                                <input value="Add More" class="button button-success button-large" type="button"
-                                       onclick="add_plan();">
-                            </div>
-                            <div class="acf-form-submit">
-                                <input value="Save" class="button button-primary button-large" type="submit">
-                            </div>
-                        </form>
-                    </div>
-                    <div><!-- Project Status -->
-                        <div class="panel panel-white">
-                            <div class="panel-body border-top">
-                                <a href="{{url('/entrepreneur')}}/project" class="btn btn-primary pull-right">Update Project Status</a>
-                                @if(count($project) > 0)
-                                    <a href="{{url('/entrepreneur')}}/project/add-status/{{$project[0]->id}}" class="btn btn-primary pull-right">Add Project Status</a>
-                                    <section id="cd-timeline" class="cd-container">
-                                        <div class="cd-timeline-block">
-                                            <div class="cd-timeline-img cd-warning"><i class="fa fa-tag"></i></div>
-                                            <div class="cd-timeline-content">
-                                                <h2>{{$project[0]->title}}</h2>
-                                                <p>{{$project[0]->content}}</p>
-                                                <div class="readmore">
-                                                    <a href="#" title="title" data-toggle="modal"
-                                                       data-target="#viewmoepopup"
-                                                       class="btn btn-info btn-o btn-wide pull-right viewstatus">
-                                                        Read More <i class="fa fa-arrow-circle-right"></i></a>
-                                                    <div class="hidden-card-description">
-                                                        <h5>{{$project[0]->title}}</h5>
-                                                        <p>{{$project[0]->content}}</p>
-                                                    </div>
-                                                    <span class="cd-date"><span>{{$project[0]->updated_at}}</span>   <h3
-                                                            class="percentage-completed"><span class="timer"
-                                                                                               data-to="{{$project[0]->progress}}"
-                                                                                               data-speed="2500"></span>% <small>completed</small></h3></span>
-                                                </div>
+                                <?php for ($planrow = 2; $planrow <= 10 ; $planrow++) { ?>
+                                <div id="planrow{{$planrow}}" style="display: none;">
+                                    <hr>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                                <label style="display: block;">Your Idea
+                                                    <!-- <i class="fa fa-question-circle" ></i> --></label>
+                                                <textarea name="idea{{$planrow}}" class="form-control" type="text"
+                                                          placeholder="Enter Your Idea..."></textarea>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                                <label style="display: block;">Your Business Model
+                                                    <!-- <i class="fa fa-question-circle" ></i> --></label>
+                                                <textarea name="women_model{{$planrow}}" class="form-control" type="text"
+                                                          placeholder="Enter Your Business model..."></textarea>
                                             </div>
                                         </div>
-                                    </section>
-                                    @php
-                                        $status = \App\Models\ProjectStatus::where('project_id',$project[0]->id)->where('delete_status',0)->get();
-                                    @endphp
-                                    @if(count($status) > 0)
-                                        @foreach($status as $state)
-                                            <section id="cd-timeline" class="cd-container">
-                                                <div class="cd-timeline-block">
-                                                    <div class="cd-timeline-img cd-warning"><i class="fa fa-tag"></i></div>
-                                                    <div class="cd-timeline-content">
-                                                        <h2>{{$state->title}}</h2>
-                                                        <p>{{$state->content}}</p>
-                                                        <div class="readmore">
-                                                            <a href="#" title="title" data-toggle="modal"
-                                                               data-target="#viewmoepopup"
-                                                               class="btn btn-info btn-o btn-wide pull-right viewstatus">
-                                                                Read More <i class="fa fa-arrow-circle-right"></i></a>
-                                                            <div class="hidden-card-description">
-                                                                <h5>{{$state->title}}</h5>
-                                                                <p>{{$state->content}}</p>
-                                                            </div>
-                                                            <span class="cd-date"><span>{{$state->updated_at}}</span>   <h3 class="percentage-completed"><span class="timer" data-to="{{$state->progress}}" data-speed="2500"></span>% <small>completed</small></h3></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                                <label style="display: block;">Your Customer
+                                                    <!-- <i class="fa fa-question-circle" ></i> --></label>
+                                                <textarea name="customer{{$planrow}}" class="form-control" type="text"
+                                                          placeholder="Enter Your Customer..."></textarea>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                                <label style="display: block;">Your Market
+                                                    <!-- <i class="fa fa-question-circle" ></i> --></label>
+                                                <textarea name="market{{$planrow}}" class="form-control" type="text"
+                                                          placeholder="Enter Your Market..."></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                                <label style="display: block;">Your Industry
+                                                    <!-- <i class="fa fa-question-circle" ></i> --></label>
+                                                <textarea name="industry{{$planrow}}" class="form-control" type="text"
+                                                          placeholder="Enter Your Industry..."></textarea>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                                <label style="display: block;">Your Product
+                                                    <!-- <i class="fa fa-question-circle" ></i> --></label>
+                                                <textarea name="product{{$planrow}}" class="form-control" type="text"
+                                                          placeholder="Enter Your Product..."></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                                <label style="display: block;">Your Campaign
+                                                    <!-- <i class="fa fa-question-circle" ></i> --></label>
+                                                <textarea name="campaign{{$planrow}}" class="form-control" type="text"
+                                                          placeholder="Enter Your Campaign..."></textarea>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                                <label style="display: block;">Your Budget
+                                                    <!-- <i class="fa fa-question-circle" ></i> --></label>
+                                                <textarea name="budget{{$planrow}}" class="form-control" type="text"
+                                                          placeholder="Enter Your Budget..."></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                                <label style="display: block;">Your Team
+                                                    <!-- <i class="fa fa-question-circle" ></i> --></label>
+                                                <textarea name="team{{$planrow}}" class="form-control" type="text"
+                                                          placeholder="Enter Your Team..."></textarea>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                                <label style="display: block;">Your Pitch
+                                                    <!-- <i class="fa fa-question-circle" ></i> --></label>
+                                                <textarea name="pitch{{$planrow}}" class="form-control" type="text"
+                                                          placeholder="Enter Your Pitch..."></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php } ?>
+                                <input name="planrowcount" id="planrowcount" value="1" type="hidden">
+                                <input name="savefor" value="6" type="hidden">
+                                <div class="acf-form-submit">
+                                    <input value="Add More" class="button button-success button-large" type="button"
+                                           onclick="add_plan();">
+                                </div>
+                                <div class="acf-form-submit">
+                                    <input value="Save" class="button button-primary button-large" type="submit">
+                                </div>
+                            </form>
+                        </div>
+                        <div><!-- Project Status -->
+                            <div class="panel panel-white">
+                                <div class="panel-body border-top">
+                                    <a href="{{url('/entrepreneur')}}/project" class="btn btn-primary pull-right">Update Project Status</a>
+                                    @if(count($project) > 0)
+                                        <a href="{{url('/entrepreneur')}}/project/add-status/{{$project[0]->id}}" class="btn btn-primary pull-right">Add Project Status</a>
+                                        <section id="cd-timeline" class="cd-container">
+                                            <div class="cd-timeline-block">
+                                                <div class="cd-timeline-img cd-warning"><i class="fa fa-tag"></i></div>
+                                                <div class="cd-timeline-content">
+                                                    <h2>{{$project[0]->title}}</h2>
+                                                    <p>{{$project[0]->content}}</p>
+                                                    <div class="readmore">
+                                                        <a href="#" title="title" data-toggle="modal"
+                                                           data-target="#viewmoepopup"
+                                                           class="btn btn-info btn-o btn-wide pull-right viewstatus">
+                                                            Read More <i class="fa fa-arrow-circle-right"></i></a>
+                                                        <div class="hidden-card-description">
+                                                            <h5>{{$project[0]->title}}</h5>
+                                                            <p>{{$project[0]->content}}</p>
                                                         </div>
+                                                        <span class="cd-date"><span>{{$project[0]->updated_at}}</span>   <h3
+                                                                class="percentage-completed"><span class="timer"
+                                                                                                   data-to="{{$project[0]->progress}}"
+                                                                                                   data-speed="2500"></span>% <small>completed</small></h3></span>
                                                     </div>
                                                 </div>
-                                            </section>
-                                        @endforeach
-                                    @endif
-                                @else
+                                            </div>
+                                        </section>
+                                        @php
+                                            $status = \App\Models\ProjectStatus::where('project_id',$project[0]->id)->where('delete_status',0)->get();
+                                        @endphp
+                                        @if(count($status) > 0)
+                                            @foreach($status as $state)
+                                                <section id="cd-timeline" class="cd-container">
+                                                    <div class="cd-timeline-block">
+                                                        <div class="cd-timeline-img cd-warning"><i class="fa fa-tag"></i></div>
+                                                        <div class="cd-timeline-content">
+                                                            <h2>{{$state->title}}</h2>
+                                                            <p>{{$state->content}}</p>
+                                                            <div class="readmore">
+                                                                <a href="#" title="title" data-toggle="modal"
+                                                                   data-target="#viewmoepopup"
+                                                                   class="btn btn-info btn-o btn-wide pull-right viewstatus">
+                                                                    Read More <i class="fa fa-arrow-circle-right"></i></a>
+                                                                <div class="hidden-card-description">
+                                                                    <h5>{{$state->title}}</h5>
+                                                                    <p>{{$state->content}}</p>
+                                                                </div>
+                                                                <span class="cd-date"><span>{{$state->updated_at}}</span>   <h3 class="percentage-completed"><span class="timer" data-to="{{$state->progress}}" data-speed="2500"></span>% <small>completed</small></h3></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </section>
+                                            @endforeach
+                                        @endif
+                                    @else
 
-                                    <div class="clearfix"></div>
-                                    <div class="alert alert-warning alert-dismissable"> No Data Found</div>
-                                @endif
-                            </div>@if(count($project) < 1)
-                                <div class="row">
-                                    <div class="alert alert-danger" id="message">
-                                        <p> Your Project Profile is not yet Created/Approved. Please do it now by
-                                            Clicking <a href="{{url('/entrepreneur')}}/project"
-                                                        class="btn btn-danger go_projectprofile">Here</a>
-                                            <!-- OR <a class="btn btn-success" href="#">Contact Administrator</a> -->
-                                        </p>
+                                        <div class="clearfix"></div>
+                                        <div class="alert alert-warning alert-dismissable"> No Data Found</div>
+                                    @endif
+                                </div>@if(count($project) < 1)
+                                    <div class="row">
+                                        <div class="alert alert-danger" id="message">
+                                            <p> Your Project Profile is not yet Created/Approved. Please do it now by
+                                                Clicking <a href="{{url('/entrepreneur')}}/project"
+                                                            class="btn btn-danger go_projectprofile">Here</a>
+                                                <!-- OR <a class="btn btn-success" href="#">Contact Administrator</a> -->
+                                            </p>
+                                        </div>
+                                    </div>@endif
+                            </div>
+                            <div class="modal fade" id="viewmoepopup" tabindex="-1" role="dialog"
+                                 aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" style="width:80%">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title">Project Update</h4>
+                                        </div>
+                                        <div class="modal-body"></div>
                                     </div>
-                                </div>@endif
-                        </div>
-                        <div class="modal fade" id="viewmoepopup" tabindex="-1" role="dialog"
-                             aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" style="width:80%">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title">Project Update</h4>
-                                    </div>
-                                    <div class="modal-body"></div>
                                 </div>
                             </div>
-                        </div>
-                        <script type="text/javascript">
-                            jQuery(document).ready(function ($) {
-                                $('.viewstatus').click(function () {
-                                    $('.modal-title').html("Project Update on " + $(this).parents('.cd-timeline-block').find('.cd-date').find('span').eq(0).text());
-                                    $('.modal-body').html($(this).parent().find('.hidden-card-description').html());
+                            <script type="text/javascript">
+                                jQuery(document).ready(function ($) {
+                                    $('.viewstatus').click(function () {
+                                        $('.modal-title').html("Project Update on " + $(this).parents('.cd-timeline-block').find('.cd-date').find('span').eq(0).text());
+                                        $('.modal-body').html($(this).parent().find('.hidden-card-description').html());
+                                    });
+
+                                    app.timer();
+
                                 });
 
-                                app.timer();
+                                jQuery(document).ready(function ($) {
+                                    var $timeline_block = $('.cd-timeline-block');
 
-                            });
-
-                            jQuery(document).ready(function ($) {
-                                var $timeline_block = $('.cd-timeline-block');
-
-                                $timeline_block.each(function () {
-                                    if ($(this).offset().top > $(window).scrollTop() + $(window).height() * 0.75) {
-                                        $(this).find('.cd-timeline-img, .cd-timeline-content').addClass('is-hidden');
-                                    }
-                                });
-
-                                //on scolling, show/animate timeline blocks when enter the viewport
-                                $(window).on('scroll', function () {
                                     $timeline_block.each(function () {
-                                        if ($(this).offset().top <= $(window).scrollTop() + $(window).height() * 0.75 && $(this).find('.cd-timeline-img').hasClass('is-hidden')) {
-                                            $(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden').addClass('bounce-in');
-                                        }
                                         if ($(this).offset().top > $(window).scrollTop() + $(window).height() * 0.75) {
-                                            $(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('bounce-in').addClass('is-hidden');
+                                            $(this).find('.cd-timeline-img, .cd-timeline-content').addClass('is-hidden');
                                         }
                                     });
+
+                                    //on scolling, show/animate timeline blocks when enter the viewport
+                                    $(window).on('scroll', function () {
+                                        $timeline_block.each(function () {
+                                            if ($(this).offset().top <= $(window).scrollTop() + $(window).height() * 0.75 && $(this).find('.cd-timeline-img').hasClass('is-hidden')) {
+                                                $(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden').addClass('bounce-in');
+                                            }
+                                            if ($(this).offset().top > $(window).scrollTop() + $(window).height() * 0.75) {
+                                                $(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('bounce-in').addClass('is-hidden');
+                                            }
+                                        });
+                                    });
                                 });
-                            });
-                        </script>
-                    </div>
-                    <div><!-- Campaign -->
-                        <!--div class="alert alert-danger fade in dashboard-alert" id="message">
-                            <p> Your Project Profile is not yet Created/Approved. Please do it now by Clicking <a href="javascript:void(0)" class="btn btn-danger go_projectprofile">Here</a> OR <a class="btn btn-success" href="#">Contact Administrator</a></p>
+                            </script>
                         </div>
-                        <div class="clearfix">
-                            <p><a href="#" class="btn btn-primary pull-right" >Insert New Campaign</a></p><br /><br />
-                        </div-->
-                        <div class="clearfix">
-                            <p><a href="{{url('/')}}/campaign/add"
-                                  class="campaign-alert-message btn btn-primary pull-right">Insert New Campaign</a></p>
-                            <br/><br/>
-                        </div>
-                        @if(count($campaigns) > 0)
-                            <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                                <thead>
-                                <tr>
-                                    <th>Title</th>
-                                    <th>Goal</th>
-                                    <th>Start Date</th>
-                                    <th>End Date</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($campaigns as $campaign)
+                        <div><!-- Campaign -->
+                            <!--div class="alert alert-danger fade in dashboard-alert" id="message">
+                                <p> Your Project Profile is not yet Created/Approved. Please do it now by Clicking <a href="javascript:void(0)" class="btn btn-danger go_projectprofile">Here</a> OR <a class="btn btn-success" href="#">Contact Administrator</a></p>
+                            </div>
+                            <div class="clearfix">
+                                <p><a href="#" class="btn btn-primary pull-right" >Insert New Campaign</a></p><br /><br />
+                            </div-->
+                            <div class="clearfix">
+                                <p><a href="{{url('/')}}/campaign/add"
+                                      class="campaign-alert-message btn btn-primary pull-right">Insert New Campaign</a></p>
+                                <br/><br/>
+                            </div>
+                            @if(count($campaigns) > 0)
+                                <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                    <thead>
                                     <tr>
-                                        <td>{{$campaign->title}}</td>
-                                        <td>{{$campaign->goal}}</td>
-                                        <td>{{$campaign->startdate}}</td>
-                                        <td>{{$campaign->todate}}</td>
-                                        <td><a href="{{url('/')}}/campaign/{{$campaign->id}}/edit"
-                                               class="btn btn-sm btn-primary">Edit</a></td>
+                                        <th>Title</th>
+                                        <th>Goal</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                        <th>Action</th>
                                     </tr>
-                                @endforeach
-                                </tbody>
-                                <tfoot></tfoot>
-                            </table>
-                        @else
-                            <div class="alert alert-warning alert-dismissable"> No Data Found</div>
-                        @endif
-                        <nav class="text-center"></nav>
-                        {{--<script>--}}
-                        {{--jQuery(document).ready(function () {--}}
-                        {{--jQuery(".post-publish").click(function () {--}}
-                        {{--var prId = jQuery(this).attr('data-id');--}}
-                        {{--jQuery.post(ajaxurl, {--}}
-                        {{--projectid: prId,--}}
-                        {{--action: "project_status_update"--}}
-                        {{--}, function (info) {--}}
-                        {{--jQuery("div." + prId).text("publish");--}}
-                        {{--});--}}
-                        {{--});--}}
-                        {{--});--}}
-                        {{--</script>--}}
-                    </div>
-                    <div><!-- Blog -->
-                        <div class="clearfix">
-                            <p><a href="{{url('/blog')}}/add" class="btn btn-primary pull-right">Insert New Blog</a></p>
-                            <br><br>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($campaigns as $campaign)
+                                        <tr>
+                                            <td>{{$campaign->title}}</td>
+                                            <td>{{$campaign->goal}}</td>
+                                            <td>{{$campaign->startdate}}</td>
+                                            <td>{{$campaign->todate}}</td>
+                                            <td><a href="{{url('/')}}/campaign/{{$campaign->id}}/edit"
+                                                   class="btn btn-sm btn-primary">Edit</a></td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                    <tfoot></tfoot>
+                                </table>
+                            @else
+                                <div class="alert alert-warning alert-dismissable"> No Data Found</div>
+                            @endif
+                            <nav class="text-center"></nav>
+                            {{--<script>--}}
+                            {{--jQuery(document).ready(function () {--}}
+                            {{--jQuery(".post-publish").click(function () {--}}
+                            {{--var prId = jQuery(this).attr('data-id');--}}
+                            {{--jQuery.post(ajaxurl, {--}}
+                            {{--projectid: prId,--}}
+                            {{--action: "project_status_update"--}}
+                            {{--}, function (info) {--}}
+                            {{--jQuery("div." + prId).text("publish");--}}
+                            {{--});--}}
+                            {{--});--}}
+                            {{--});--}}
+                            {{--</script>--}}
                         </div>
-                        @if(count($blogs) > 0)
-                            <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                                <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($blogs as $blog)
+                        <div><!-- Blog -->
+                            <div class="clearfix">
+                                <p><a href="{{url('/blog')}}/add" class="btn btn-primary pull-right">Insert New Blog</a></p>
+                                <br><br>
+                            </div>
+                            @if(count($blogs) > 0)
+                                <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                    <thead>
                                     <tr>
-                                        <td>{{$blog->name}}</td>
-                                        <td>{{$blog->content}}</td>
-                                        <td><a href="{{url('/')}}/blog/{{$blog->id}}/edit"
-                                               class="btn btn-sm btn-primary">Edit</a></td>
+                                        <th>Name</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
                                     </tr>
-                                @endforeach
-                                </tbody>
-                                <tfoot></tfoot>
-                            </table>
-                        @else
-                            <div class="alert alert-warning alert-dismissable"> No Data Found</div>
-                        @endif
-                        <nav class="text-center"></nav>
-                    </div>
-                    <div><!-- Orders --> @if(count($orders) > 0)
-                            <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                                <thead>
-                                <tr>
-                                    <th class="order-number"><span class="nobr">Order</span></th>
-                                    <th class="order-date"><span class="nobr">Date</span></th>
-                                    <th class="order-status"><span class="nobr">Status</span></th>
-                                    <th class="order-total"><span class="nobr">Total</span></th>
-                                    <th class="order-actions"><span class="nobr">&nbsp;</span></th>
-                                </tr>
-                                </thead>
-
-                                <tbody>
-                                @foreach($orders as $order)
-                                    <tr class="order">
-                                        <td class="order-number" data-title="Order">#{{$order->id}}</td>
-                                        <td class="order-date" data-title="Date">
-                                            <time datetime="2018-09-19" title="1537379002">{{$order->created_at}}</time>
-
-                                        </td>
-                                        <td class="order-status" data-title="Status">
-                                            Processing
-                                        </td>
-                                        <td class="order-total" data-title="Total">
-                                            <span class="woocommerce-Price-amount amount"><span
-                                                    class="woocommerce-Price-currencySymbol">&#36;</span>{{$order->amount}}</span>
-                                            for 1 item
-                                        </td>
-                                        <td class="order-actions" data-title="&nbsp;">
-                                            <a href="{{url('/order')}}/{{$order->id}}" class="btn btn-sm btn-primary">View</a>
-                                        </td>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($blogs as $blog)
+                                        <tr>
+                                            <td>{{$blog->name}}</td>
+                                            <td>{{$blog->content}}</td>
+                                            <td><a href="{{url('/')}}/blog/{{$blog->id}}/edit"
+                                                   class="btn btn-sm btn-primary">Edit</a></td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                    <tfoot></tfoot>
+                                </table>
+                            @else
+                                <div class="alert alert-warning alert-dismissable"> No Data Found</div>
+                            @endif
+                            <nav class="text-center"></nav>
+                        </div>
+                        <div><!-- Orders -->
+                            @if(count($orders) > 0)
+                                <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th class="order-number"><span class="nobr">Order</span></th>
+                                        <th class="order-date"><span class="nobr">Date</span></th>
+                                        <th class="order-status"><span class="nobr">Status</span></th>
+                                        <th class="order-total"><span class="nobr">Total</span></th>
+                                        <th class="order-actions"><span class="nobr">&nbsp;</span></th>
                                     </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        @else
-                            <div class="alert alert-warning alert-dismissable"> No Data Found</div>
-                        @endif
-                    </div>
-                    <div><!-- MarketPlace -->
-                        <p>Loading..</p>
-                    </div>
-                    <div><!--  -->
-                        <p>Loading..</p>
+                                    </thead>
+
+                                    <tbody>
+                                    @foreach($orders as $order)
+                                        <tr class="order">
+                                            <td class="order-number" data-title="Order">#{{$order->id}}</td>
+                                            <td class="order-date" data-title="Date">
+                                                <time datetime="2018-09-19" title="1537379002">{{$order->created_at}}</time>
+
+                                            </td>
+                                            <td class="order-status" data-title="Status">
+                                                Processing
+                                            </td>
+                                            <td class="order-total" data-title="Total">
+                                                <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>{{$order->amount}}</span>
+                                                for {{$order->orderProducts()->sum('qty')}} item
+                                            </td>
+                                            <td class="order-actions" data-title="&nbsp;">
+                                                <a href="{{url('/order')}}/{{$order->id}}" class="btn btn-sm btn-primary">View</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            @else
+                                <div class="alert alert-warning alert-dismissable"> No Data Found</div>
+                            @endif
+                        </div>
+                        <div><!-- MarketPlace -->
+                            <p>Loading..</p>
+                        </div>
+                        <div><!--  -->
+                            <p>Loading..</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        </div>
+        {{--</div>--}}
         <script>
             jQuery(document).ready(function ($) {
                 /*var url_value = window.location.hash.substr(1);

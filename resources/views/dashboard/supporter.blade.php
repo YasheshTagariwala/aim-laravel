@@ -75,9 +75,9 @@
                                 <li class="side_menu" id="Orders"><a href="{{url('/market-place/dashboard')}}">MarketPlace </a></li></a>
                             </ul>
                             <ul class="resp-tabs-list right-tab  clearfix">
-                                <li class="side_menu" id="messages"><a href="{{url('/messages')}}"><i class="fa fa-commenting-o" aria-hidden="true"></i></a></li>
+                                <li class="side_menu" id="messages"><a href="{{url('/messages')}}"><i class="fa fa-commenting" aria-hidden="true"></i></a></li>
                                 <li class="side_menu" id="account"><a href="{{url('/account')}}"><i class="fa fa-user" aria-hidden="true"></i></a></li>                 
-                                <li class="logout"><a href="{{url('/logout')}}"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
+                                <li class="logout"><a href="{{url('/logout')}}"><i class="fas fa-sign-out-alt" aria-hidden="true"></i></a></li>
                             </ul>
                         </div>           
                         <div class="resp-tabs-container">

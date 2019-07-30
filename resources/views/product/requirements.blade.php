@@ -108,7 +108,7 @@
                                 <h6>{{ $sellers->firstname }} {{ $sellers->lastname }}</h6>
                                 <div class="row lead">
                                     <div style="width:100%; height:50px; margin-bottom:5px; padding-left:15px;">
-                                        @if(count($sellers->ratings) > 0)
+                                        @if(count((array)$sellers->ratings) > 0)
                                             @php
                                                 $ratings = $sellers->ratings;
                                                 $rates = [0 => 0,1 => 0,2 => 0,3 => 0,4 => 0];
@@ -117,7 +117,7 @@
                                                 }
                                             @endphp
                                             @for ($i = 0;$i < array_search(max($rates),$rates);$i++)
-                                                <i class="fas fa-star" style="color: orange"></i>
+                                                <i class="fa fa-star" style="color: orange"></i>
                                             @endfor
                                         @else
                                             <div>No Rating Yet</div>

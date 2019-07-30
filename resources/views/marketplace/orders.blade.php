@@ -121,8 +121,8 @@
                                                                                         <td class="numeric product"><img src="{{$product->product->imagepath}}" height="60" width="60"></td>
                                                                                         <td class="numeric">{{$product->product->name}}</td>
                                                                                         <td class="numeric">${{$product->product->sale_price}}</td>
-                                                                                        <td class="numeric">${{$product->qty}}</td>
-                                                                                        <td class="numeric">{{$product->product->sale_price * $product->qty}}</td>
+                                                                                        <td class="numeric">{{$product->qty}}</td>
+                                                                                        <td class="numeric">${{$product->product_price * $product->qty}}</td>
                                                                                     </tr>
                                                                                 @endforeach
                                                                                 </tbody>
