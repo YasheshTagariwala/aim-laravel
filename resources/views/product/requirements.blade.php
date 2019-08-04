@@ -18,12 +18,15 @@
                 <div class="row disp-tbl w-100 ">
                     <div class="col-md-3 checkbox_side dis-tcell">
                         <h3>categories</h3>
+                        @php
+                            $selected_categories = \Illuminate\Support\Facades\Request::get('category',[]);
+                        @endphp
                         <form id="search" method="get">
                             @foreach($categories as $category)
                                 <div class="clearfix">
                                     <div class="squaredFour">
-                                        <input id="squaredFour{{$category->name}}" value="{{$category->name}}" name="category[]" onchange="" type="checkbox">
-                                        <label for="squaredFour{{$category->name}}"></label>
+                                        <input id="squaredFour{{$category->id}}" value="{{$category->id}}" @if(in_array($category->id,$selected_categories)) checked @endif name="category[]" onchange="" type="checkbox">
+                                        <label for="squaredFour{{$category->id}}"></label>
                                     </div>
                                     <span>{{$category->name}}</span>
                                 </div>
@@ -38,13 +41,11 @@
                     <div class="col-md-9 col-sm-9 col-xs-12 dis-tcell">
                         @foreach($products as $product)
                         <article>
-                            <img src="{{$product->imagepath}}" alt="Placeholder" width="135" height="135">           
                             <div class="article_content">
-                                <h2>{{$product->name}}</h2>
-                                <p>{{substr($product->short_desc,0,50)}}...</p>
-                                <?php $uname = DB::table('userdetails')->where('id',$product->created_by)->get(); ?>
-                                <p>Posted by <b>{{$uname[0]->firstname}} {{$uname[0]->lastname}}</b></p>
-                                <a href="{{url('/')}}/product/{{$product->id}}" class="btn btn-sm">view details</a> 
+                                <h2>{{$product->email}}</h2>
+                                <span>{{$product->category_name}}</span>
+                                <p>{{$product->requirement}}...</p>
+                                {{--<a href="{{url('/')}}/product/{{$product->id}}" class="btn btn-sm">view details</a> --}}
                             </div>
                         </article>
                         @endforeach
@@ -64,21 +65,21 @@
                     <h1 class="text-right">post here</h1>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-12 slideInRight animated ">
-                    <form class="req_success_messsage">
+                    <form class="req_success_messsage" method="post" action="{{url('/')}}/market-place/custom-enquiry/store">
+                        {{csrf_field()}}
                         <div class="form-group">
                             <label class="sr-only">Email</label>
-                            <input class="form-control name required" id="exampleInputtext" name="name" placeholder="Name" type="text">
+                            <input class="form-control name required" id="exampleInputtext" required="required" name="email" placeholder="Email" type="text">
                         </div>
                         <div class="select-style form_arrow">
-                            <select name="cat" id="cat" class="postform">
-                                <option class="level-0" value="562">Industry</option>
-                                <option class="level-0" value="563">Social Entrepreneur</option>
-                                <option class="level-0" value="564">Youth</option>
-                                <option class="level-0" value="565">Diaspora</option>
-                                <option class="level-0" value="566">Women</option>
-                                <option class="level-0" value="567">Uncategorized</option>
-                            </select> 
+                            <select name="cat" id="cat" class="postform" required="required" onchange="setName(this)">
+                                <option class="level-0" value="">Categories</option>
+                                @foreach($categories as $category)
+                                    <option class="level-0" value="{{$category->id}}">{{$category->name}}</option>
+                                @endforeach
+                            </select>
                         </div>
+                        <input type="hidden" name="cat_text" id="cat_text" value="Category">
                         <textarea class="form-control requirement required" rows="3" placeholder="Enter requirement" name="requirement" required="required"></textarea>
                         <button type="submit" class="btn btn-default btn-block btn-raise btn_veiw_all requirement_submit">Submit</button>
                     </form>
@@ -131,6 +132,10 @@
                 </div><!-- row -->
             </div><!-- container -->
         </section>
-    
+ <script>
+     function setName(val) {
+         jQuery('#cat_text').val(jQuery(val).find("option:selected").text());
+     }
+ </script>
 
 @endsection

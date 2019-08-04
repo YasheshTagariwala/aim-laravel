@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CustomProductInquiries;
 use App\Models\OrderProductQty;
 use App\Models\Orders;
 use App\Models\Products;
@@ -41,14 +42,14 @@ class ProductController extends Controller
 
     public function requirement_lists(Request $request)
     {
-        $oProducts = Products::where('delete_status','0')->where(function($query) use ($request) {
+        $oProducts = CustomProductInquiries::where(function($query) use ($request) {
             if ($request->has('category')) {
                 $category = $request->get('category');
                 foreach ($category as $cat) {
-                    $query->orWhere('categories','like','%'.$cat.'%');
+                    $query->orWhere('category_id',$cat);
                 }
             }
-        })->paginate(10);
+        })->orderBy('id','desc')->paginate(10);
         $top_seller = OrderProductQty::select(DB::raw('product_id,sum(qty) as qty'))->groupBy('product_id')->orderBY('qty','desc')->limit(5)->pluck('product_id');
         $top_seller = Products::whereIn('id',$top_seller)->pluck('userid');
         if($top_seller) {

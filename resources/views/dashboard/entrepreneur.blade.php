@@ -324,7 +324,7 @@
                                                                                     class="fa fa-tag"></i></div>
                                                                             <div class="cd-timeline-content bgtwo bounce-in">
                                                                                 <h2>{{$state->title}}</h2>
-                                                                                {{$state->content}}
+                                                                                {{$state->description}}
                                                                                 <span
                                                                                     class="cd-date"><span>{{$state->updated_at}}</span>
                                                                             <h3 class="percentage-completed"><span
@@ -1939,7 +1939,7 @@
                                                         <div class="cd-timeline-img cd-warning"><i class="fa fa-tag"></i></div>
                                                         <div class="cd-timeline-content">
                                                             <h2>{{$state->title}}</h2>
-                                                            <p>{{$state->content}}</p>
+                                                            <p>{{$state->description}}</p>
                                                             <div class="readmore">
                                                                 <a href="#" title="title" data-toggle="modal"
                                                                    data-target="#viewmoepopup"
@@ -1947,7 +1947,7 @@
                                                                     Read More <i class="fa fa-arrow-circle-right"></i></a>
                                                                 <div class="hidden-card-description">
                                                                     <h5>{{$state->title}}</h5>
-                                                                    <p>{{$state->content}}</p>
+                                                                    <p>{{$state->description}}</p>
                                                                 </div>
                                                                 <span class="cd-date"><span>{{$state->updated_at}}</span>   <h3 class="percentage-completed"><span class="timer" data-to="{{$state->progress}}" data-speed="2500"></span>% <small>completed</small></h3></span>
                                                             </div>

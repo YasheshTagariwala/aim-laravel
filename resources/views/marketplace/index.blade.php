@@ -15,7 +15,7 @@ $categories = DB::table('categories')->where('groupid','1')->get(); ?>
                         <a onclick="this.form.submit()"><i class="fa fa-search" aria-hidden="true"></i></a>
                         <div class="select-style">
                             <select name="category" id="cat" class="postform" onchange="this.form.submit()">
-                                <option class="level-0" value="">@if($category == '') Categories @else {{$category}} @endif</option>
+                                <option class="level-0" value="">Categories</option>
                           @foreach($categories as $category)
                                 <option class="level-0" value="{{$category->name}}">{{$category->name}}</option>
                           @endforeach
@@ -24,7 +24,7 @@ $categories = DB::table('categories')->where('groupid','1')->get(); ?>
                     </form>
                 </div>
                 <ul class="sec_list">
-                    <li><a href="{{url('/')}}/market-place/add-product-enquiry">Add Product Enquiry</a></li>
+                    <li><a href="#custom-inquiry-form">Add Product Enquiry</a></li>
                     <li><div></div></li>
                     <li><a href="{{url('/')}}/requirement-list">Product Enquirys</a></li>
                 </ul>
@@ -363,7 +363,7 @@ $categories = DB::table('categories')->where('groupid','1')->get(); ?>
             @endif
         </div><!-- container -->
     </section>
-    <section class="form_sec">
+    <section class="form_sec" id="custom-inquiry-form">
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-sm-6 col-xs-12 slideInLeft animated">
@@ -379,12 +379,10 @@ $categories = DB::table('categories')->where('groupid','1')->get(); ?>
                         </div>
                         <div class="select-style form_arrow">
                             <select name="cat" id="cat" class="postform" required="required" onchange="setName(this)">
-                                <option class="level-0" value="562">Category</option>
-                                <option class="level-0" value="563">Social Entrepreneur</option>
-                                <option class="level-0" value="564">Youth</option>
-                                <option class="level-0" value="565">Diaspora</option>
-                                <option class="level-0" value="566">Women</option>
-                                <option class="level-0" value="567">Uncategorized</option>
+                                <option class="level-0" value="">Categories</option>
+                                @foreach($categories as $category)
+                                    <option class="level-0" value="{{$category->id}}">{{$category->name}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <input type="hidden" name="cat_text" id="cat_text" value="Category">
@@ -417,7 +415,7 @@ $categories = DB::table('categories')->where('groupid','1')->get(); ?>
                             <h6>{{ $sellers->firstname }} {{ $sellers->lastname }}</h6>
                             <div class="row lead">
                                 <div style="width:100%; height:50px; margin-bottom:5px; padding-left:15px;">
-                                    @if(count($sellers->ratings) > 0)
+                                    @if(count((array)$sellers->ratings) > 0)
                                         @php
                                             $ratings = $sellers->ratings;
                                             $rates = [0 => 0,1 => 0,2 => 0,3 => 0,4 => 0];
