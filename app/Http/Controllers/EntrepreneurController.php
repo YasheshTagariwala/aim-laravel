@@ -112,7 +112,7 @@ class EntrepreneurController extends Controller
 
              }
 
-         DB::table('entrepreneurs')->insert(['name' => $request->name,'city' => $request->city,'state' => $request->state,'country' => $request->country,'zipcode' => $request->zipcode,'women_stage' => $request->women_stage,'gender' => $request->gender,'created_by' => $userid,'updated_by' => $userid,'website' => $request->website,'linked_url' => $request->linked_url,'tw_url' => $request->tw_url,'fb_url' => $request->fb_url,'blog_url' => $request->blog_url,'gp_url' => $request->gp_url,'logo' => $certificatePath1]);
+         DB::table('entrepreneurs')->insert(['name' => $request->name,'city' => $request->city,'state' => $request->state,'country' => $request->country,'sdg' => $request->sdg,'zipcode' => $request->zipcode,'women_stage' => $request->women_stage,'gender' => $request->gender,'created_by' => $userid,'updated_by' => $userid,'website' => $request->website,'linked_url' => $request->linked_url,'tw_url' => $request->tw_url,'fb_url' => $request->fb_url,'blog_url' => $request->blog_url,'gp_url' => $request->gp_url,'logo' => $certificatePath1]);
 
           $alert = 'Project Profile Details Added Successfully';  
         }
@@ -397,7 +397,7 @@ class EntrepreneurController extends Controller
                   $certificatePath1 = $request->logo1;
              }
 
-         DB::table('entrepreneurs')->where('id',$id)->update(['name' => $request->name,'city' => $request->city,'state' => $request->state,'country' => $request->country,'zipcode' => $request->zipcode,'women_stage' => $request->women_stage,'gender' => $request->gender,'created_by' => $userid,'updated_by' => $userid,'website' => $request->website,'linked_url' => $request->linked_url,'tw_url' => $request->tw_url,'fb_url' => $request->fb_url,'blog_url' => $request->blog_url,'gp_url' => $request->gp_url,'logo' => $certificatePath1]);
+         DB::table('entrepreneurs')->where('id',$id)->update(['name' => $request->name,'city' => $request->city,'state' => $request->state,'country' => $request->country,'sdg' => $request->sdg,'zipcode' => $request->zipcode,'women_stage' => $request->women_stage,'gender' => $request->gender,'created_by' => $userid,'updated_by' => $userid,'website' => $request->website,'linked_url' => $request->linked_url,'tw_url' => $request->tw_url,'fb_url' => $request->fb_url,'blog_url' => $request->blog_url,'gp_url' => $request->gp_url,'logo' => $certificatePath1]);
 
             
         }

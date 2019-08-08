@@ -617,7 +617,7 @@
                                                         <label style="display: block;">SDGs <span
                                                                 class="acf-required">*</span>
                                                             <!-- <i class="fa fa-question-circle" ></i> --></label>
-                                                        <select name="country" class="form-control" required="">
+                                                        <select name="sdg" class="form-control" required="">
                                                             <option select="" value="">SDG</option>
                                                             @foreach($sdgs as $sdg)
                                                                 <option value="{{$sdg->name}}"
