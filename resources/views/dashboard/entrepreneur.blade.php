@@ -959,10 +959,15 @@
                                                 <div class="row">
                                                     <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
                                                         <label style="display: block;">Project Featured Image
+                                                        <?php
+                                                        $count = 0;
+                                                        ?>
                                                             <!-- <i class="fa fa-question-circle" ></i> --></label>
                                                         @if(count($ent_company) > 0)
                                                             <?php
                                                             $images = explode(",", $ent_company[0]->project_img);
+                                                            $images = array_filter($images);
+                                                            $count = count($images);
                                                             ?>
                                                             <div class="row">
                                                                 @foreach($images as $image)
@@ -976,7 +981,7 @@
                                                                    value="{{$ent_company[0]->project_img}}">
                                                         @endif
                                                         <div id="project_image_rows">
-                                                            <input name="project_img[]" id="friend_name-0" value=""
+                                                            <input name="project_img[]" @if($count <= 0) required @endif id="friend_name-0" value=""
                                                                    class="btn" type="file">
                                                         </div>
                                                         <div class="acf-form-submit">

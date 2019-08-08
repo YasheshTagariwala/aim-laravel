@@ -106,6 +106,8 @@ Route::post('/investor/{id}/update','InvestorController@update');
 
 //SupporterController
 Route::get('/supporter','SupporterController@index');
+Route::get('/supporter/entrepreneur-list','SupporterController@entrepreneurList');
+Route::get('/supporter/entrepreneur/{id}','SupporterController@entrepreneurShow');
 Route::post('/supporter/store','SupporterController@store');
 Route::post('/supporter/appoinment','SupporterController@appoinment');
 Route::post('/supporter/availablity','SupporterController@availablity');
