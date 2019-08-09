@@ -101,6 +101,8 @@ Route::post('/project/add-status','ProjectController@addStatusStore');
 
 //InvestorController
 Route::get('/investor','InvestorController@index');
+Route::get('/investor/entrepreneur-list','InvestorController@entrepreneurList');
+Route::get('/investor/entrepreneur/{id}','InvestorController@entrepreneurShow');
 Route::post('/investor/store','InvestorController@store');
 Route::post('/investor/{id}/update','InvestorController@update');
 

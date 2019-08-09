@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;                                                    
+use App\Models\Entrepreneurs;
+use App\Models\ProjectDonations;
+use App\Models\ProjectFunding;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests;
 use Session;
@@ -18,9 +21,10 @@ class InvestorController extends Controller
     public function index()
     {
         $investor = DB::table('investors')->where('created_by',Session::get('userid'))->get();
-        $project_fundings = DB::table('project_funding')
-            ->join('projects', 'project_funding.project_from', '=', 'projects.created_by')
-            ->select('project_funding.*', 'projects.*')->where('project_funding.created_by',Session::get('userid'))->get();
+        $project_fundings = ProjectFunding::where('created_by',Session::get('userid'))->get();
+//        $project_fundings = DB::table('project_donations')
+//            ->join('projects', 'project_donations.project_from', '=', 'projects.created_by')
+//            ->select('project_donations.*', 'projects.*')->where('project_donations.created_by',Session::get('userid'))->get();
         $user_invites = DB::table('user_invites')->where('invited_by',Session::get('userid'))->get();
         $blogs = DB::table('blogs')->where('created_by',Session::get('userid'))->get();
         $orders = DB::table('orders')->where('created_by',Session::get('userid'))->get();
@@ -115,5 +119,23 @@ class InvestorController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function entrepreneurList() {
+        $entrepreneurs = Entrepreneurs::where('delete_status',0)->get();
+        return view('supporter.ent-list',compact('entrepreneurs'));
+    }
+
+    public function entrepreneurShow($id = 0) {
+        $entrepreneur = Entrepreneurs::findorfail($id);
+        if($entrepreneur) {
+            $project = DB::table('projects')->where('created_by',$entrepreneur->created_by)->first();
+            $business_plans = DB::table('ent_businessplan')->where('created_by',$entrepreneur->created_by)->get();
+            $company = \App\Models\EntrepreneurCompanies::where('created_by',$entrepreneur->created_by)->first();
+            $funding_info = \App\Models\EntrepreneurFundingsInformation::where('created_by',$entrepreneur->created_by)->first();
+            $women_stages = DB::table('women_stage')->where('id',$entrepreneur->women_stage)->first();
+        }
+        return view('supporter.ent-show',compact('entrepreneur','project','business_plans','company','funding_info','women_stages'));
     }
 }
