@@ -19,4 +19,8 @@ class ProjectFunding extends Model  {
      */
     //protected $fillable = [];
 
+    public function user() {
+        return $this->hasOne(UserDetails::class,"id",'created_by');
+    }
+
 }

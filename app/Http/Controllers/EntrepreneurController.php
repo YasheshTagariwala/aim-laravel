@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CashOut;
 use App\Models\Orders;
+use App\Models\ProjectDonations;
+use App\Models\ProjectFunding;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests;
@@ -33,7 +36,12 @@ class EntrepreneurController extends Controller
         $orders = Orders::where('created_by',Session::get('userid'))->get();
         $recentblogs = DB::table('blogs')->skip(0)->take(1)->get();
         $recentmsgs = DB::table('messages')->where('created_by',Session::get('userid'))->orWhere('created_by','0')->skip(0)->take(5)->get();
-        $project_fundings = DB::table('project_funding')->where('project_from',Session::get('userid'))->get();
+        $project_fundings = ProjectFunding::where('project_from',Session::get('userid'))
+            ->whereBetween(DB::raw('DATE(created_at)'),[date('Y-m-d',strtotime("-7 days")),date('Y-m-d')])->get();
+        $project_donation = ProjectDonations::where('project_from',Session::get('userid'))
+            ->whereBetween(DB::raw('DATE(created_at)'),[date('Y-m-d',strtotime("-7 days")),date('Y-m-d')])->get();
+
+        $project_fundings = collect($project_fundings)->merge($project_donation);
         $countries = DB::table('countries')->get();
         $investors = DB::table('investors')
         ->join('userdetails', 'investors.created_by', '=', 'userdetails.id')
@@ -45,7 +53,12 @@ class EntrepreneurController extends Controller
         ->join('userdetails', 'organizations.created_by', '=', 'userdetails.id')
         ->select('userdetails.*','organizations.*')
         ->where('userdetails.groupid','2')->get();
-        return view('dashboard.entrepreneur',compact('entrepreneur','ent_company','ent_market','ent_funding','ent_mgmnt_team','ent_businessplan','campaigns','blogs','user_invites','project','orders','userid','recentblogs','recentmsgs','organizations','project_fundings','investors','countries','supporters'));
+
+        $total_funds_raised = ProjectFunding::where('project_from',$userid)->get()->sum('amount')
+            + ProjectDonations::where('project_from',$userid)->get()->sum('amount');
+        return view('dashboard.entrepreneur',compact('entrepreneur','ent_company'
+            ,'ent_market','ent_funding','ent_mgmnt_team','ent_businessplan','campaigns','blogs','user_invites','project','orders','userid','recentblogs','recentmsgs'
+            ,'organizations','project_fundings','investors','countries','supporters','total_funds_raised'));
     }
 
 
@@ -557,5 +570,45 @@ class EntrepreneurController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getAllFunding() {
+        $userid = Session::get('userid');
+        $project_fundings = ProjectFunding::where('project_from',Session::get('userid'))->paginate(10);
+        $project_donations = ProjectDonations::where('project_from',Session::get('userid'))->paginate(10);
+
+        $total_funds_raised = ProjectFunding::where('project_from',$userid)->get()->sum('amount')
+            + ProjectDonations::where('project_from',$userid)->get()->sum('amount');
+
+        return view('entrepreneur.funding',compact('project_fundings','total_funds_raised','project_donations'));
+    }
+
+    public function getAllCashout() {
+        $userid = Session::get('userid');
+        $cash_outs = CashOut::where('created_by',$userid)->paginate(10);
+        $total_funds_raised = ProjectFunding::where('project_from',$userid)->get()->sum('amount')
+            + ProjectDonations::where('project_from',$userid)->get()->sum('amount');
+
+        $total_cashed_out = CashOut::where('created_by',$userid)->where('status','not like','rejected')->get()->sum('amount');
+        return view('entrepreneur.cash_out',compact('cash_outs','total_funds_raised','total_cashed_out'));
+    }
+
+    public function postCashout(Request $request) {
+        $userid = Session::get('userid');
+        $cashout = new CashOut();
+        $cashout->amount = $request->amount;
+        $cashout->type = $request->type;
+        $cashout->description = $request->description;
+        $cashout->status = 'pending';
+        $cashout->bank_name = $request->bank_name;
+        $cashout->bank_acc_no = $request->bank_acc_no;
+        $cashout->bank_account_holder_name = $request->bank_account_holder_name;
+        $cashout->bank_account_type = $request->bank_account_type;
+        $cashout->aba_routing_number = $request->aba_routing_number;
+        $cashout->created_by = $userid;
+        $cashout->updated_by = $userid;
+        $cashout->save();
+
+        return response()->json(['status' => true],200);
     }
 }

@@ -7,6 +7,7 @@ use App\Models\OrderProductQty;
 use App\Models\Orders;
 use App\Models\OrdersAddresses;
 use App\Models\Products;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests;
@@ -254,10 +255,10 @@ class OrderController extends Controller
         $username = Session::get('username');
         $amount = $request->amount;
         if($groupid == '4'){
-        $id = DB::table('project_funding')->insertGetId(['project_from' => $request->project_id, 'amount' => $request->amount, 'pay_type' => $request->pay_type, 'comments' => $request->comments,'created_by' => $userid,'updated_by' => $userid]);
+        $id = DB::table('project_funding')->insertGetId(['project_from' => $request->project_id, 'amount' => $request->amount, 'pay_type' => $request->pay_type, 'comments' => $request->comments,'created_by' => $userid,'updated_by' => $userid,'created_at' => Carbon::now(),'updated_at' => Carbon::now()]);
         }
         else if($groupid == '3'){
-        $id = DB::table('project_donations')->insertGetId(['project_from' => $request->project_id, 'amount' => $request->amount, 'pay_type' => $request->pay_type, 'comments' => $request->comments,'created_by' => $userid,'updated_by' => $userid]);
+        $id = DB::table('project_donations')->insertGetId(['project_from' => $request->project_id, 'amount' => $request->amount, 'pay_type' => $request->pay_type, 'comments' => $request->comments,'created_by' => $userid,'updated_by' => $userid,'created_at' => Carbon::now(),'updated_at' => Carbon::now()]);
         }
         $transactionsid = DB::table('transactions')->insertGetId(['money_from' => $userid, 'amount' => $request->amount, 'money_to' => $request->project_id,'created_by' => $userid,'updated_by' => $userid]);
 

@@ -98,6 +98,9 @@ Route::post('project/store','ProjectController@store');
 Route::post('project/{id}/update','ProjectController@update');
 Route::get('/entrepreneur/project/add-status/{id}','ProjectController@addStatus');
 Route::post('/project/add-status','ProjectController@addStatusStore');
+Route::get('/entrepreneur/all-funding','EntrepreneurController@getAllFunding');
+Route::get('/entrepreneur/cash-out','EntrepreneurController@getAllCashout');
+Route::post('/entrepreneur/cash-out','EntrepreneurController@postCashout');
 
 //InvestorController
 Route::get('/investor','InvestorController@index');

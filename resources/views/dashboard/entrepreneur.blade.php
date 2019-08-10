@@ -98,8 +98,8 @@
                                         <div class="dashboard-tile detail tile-purple">
                                             <div class="content">
                                                 <div class="text-left " style="font-size:30px; padding-bottom: 10px;">
-                                                    $<span class="timer" data-to="0" data-speed="2500"></span></div>
-                                                <a href="#"> Total Fund Raised So Far</a>
+                                                    $<span class="timer" data-to="{{$total_funds_raised}}" data-speed="2500"></span></div>
+                                                <a href="{{url('/entrepreneur/cash-out')}}"> Total Fund Raised So Far</a>
                                             </div>
                                             <div class="icon"><i class="fa fa-bar-chart-o"></i></div>
                                         </div>
@@ -130,15 +130,18 @@
                                                                 <td>${{$project_funding->amount}}</td>
                                                                 <?php $iname = DB::table('userdetails')->where('id', $project_funding->created_by)->get(); ?>
                                                                 <td>{{$iname[0]->firstname}} {{$iname[0]->lastname}}</td>
-                                                                <td>{{$project_funding->updated_at}}</td>
+                                                                <td>{{date('Y-m-d',strtotime($project_funding->updated_at))}}</td>
                                                             </tr>@endforeach
                                                         </tbody>
                                                     </table>
                                                 @else
                                                     <div class="alert alert-warning alert-dismissable"> There Are No
                                                         Funds In Your Projects
-                                                    </div>@endif
-
+                                                    </div>
+                                                @endif
+                                                <div class="panel-footer text-center">
+                                                    <a href="{{url('/entrepreneur/all-funding')}}" class="project_Status">View All Funding</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
