@@ -43,11 +43,15 @@
                                     @endif
                                 </td>
                                 <td>
-                                    {{$cash_out->bank_name}}<br>
-                                    {{$cash_out->bank_acc_no}}<br>
-                                    {{$cash_out->bank_account_holder_name}}<br>
-                                    {{$cash_out->bank_account_type}}<br>
-                                    {{$cash_out->aba_routing_number}}<br>
+                                    @if($cash_out->type == "bank")
+                                        {{$cash_out->bank_name}}<br>
+                                        {{$cash_out->bank_acc_no}}<br>
+                                        {{$cash_out->bank_account_holder_name}}<br>
+                                        {{$cash_out->bank_account_type}}<br>
+                                        {{$cash_out->aba_routing_number}}<br>
+                                    @else
+                                        -
+                                    @endif
                                 </td>
                                 <td>{{$cash_out->status}}</td>
                                 <td>{{$cash_out->description}}</td>
