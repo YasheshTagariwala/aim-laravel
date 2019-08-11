@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Messages;
 use App\Models\UserDetails;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use DB;
 use Session;
@@ -77,7 +78,7 @@ class MessageController extends Controller
         $userid = Session::get('userid');
         $msg_to = 0;
         $id = DB::table('messages')->insertGetId(
-            ['subject' => $request->subject,'message' => $request->message,'msg_to' => $request->msg_to,'thread' => $request->thread,'created_by' => $userid,'updated_by' => $userid]);
+            ['subject' => $request->subject,'message' => $request->message,'msg_to' => $request->msg_to,'thread' => $request->thread,'created_by' => $userid,'updated_by' => $userid ,'created_at' => Carbon::now(),'updated_at' => Carbon::now()]);
         return response()->json(['status' => true],200);
     }
 

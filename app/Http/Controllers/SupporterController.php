@@ -36,8 +36,6 @@ class SupporterController extends Controller
         $countries = DB::table('countries')->get();
         $appoinments = Appointments::where('with_user',Session::get('userid'))->get();
         $availablity = DB::table('availablity')->where('created_by',Session::get('userid'))->get();
-        $appoinments = DB::table('appoinments')->get();
-        $availablity = DB::table('availablity')->get();
         $organizations = DB::table('organizations')
         ->join('userdetails', 'organizations.created_by', '=', 'userdetails.id')
         ->where('userdetails.groupid','2')->get();
