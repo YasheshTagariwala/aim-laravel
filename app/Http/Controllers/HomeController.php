@@ -498,7 +498,7 @@ class HomeController extends Controller
                 }
             }
             elseif ($request->get('group') == 3) {
-                $users = Supporter::where('category',$request->get('query'))->get();
+                $users = Supporter::where('area_interest',$request->get('query'))->get();
             }
             elseif ($request->get('group') == 4) {
                 $category = DB::table('categories')->where('id',$request->get('query'))->first();

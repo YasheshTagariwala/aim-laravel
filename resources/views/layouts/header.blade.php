@@ -116,6 +116,7 @@ function doGTranslate(lang_pair){if(lang_pair.value)lang_pair=lang_pair.value;if
                                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Investors
                                                     <span class="glyphicon glyphicon-chevron-down"></span>
                                                 </a>
+                                                <?php $categories = DB::table('categories')->where('groupid', '4')->get(); ?>
                                                 <ul class="dropdown-menu dropdown-menu-2 mega-dropdown-menu dropup  row">
                                                     <li class="col-sm-7">
                                                         <ul>
@@ -128,12 +129,10 @@ function doGTranslate(lang_pair){if(lang_pair.value)lang_pair=lang_pair.value;if
                                                         </ul>
                                                     </li>
                                                     <li class="col-sm-5">
-                                                        <ul>                                            
-                                                            <li><a href="{{url('/category')}}">Angel investor</a></li>                                 
-                                                            <li><a href="{{url('/category')}}">Banks/MFI</a></li>                                 
-                                                            <li><a href="{{url('/category')}}">Peer to Peer Lender</a></li>
-                                                            <li><a href="{{url('/category')}}">Personal Investor</a></li>
-                                                            <li><a href="{{url('/category')}}">Venture Capitalist</a></li>
+                                                        <ul>
+                                                            @foreach($categories as $categorie)
+                                                                <li><a href="{{url('/search')}}?query={{$categorie->id}}&group=1">{{$categorie->name}}</a></li>
+                                                            @endforeach
                                                         </ul>
                                                     </li>
                                                 </ul>        
@@ -142,6 +141,7 @@ function doGTranslate(lang_pair){if(lang_pair.value)lang_pair=lang_pair.value;if
                                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Supporters 
                                                     <span class="glyphicon glyphicon-chevron-down"></span>
                                                 </a>
+                                                <?php $categories = DB::table('categories')->where('groupid', '3')->get(); ?>
                                                 <ul class="dropdown-menu dropdown-menu-3 mega-dropdown-menu dropup col-sm-8 pull-right">
                                                     <li class="col-sm-7">
                                                         <ul>
@@ -154,15 +154,10 @@ function doGTranslate(lang_pair){if(lang_pair.value)lang_pair=lang_pair.value;if
                                                         </ul>
                                                     </li>
                                                     <li class="col-sm-5">
-                                                        <ul>                                            
-                                                            <li><a href="{{url('/category')}}">Bank</a></li>                                 
-                                                            <li><a href="{{url('/category')}}">Government</a></li>                                 
-                                                            <li><a href="{{url('/category')}}">Media</a></li>                                 
-                                                            <li><a href="{{url('/category')}}">Mentor</a></li>                                 
-                                                            <li><a href="{{url('/category')}}">Non-profit</a></li>                                 
-                                                            <li><a href="{{url('/category')}}">Student</a></li>                                 
-                                                            <li><a href="{{url('/category')}}">University</a></li>                                 
-                                                            <li><a href="{{url('/category')}}">Company</a></li>
+                                                        <ul>
+                                                            @foreach($categories as $categorie)
+                                                                <li><a href="{{url('/search')}}?query={{$categorie->id}}&group=1">{{$categorie->name}}</a></li>
+                                                            @endforeach
                                                         </ul>
                                                     </li>
                                                 </ul>        
