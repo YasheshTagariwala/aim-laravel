@@ -7,6 +7,7 @@ use App\Models\Availability;
 use App\Models\BusinessPlan;
 use App\Models\BusinessPlanFeedback;
 use App\Models\Entrepreneurs;
+use App\Models\Orders;
 use App\Models\ProjectDonations;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
@@ -30,7 +31,7 @@ class SupporterController extends Controller
 //            ->join('projects', 'project_donations.project_from', '=', 'projects.created_by')
 //            ->select('project_donations.*', 'projects.*')->where('project_donations.created_by',Session::get('userid'))->get();
         $blogs = DB::table('blogs')->where('created_by',Session::get('userid'))->get();
-        $orders = DB::table('orders')->where('created_by',Session::get('userid'))->get();
+        $orders = Orders::where('created_by',Session::get('userid'))->get();
         $recentblogs = DB::table('blogs')->skip(0)->take(1)->get();
         $recentmsgs = DB::table('messages')->where('created_by',Session::get('userid'))->orWhere('created_by','0')->skip(0)->take(5)->get();
         $countries = DB::table('countries')->get();

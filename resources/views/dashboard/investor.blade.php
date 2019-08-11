@@ -805,8 +805,7 @@
                         </div>
                         <div><!-- Orders -->
                             @if(count($orders) > 0)
-                                <table id="example" class="table table-striped table-bordered" cellspacing="0"
-                                       width="100%">
+                                <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                     <thead>
                                     <tr>
                                         <th class="order-number"><span class="nobr">Order</span></th>
@@ -822,21 +821,19 @@
                                         <tr class="order">
                                             <td class="order-number" data-title="Order">#{{$order->id}}</td>
                                             <td class="order-date" data-title="Date">
-                                                <time datetime="2018-09-19"
-                                                      title="1537379002">{{$order->created_at}}</time>
+                                                <time datetime="2018-09-19" title="1537379002">{{$order->created_at}}</time>
 
                                             </td>
                                             <td class="order-status" data-title="Status">
                                                 Processing
                                             </td>
                                             <td class="order-total" data-title="Total">
-                                                <span class="woocommerce-Price-amount amount"><span
-                                                        class="woocommerce-Price-currencySymbol">&#36;</span>{{$order->amount}}</span>
-                                                for 1 item
+                                                <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>{{$order->amount}}</span>
+                                                for {{$order->orderProducts()->sum('qty')}} item
                                             </td>
                                             <td class="order-actions" data-title="&nbsp;">
-                                                <a href="{{url('/order')}}/{{$order->id}}"
-                                                   class="btn btn-sm btn-primary">View</a></td>
+                                                <a href="{{url('/order')}}/{{$order->id}}" class="btn btn-sm btn-primary">View</a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                     </tbody>

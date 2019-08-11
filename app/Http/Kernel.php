@@ -2,6 +2,8 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\AdminAuth;
+use App\Http\Middleware\Auth;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -52,6 +54,12 @@ class Kernel extends HttpKernel
      */
     protected $routeMiddleware = [
         'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
+        'userAuth' => \App\Http\Middleware\Auth::class,
+        'adminAuth' => \App\Http\Middleware\AdminAuth::class,
+        'roleCheckOrg' => \App\Http\Middleware\RoleCheckOrg::class,
+        'roleCheckEnt' => \App\Http\Middleware\RoleCheckEnt::class,
+        'roleCheckInv' => \App\Http\Middleware\RoleCheckInv::class,
+        'roleCheckSup' => \App\Http\Middleware\RoleCheckSup::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
