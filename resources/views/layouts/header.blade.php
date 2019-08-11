@@ -19,7 +19,7 @@
                                         @if($is_login == 1)              
                                         <li><a href="{{url('/market-place')}}">Market Place</a></li>   
                                         @endif     
-                                        <li><a href="{{url('/org-list')}}">Organizations</a></li>
+                                        <li><a href="{{url('/search/')}}?query=&group=2">Organizations</a></li>
                                         <li><a href="{{url('/contact')}}">Contact Us</a></li>
                                         <!--li>
                          <select onchange="doGTranslate(this);" class="notranslate"><option value="">Select Language</option><option value="en|ar">Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©</option><option value="en|zh-TW">ç¹é«”ä¸­æ–‡</option><option value="en|en">English</option><option value="en|fr">FranÃ§ais</option><option value="en|de">Deutsch</option><option value="en|hi">à¤¹à¤¿à¤¨à¥à¤¦à¥€</option><option value="en|it">Italiano</option><option value="en|ja">æ—¥æœ¬èªž</option><option value="en|pt">PortuguÃªs</option><option value="en|ru">Ð ÑƒÑÑÐºÐ¸Ð¹</option><option value="en|es">EspaÃ±ol</option></select><style type="text/css">                       
@@ -91,14 +91,13 @@ function doGTranslate(lang_pair){if(lang_pair.value)lang_pair=lang_pair.value;if
                                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Entrepreneurs
                                                     <span class="glyphicon glyphicon-chevron-down"></span>
                                                 </a>
+                                                <?php $categories = DB::table('categories')->where('groupid', '1')->get(); ?>
                                                 <ul class="dropdown-menu dropdown-menu-1 mega-dropdown-menu dropup  row">
                                                     <li class="col-sm-4">
                                                         <ul>
-                                                            <li><a href="{{url('/entrepreneur')}}/search/1">Diaspora</a></li>
-                                                             <li><a href="{{url('/entrepreneur')}}/search/2">Social Entrepreneur</a></li>
-                                                             <li><a href="{{url('/entrepreneur')}}/search/3">Uncategorized</a></li>
-                                                             <li><a href="{{url('/entrepreneur')}}/search/4">Women</a></li>
-                                                             <li><a href="{{url('/entrepreneur')}}/search/5">Youth</a></li>
+                                                            @foreach($categories as $categorie)
+                                                                <li><a href="{{url('/search')}}?query={{$categorie->id}}&group=1">{{$categorie->name}}</a></li>
+                                                            @endforeach
                                                         </ul>
                                                     </li>
                                                     <li class="col-sm-8">

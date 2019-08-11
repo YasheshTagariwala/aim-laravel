@@ -61,11 +61,11 @@
 
     <section class="list-items ddd">
         @if(count((array)$entrepreneurs) > 0)
-            @foreach($entrepreneurs as $entrepreneur)
+            @foreach($entrepreneurs as $key => $entrepreneur)
                 <div class="container">
                     <div class="row">
                         <div class="col-md-6 col-sm-6 animated slideInLeft">
-                            <a href="#" data-toggle="modal" title="" data-target="#projectInfo4768">
+                            <a href="#" data-toggle="modal" title="" data-target="#projectInfo{{$key}}">
                                 <div class="list-content ">
                                     <div class="col-md-6 col-sm-6 col-xs-6 list-icon listcont1 text-center " style="height: 200px;">
                                         <div class="thumb_logo">
@@ -95,7 +95,7 @@
                         </div>
                         <font class="text-left">
                             <div class="popup-wrapper">
-                                <div class="modal fade" id="projectInfo4768" tabindex="-1" role="dialog"
+                                <div class="modal fade" id="projectInfo{{$key}}" tabindex="-1" role="dialog"
                                      aria-labelledby="myModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">

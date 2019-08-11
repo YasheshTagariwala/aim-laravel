@@ -1,123 +1,319 @@
 @extends('layouts.master')
-@section('title','Account')
+@section('title', 'Profile Details')
 @section('pagebody')
-    <section class="myaccount-header">
+    <style type="text/css">
+        .panel-title {
+            margin: -10px !important;
+            padding: 0 0 10px 44px !important;
+        }
+
+        .panel-title span {
+
+        }
+    </style>
+    <section class="details-header-bg animated slideInDown">
         <div class="container">
-            <h1>Profile</h1>
-            <p></p>
+            <div class="row">
+                <div class="col-md-3 col-sm-5">
+                    <div class="thumb_logo">
+                        @if($group_id == 1)
+                            <img src="{{(($user->logo == NULL && $user->logo == "" && file_exists($user->logo)) ? asset('/assets_new/images/profile_image.png') : $user->logo) }}" class="details-logo" id="">
+                        @elseif($group_id == 2)
+                            <img src="{{(($user->org_logo == NULL && $user->org_logo == "" && file_exists($user->org_logo)) ? asset('/assets_new/images/profile_image.png') : $user->org_logo) }}" class="details-logo" id="">
+                        @elseif($group_id == 3)
+                            <img src="{{(($user->image == NULL && $user->image == "" && file_exists($user->image)) ? asset('/assets_new/images/profile_image.png') : $user->image) }}" class="details-logo" id="">
+                        @else
+                            <img src="{{asset('/assets_new/images/profile_image.png')}}" alt="" class="details-logo" id="">
+                        @endif
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <h2>
+                        {{$user->user->firstname .' '. $user->user->lastname}}<br>
+                        {{$user->user->email}}<br>
+                        {{$user->user->phone}}<br>
+                    </h2>
+                    <p class="text-left"><i class="fa fa-map-marker" aria-hidden="true"></i>
+                        @if($group_id == 1)
+                            {{$user->city}},{{$user->state}}
+                            ,{{$user->country}}
+                        @elseif($group_id == 2)
+                            {{$user->country}}
+                        @else
+                            {{$user->country_interest}}
+                        @endif
+                    </p>
+                </div>
+                <div class="col-md-3 col-sm-12">
+                    <div class="sent-btns"></div>
+                </div>
+            </div>
         </div>
     </section>
-    <section class="myaccount-body">
+    <section class="details-navbar">
         <div class="container">
-            <div class="tab-content right_divs">
-                <div class="tab-pane text-style active" id="most">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <h1>{{ $user->firstname }} {{ $user->lastname }}</h1>
-                            <div class="vendor_description_background" style="width:100%;color:#000000;background-size:100% 100%">
-                                <div class="vendor_description">
-                                    <div class="vendor_img_add">
-                                        <div class="vendor_address">
-                                            <p><i class="fa fa-envelope-o fa-mail" aria-hidden="true"></i>
-                                                <label>{{ $user->email }}</label>
-                                            </p>
+            <div class="row">
+                <div class="col-md-offset-3 col-md-6 col-sm-8 col-xs-7 col-ns-12">
+                    <div>
+                        @if($group_id == 1)
+                            <span><a href="{{url('/entrepreneur')}}">Home</a></span>/
+                        @elseif($group_id == 2)
+                            <span><a href="{{url('/organization')}}">Home</a></span>/
+                        @elseif($group_id == 3)
+                            <span><a href="{{url('/supporter')}}">Home</a></span>/
+                        @else
+                            <span><a href="{{url('/investor')}}">Home</a></span>/
+                        @endif
+                        <span><a class="active" href="#">{{$user->user->firstname .' '. $user->user->lastname}}</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Start Inner Contents -->
+    <?php
+    if($group_id == 1) {
+        $company = \App\Models\EntrepreneurCompanies::where('created_by',$user->created_by)->first();
+    }
+    ?>
+    <section class="details-body">
+        <div class="container">
+            <div class="row" style="margin-bottom:20px;">
+                <div class="col-md-offset-3 col-md-6 col-sm-6">
+                    <div class="addthis_native_toolbox"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8 animated slideInLeft">
+                    <div class="tab-content faq-cat-content">
+                        <div class="tab-pane active in fade" id="faq-cat-1">
+                            <div class="panel-group" id="accordion-cat-1">
+                                <div class="panel panel-default panel-faq">
+                                    <div class="panel-heading">
+                                        <a data-toggle="collapse" data-parent="#accordion-cat-1" href="#faq-cat-1-sub-1" class="collapsed" aria-expanded="false">
+                                            <h4 class="panel-title overview">Overview</h4>
+                                            <span class="pull-right"><i class="fa fa-plus"></i></span>
+                                        </a>
+                                    </div>
+                                    <div id="faq-cat-1-sub-1" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                        <div class="panel-body">
+                                            @if($group_id == 1)
+                                                <p><span lang="">{{$company->overview}}</span></p>
+                                            @elseif($group_id == 2)
+                                                <p><span lang="">{{$user->description}}</span></p>
+                                            @else($group_id == 3 && $group_id == 4)
+                                                <p><span lang="">{{$user->expectation}}</span></p>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            @if(isset($products) && count($products) > 0)
-                                <div class="tab-pane text-style 1234" id="top">
-                                    <div class="row">
-                                        @foreach($products as $product)
-                                            <div class="woocommerce columns-4">
-                                                <div class="col-md-2 col-xs-12 img_sec">
-                                                    <div class="reach" style="height: 289px;">
-                                                        <div class="animate_img">
-                                                            <div class="loop_prdt_img">
-                                                                <img src="{{$product->imagepath}}" class="attachment-shop_catalog img-responsive size-shop_catalog img-responsive wp-post-image" alt="5" srcset="{{$product->imagepath}} 300w, images/5.jpg 150w, {{$product->imagepath}} 180w" sizes="(max-width: 300px) 100vw, 300px" pagespeed_url_hash="816394685" onload="pagespeed.CriticalImages.checkImageForCriticality(this);" width="300" height="300">
-                                                            </div>
-                                                            <div class="textbox">
-                                                                <div class="v_center">
-                                                                    <form class="cart1" action="{{url('/')}}/buynow" method="post">
-                                                                        {{csrf_field()}}
-                                                                        <input name="product_id" value="{{$product->id}}" type="hidden">
-                                                                        <button type="submit" class="btn btn-primary btn-lg btn-block">BUY NOW</button>
-                                                                    </form>
-                                                                    <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#myModal{{$product->id}}">DETAILS</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="clearfix">
-                                                            <h6>{{$product->name}}</h6>
-                                                            <div class="mar_rating"></div>
-                                                        </div>
-                                                        <div class="modal fade" id="myModal{{$product->id}}" role="dialog">
-                                                            <div class="modal-dialog modal-lg">
-                                                                <div class="modal-content">
-                                                                    <div class="">
-                                                                        <button type="button" class="close" data-dismiss="modal">x</button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <div class="row">
-                                                                            <div class="col-md-5 col-sm-5 col-xs-12">
-                                                                                <div class="pop_img">
-                                                                                    <figure>
-                                                                                        <img src="{{$product->imagepath}}" class="attachment-shop_catalog img-responsive size-shop_catalog img-responsive wp-post-image" alt="5" srcset="{{$product->imagepath}} 300w, images/5.jpg 150w, {{$product->imagepath}} 180w" sizes="(max-width: 300px) 100vw, 300px" pagespeed_url_hash="816394685" onload="pagespeed.CriticalImages.checkImageForCriticality(this);" width="300" height="300">
-                                                                                    </figure>
-                                                                                    <ul>
-                                                                                        <li id="shareit-menu" class="share" tabindex="1000"><a class="addthis_button_compact">
-                                                                                                <i class="fa fa-plus" aria-hidden="true"></i> Share</a>
-                                                                                        </li>
-                                                                                    </ul>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-md-7 col-sm-7 col-xs-12">
-                                                                                <div class="pop_content">
-                                                                                    <h6>{{$product->name}}</h6>
-                                                                                    <p></p><p>{{$product->description}}</p>
-                                                                                    <p></p>
-                                                                                    <h1>
-                                                                                        <i class="fa" aria-hidden="true"></i> <span><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>{{$product->sale_price}}</span></span>
-                                                                                    </h1>
-                                                                                    <div class="buttons_pop">
-                                                                                        <a rel="nofollow" href="{{url('/')}}/addcart/{{$product->id}}" data-quantity="1" data-product_id="4524" data-product_sku="" class="btn btn-default btn-lg add_tocart buttons_pop product_type_simple add_to_cart_button ajax_add_to_cart">Add to cart</a>
-
-                                                                                        <form class="cart1" action="{{url('/')}}/buynow" method="post">
-                                                                                            {{csrf_field()}}
-                                                                                            <input name="product_id" value="{{$product->id}}" type="hidden">
-                                                                                            <input name="add-to-cart" value="4524" type="hidden">
-                                                                                            <button type="submit" class="btn btn-default btn-lg buy_now"><i class="fa fa-usd" aria-hidden="true"></i> BUY NOW</button>
-                                                                                        </form>
-                                                                                    </div>
-                                                                                    <a id="id-4524" href="{{url('/product')}}/{{$product->id}}" title="Product 3"><button type="button" class="btn btn-default btn-lg btn-block">More Details</button></a>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                <div class="panel panel-default panel-faq">
+                                    <div class="panel-heading">
+                                        <a data-toggle="collapse" data-parent="#accordion-cat-1" href="#faq-cat-1-sub-2"
+                                           class="collapsed" aria-expanded="false">
+                                            <h4 class="panel-title summary">Summary</h4>
+                                            <span class="pull-right"><i class="fa fa-plus"></i></span>
+                                        </a>
+                                    </div>
+                                    <div id="faq-cat-1-sub-2" class="panel-collapse collapse" aria-expanded="false"
+                                         style="height: 0px;">
+                                        @if($group_id == 1)
+                                            <div class="panel-body summery-body">
+                                                <div>
+                                                    <div class="col-md-4 col-sm-4 col-xs-4 prior-year">
+                                                        <p>Prior Year Revenue</p>
+                                                        <h1>{{$company ? $company->p_yr_revenue : 0}}</h1>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 col-xs-4 current-year">
+                                                        <p>Current Year Revenue</p>
+                                                        <h1>{{$company ? $company->c_yr_revenue : 0}}</h1>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 col-xs-4 next-year">
+                                                        <p>Next Year Revenue</p>
+                                                        <h1>{{$company ? $company->n_yr_revenue : 0}}</h1>
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <div style="padding-top:5px;">
+                                                    <div class="text-center employees">Employees
+                                                        <h4>{{$company ? $company->no_employees : 0}}</h4></div>
+                                                    <div class="text-center sub-industry">Sub-Industry<h4>
+                                                            @php
+                                                                $categories = $company ? \DB::table('categories')
+                                                                ->whereIn('id',explode(',',$company->category))
+                                                                ->pluck('name')->toArray() : [];
+                                                            @endphp
+                                                            {{ implode(",",$categories) }}</h4>
                                                     </div>
                                                 </div>
                                             </div>
-                                        @endforeach
-                                    </div><!-- row -->
-                                </div>
-                            @else
-                                <p class="woocommerce-info">No products were found matching your selection.</p>
-                                <aside id="sidebar">
-                                    <div id="primary" class="widget-area">
-                                        <ul class="sid">
-                                        </ul>
+                                        @elseif($group_id == 2)
+                                            <div class="panel-body summery-body">
+                                                <div>
+                                                    <div class="col-md-4 col-sm-4 col-xs-4 prior-year">
+                                                        <p>Founded Date</p>
+                                                        <h1>{{$user->founded_date ? date('Y-m-d',strtotime($user->founded_date)) : '-'}}</h1>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 col-xs-4 current-year">
+                                                        <p>Mission</p>
+                                                        <h1>{{$user->mission}}</h1>
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <div style="padding-top:5px;">
+                                                    <div class="text-center employees">Business Stage
+                                                        @php
+                                                            $woman_stage = \DB::table('women_stage')
+                                                                ->where('id',$user->women_stage)
+                                                                ->pluck('name')->toArray()
+                                                        @endphp
+                                                        <h4>{{implode(",",$woman_stage)}}</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @elseif($group_id == 3)
+                                            <div class="panel-body summery-body">
+                                                <div>
+                                                    <div class="col-md-4 col-sm-4 col-xs-4 prior-year">
+                                                        <p>Expertise</p>
+                                                        <h1>{{$user->expertise}}</h1>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 col-xs-4 current-year">
+                                                        <p>Expectation</p>
+                                                        <h1>{{$user->expectation}}</h1>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 col-xs-4 next-year">
+                                                        <p>Area Interest</p>
+                                                        @php
+                                                            $area_of_interest = \DB::table('categories')
+                                                                ->where('id',$user->area_interest)
+                                                                ->pluck('name')->toArray()
+                                                        @endphp
+                                                        <h1>{{ implode(",",$area_of_interest)  }}</h1>
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <div style="padding-top:5px;">
+                                                    <div class="text-center employees">Business Stage
+                                                        @php
+                                                            $woman_stage = \DB::table('women_stage')
+                                                                ->where('id',$user->women_stage)
+                                                                ->pluck('name')->toArray()
+                                                        @endphp
+                                                        <h4>{{implode(",",$woman_stage)}}</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @else
+                                            <div class="panel-body summery-body">
+                                                <div>
+                                                    <div class="col-md-4 col-sm-4 col-xs-4 prior-year">
+                                                        <p>Expertise</p>
+                                                        <h1>{{$user->expertise}}</h1>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 col-xs-4 current-year">
+                                                        <p>Expectation</p>
+                                                        <h1>{{$user->expectation}}</h1>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 col-xs-4 next-year">
+                                                        <p>Capital Investment</p>
+                                                        <h1>{{$user->capital_invesment  }}</h1>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 col-xs-4 next-year">
+                                                        <p>ROI</p>
+                                                        <h1>{{$user->roi }}</h1>
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <div style="padding-top:5px;">
+                                                    <div class="text-center employees">Business Stage
+                                                        @php
+                                                            $woman_stage = \DB::table('women_stage')
+                                                                ->where('id',$user->women_stage)
+                                                                ->pluck('name')->toArray()
+                                                        @endphp
+                                                        <h4>{{implode(",",$woman_stage)}}</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endif
                                     </div>
-                                </aside>
-                            @endif
-                            <div class="clear"></div>
+                                </div>
+                                @if($group_id == 1)
+                                    <div class="panel panel-default panel-faq">
+                                        <div class="panel-heading">
+                                            <a data-toggle="collapse" data-parent="#accordion-cat-1" href="#faq-cat-1-sub-project" class="collapsed" aria-expanded="false">
+                                                <h4 class="panel-title overview">Project Status</h4>
+                                                <span class="pull-right"><i class="fa fa-plus"></i></span>
+                                            </a>
+                                        </div>
+                                        <div id="faq-cat-1-sub-project" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                            <div class="panel-body">
+                                                <?php $project = DB::table('projects')->where('created_by',$user->created_by)->first(); ?>
+                                                @if($project)
+                                                    <section id="cd-timeline" class="cd-container">
+                                                        <div class="cd-timeline-block">
+                                                            <div class="cd-timeline-img cd-warning"><i class="fa fa-tag"></i></div>
+                                                            <div class="cd-timeline-content">
+                                                                <h2>{{$project->title}}</h2>
+                                                                <p>{{$project->content}}</p>
+                                                                <div class="readmore">
+                                                                    <div class="hidden-card-description">
+                                                                        <h5>{{$project->title}}</h5>
+                                                                        <p>{{$project->content}}</p>
+                                                                    </div>
+                                                                    <span class="cd-date"><span>{{$project->updated_at}}</span>
+                                                                    <h3 class="percentage-completed">
+                                                                        <span class="timer" data-to="{{$project->progress}}" data-speed="2500">
+                                                                        </span>% <small>completed</small>
+                                                                    </h3>
+                                                                </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </section>
+                                                    @php
+                                                        $status = \App\Models\ProjectStatus::where('project_id',$project->id)->where('delete_status',0)->get();
+                                                    @endphp
+                                                    @if(count($status) > 0)
+                                                        @foreach($status as $state)
+                                                            <section id="cd-timeline" class="cd-container">
+                                                                <div class="cd-timeline-block">
+                                                                    <div class="cd-timeline-img cd-warning"><i class="fa fa-tag"></i></div>
+                                                                    <div class="cd-timeline-content">
+                                                                        <h2>{{$state->title}}</h2>
+                                                                        <p>{{$state->description}}</p>
+                                                                        <div class="readmore">
+                                                                            <div class="hidden-card-description">
+                                                                                <h5>{{$state->title}}</h5>
+                                                                                <p>{{$state->description}}</p>
+                                                                            </div>
+                                                                            <span class="cd-date"><span>{{$state->updated_at}}</span> <h3 class="percentage-completed"><span class="timer" data-to="{{$state->progress}}" data-speed="2500"></span>% <small>completed</small></h3></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </section>
+                                                        @endforeach
+                                                    @endif
+                                                @else
+                                                    <div class="clearfix"></div>
+                                                    <div class="alert alert-warning alert-dismissable"> No Data Found</div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </section>
+    <script>
+        jQuery(document).ready(function ($) {
+            app.timer();
+        });
+
+    </script>
 @endsection

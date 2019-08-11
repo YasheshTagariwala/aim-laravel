@@ -120,7 +120,7 @@ class OrderController extends Controller
                                                   'city' => $request->get('city'),
                                                   'state' => $request->get('state'),
                                                   'zipcode' => $request->get('zipcode'),
-                                                  'notes' => $request->get('order_comments'),
+                                                  'notes' => $request->get('order_comments','-'),
                                                   'created_by' => $userid,
                                                   'updated_by' => $userid], ['id' => $order_id]);
 

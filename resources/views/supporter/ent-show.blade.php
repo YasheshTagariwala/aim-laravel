@@ -74,7 +74,11 @@
         </div>
     </section>
     <!-- Start Inner Contents -->
-
+    <?php
+        if($group_id == 1) {
+            $company = \App\Models\EntrepreneurCompanies::where('created_by',$user->created_by)->first();
+        }
+    ?>
     <section class="details-body">
         <div class="container">
             <div class="row" style="margin-bottom:20px;">
@@ -214,7 +218,7 @@
                         @if(Session::get('groupid') > '1' && Session::get('groupid') < '5')
                             <div class="btn-invest  btn-campaign"><img
                                     src="{{url('/assets_new')}}/images/Invest-bl-icon.png" width="49" height="35"
-                                    alt=""/><a data-toggle="modal" data-target="#donationsmodal" href="#"><span> Donation</span></a>
+                                    alt=""/><a data-toggle="modal" data-target="#donationsmodal" href="#"><span>@if(Session::get('groupid') == 3) Donation @elseif(Session::get('groupid') == 4) Invest @endif</span></a>
                                 <div id="donatModal" class="modal fade" tabindex="-1" role="dialog"
                                      aria-labelledby="myModalLabel" aria-hidden="true">
                                 </div>

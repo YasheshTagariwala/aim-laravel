@@ -3,16 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\EntrepreneurCompanies;
+use App\Models\Entrepreneurs;
+use App\Models\Investor;
+use App\Models\Organization;
 use App\Models\Products;
 use App\Models\ProjectDonations;
 use App\Models\ProjectFunding;
 use App\Models\Subscriptions;
+use App\Models\Supporter;
 use App\Models\UserDetails;
 use App\User;
 use App\Models\MarketPlaceSettings;
 use Illuminate\Http\Request;
 use DB;
 use Hash;
+use Illuminate\Validation\Rules\In;
 use Session;
 use Mail;
 
@@ -443,9 +448,63 @@ class HomeController extends Controller
         return response()->json($users_list,200);
     }
 
-    public function userProfile($id) {
-        $user = UserDetails::find($id);
+    public function userProfile($type,$id) {
+        if($type == "entrepreneur") {
+            $user = Entrepreneurs::where('created_by',$id)->first();
+            $group_id = 1;
+        }
+        if($type == "organization") {
+            $user = Organization::where('created_by',$id)->first();
+            $group_id = 2;
+        }
+        if($type == "supporter") {
+            $user = Supporter::where('created_by',$id)->first();
+            $group_id = 3;
+        }
+        if($type == "investor") {
+            $user = Investor::where('created_by',$id)->first();
+            $group_id = 4;
+        }
         $products = Products::where('userid',$id)->get();
-        return view('home.profile',['user' => $user,'products' => $products]);
+        return view('home.profile',['user' => $user,'products' => $products,'group_id' => $group_id]);
+    }
+
+    public function userSearch(Request $request) {
+        $group_id = $request->get('group');
+        $users = [];
+        if($request->has('group')) {
+            if($request->get('group') == 1) {
+                $companies = EntrepreneurCompanies::get();
+                $ids = [];
+                foreach ($companies as $company) {
+                    $cat = explode(",",$company->category);
+                    if(in_array($request->get('query'),$cat)) {
+                        $ids[] = $company->created_by;
+                    }
+                }
+                $users = Entrepreneurs::whereIn('created_by',$ids)->get();
+            }
+            elseif ($request->get('group') == 2) {
+                $users = Organization::get();
+                if($request->get('query') != "") {
+                    $ids = [];
+                    foreach ($users as $company) {
+                        $cat = explode(",",$company->categories);
+                        if(in_array($request->get('query'),$cat)) {
+                            $ids[] = $company->created_by;
+                        }
+                    }
+                    $users = Organization::whereIn('created_by',$ids)->get();
+                }
+            }
+            elseif ($request->get('group') == 3) {
+                $users = Supporter::where('category',$request->get('query'))->get();
+            }
+            elseif ($request->get('group') == 4) {
+                $category = DB::table('categories')->where('id',$request->get('query'))->first();
+                $users = Investor::where('category',$category->name)->get();
+            }
+        }
+        return view('home.search',compact('group_id','users'));
     }
 }

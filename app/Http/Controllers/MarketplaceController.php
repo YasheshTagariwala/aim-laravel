@@ -48,7 +48,11 @@ class MarketplaceController extends Controller
         $sCategory = $request->category;
         $sName = $request->searchterm;
         //print_r($category); exit();
-        $oProducts = Products::where('delete_status','0')->orderBy('created_at','desc')->where('categories','like','%'.$sCategory.'%')->where('name','like','%'.$sName.'%')->get();
+        $oProducts = Products::where('delete_status','0')
+            ->orderBy('created_at','desc')
+            ->where('userid','!=',Session::get('userid'))
+            ->where('categories','like','%'.$sCategory.'%')
+            ->where('name','like','%'.$sName.'%')->get();
         $top_seller = OrderProductQty::select(DB::raw('product_id,sum(qty) as qty'))->groupBy('product_id')->orderBY('qty','desc')->limit(5)->pluck('product_id');
         $top_seller = Products::whereIn('id',$top_seller)->pluck('userid');
         if($top_seller) {

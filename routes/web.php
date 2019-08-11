@@ -78,8 +78,17 @@ Route::post('/contact/store','HomeController@save_contact');
 Route::post('/add_invite','HomeController@add_invite');
 Route::get('/full-calendar','HomeController@calendar');
 Route::get('/users-list','HomeController@usersList');
-Route::get('/profile/{id}','HomeController@userProfile');
 
+
+Route::get('/search','HomeController@userSearch');
+Route::get('/profile/{type}/{id}','HomeController@userProfile');
+
+
+//CategoryController
+Route::get('/category','CategoryController@index');
+
+//InviteController
+Route::post('/invite/send','InviteController@store');
 
 Route::group(['middleware' => ['userAuth']],function() {
 
@@ -141,12 +150,6 @@ Route::group(['middleware' => ['userAuth']],function() {
     Route::post('/project/add-status','ProjectController@addStatusStore');
     Route::post('project/store','ProjectController@store');
     Route::post('project/{id}/update','ProjectController@update');
-
-//CategoryController
-    Route::get('/category','CategoryController@index');
-
-//InviteController
-    Route::post('/invite/send','InviteController@store');
 
 //MarketplaceController
     Route::get('/market-place','MarketplaceController@index');
