@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Appointments;
+use App\Models\Availability;
+use App\Models\BusinessPlan;
+use App\Models\BusinessPlanFeedback;
 use App\Models\Entrepreneurs;
 use App\Models\ProjectDonations;
 use Illuminate\Http\Request;
@@ -30,13 +34,16 @@ class SupporterController extends Controller
         $recentblogs = DB::table('blogs')->skip(0)->take(1)->get();
         $recentmsgs = DB::table('messages')->where('created_by',Session::get('userid'))->orWhere('created_by','0')->skip(0)->take(5)->get();
         $countries = DB::table('countries')->get();
+        $appoinments = Appointments::where('with_user',Session::get('userid'))->get();
+        $availablity = DB::table('availablity')->where('created_by',Session::get('userid'))->get();
         $appoinments = DB::table('appoinments')->get();
         $availablity = DB::table('availablity')->get();
         $organizations = DB::table('organizations')
         ->join('userdetails', 'organizations.created_by', '=', 'userdetails.id')
         ->where('userdetails.groupid','2')->get();
         //print_r($organizations); exit();
-        return view("dashboard.supporter",compact("supporter","blogs","user_invites","project_fundings","recentblogs","recentmsgs","organizations","orders","countries","availablity","appoinments"));
+        $entrepreneurs = Entrepreneurs::where('delete_status',0)->get();
+        return view("dashboard.supporter",compact("supporter","blogs","user_invites","project_fundings","recentblogs","recentmsgs","organizations","orders","countries","availablity","appoinments","entrepreneurs"));
     }
 
     /**
@@ -116,13 +123,34 @@ class SupporterController extends Controller
          DB::table('appoinments')->insert(['fromdate' => $request->fdate,'todate' => $request->tdate,'fromtime' => $request->ftime,'totime' => $request->ttime,'created_by' => $userid,'updated_by' => $userid]);
          return redirect('/supporter')->with('message', 'Supporter Details Added Successfully');
     }
+
     public function availablity(Request $request)
     {
-        //print_r($request->all()); exit();
-         $userid = Session::get('userid');
+//        print_r($request->all()); exit();
+        if(date('Y-m-d',strtotime($request->fdate)) > date('Y-m-d',strtotime($request->tdate))){
+            return redirect()->back()->with('message', 'Err: To Date Should Be Greater');
+        } else if(date('H:i:s',strtotime($request->ftime)) > date('H:i:s',strtotime($request->ttime))){
+            return redirect()->back()->with('message', 'Err: To Time Should Be Greater');
+        } else {
+            $dif = ((strtotime($request->ttime) - strtotime($request->ftime)) / (60 * 60));
+            if($dif <= 0){
+                return redirect()->back()->with('message', 'Err: Minimum 1 hour of Diff required');
+            }
+        }
 
-         DB::table('availablity')->insert(['fromdate' => $request->fdate,'todate' => $request->tdate,'fromtime' => $request->ftime,'totime' => $request->ttime,'created_by' => $userid,'updated_by' => $userid]);
-         return redirect('/supporter')->with('message', 'Supporter Details Added Successfully');
+        $availability = new Availability();
+        $availability->fromdate = date('Y-m-d',strtotime($request->fdate));
+        $availability->todate = date('Y-m-d',strtotime($request->tdate));
+        $availability->fromtime = date('H:i:s',strtotime($request->ftime));
+        $availability->totime = date('H:i:s',strtotime($request->ttime));
+        $availability->created_by = Session::get('userid');
+        $availability->updated_by = Session::get('userid');
+        $availability->save();
+
+//         $userid = Session::get('userid');
+//
+//         DB::table('availablity')->insert(['fromdate' => $request->fdate,'todate' => $request->tdate,'fromtime' => $request->ftime,'totime' => $request->ttime,'created_by' => $userid,'updated_by' => $userid]);
+        return redirect('/supporter')->with('message', 'Supporter Details Added Successfully');
     }
 
     /**
@@ -231,6 +259,7 @@ class SupporterController extends Controller
     }
 
     public function entrepreneurShow($id = 0) {
+        $type = 'supporter';
         $entrepreneur = Entrepreneurs::findorfail($id);
         if($entrepreneur) {
             $project = DB::table('projects')->where('created_by',$entrepreneur->created_by)->first();
@@ -239,6 +268,39 @@ class SupporterController extends Controller
             $funding_info = \App\Models\EntrepreneurFundingsInformation::where('created_by',$entrepreneur->created_by)->first();
             $women_stages = DB::table('women_stage')->where('id',$entrepreneur->women_stage)->first();
         }
-        return view('supporter.ent-show',compact('entrepreneur','project','business_plans','company','funding_info','women_stages'));
+        return view('supporter.ent-show',compact('entrepreneur','project','business_plans','company','funding_info','women_stages','type'));
+    }
+
+    public function feedback($id = 0){
+        $type = 'supporter';
+        $plan_detail = BusinessPlan::find($id);
+        if(!$plan_detail){
+            return redirect()->back()->with('message', 'Plan not found.');
+        }
+        $feedbackList = BusinessPlanFeedback::where('business_plan_id',$plan_detail->id)->where('delete_status',0)->where('userid',Session::get('userid'))->get();
+        return view('supporter.plan-feedback',compact('plan_detail','feedbackList','type'));
+    }
+
+    public function feedbackAdd(Request $request){
+        if($request->fedback_id == '') {
+            $bpf = new BusinessPlanFeedback();
+            $bpf->userid = Session::get('userid');
+        } else {
+            $bpf = BusinessPlanFeedback::find($request->fedback_id);
+        }
+        $bpf->business_plan_id = $request->business_plan_id;
+        $bpf->feedback = $request->description;
+        $bpf->save();
+        return redirect()->back()->with('message', 'Feedback Added');
+    }
+
+    public function feedbackDelete(Request $request){
+        BusinessPlanFeedback::where('id',$request->id)->delete();
+        return response()->json(['status' => true],200);
+    }
+
+    public function appointmentStatus(Request $request){
+        Appointments::where('id',$request->id)->update(['status' => $request->status]);
+        return response()->json(['status' => true],200);
     }
 }

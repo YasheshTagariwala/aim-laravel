@@ -89,6 +89,8 @@ Route::get('/organization/{id}','OrganizationController@show');
 
 //EntrepreneurController
 Route::get('/entrepreneur','EntrepreneurController@index');
+Route::get('/entrepreneur/get-appointment-details','EntrepreneurController@getAppointmentDetails');
+Route::post('/entrepreneur/appoinment','EntrepreneurController@appoinment');
 Route::post('/entrepreneur/store','EntrepreneurController@store');
 Route::post('/entrepreneur/{id}/update','EntrepreneurController@update');
 Route::get('/entrepreneur/search/{id}','EntrepreneurController@search');
@@ -106,17 +108,27 @@ Route::post('/entrepreneur/cash-out','EntrepreneurController@postCashout');
 Route::get('/investor','InvestorController@index');
 Route::get('/investor/entrepreneur-list','InvestorController@entrepreneurList');
 Route::get('/investor/entrepreneur/{id}','InvestorController@entrepreneurShow');
+Route::get('/investor/entrepreneur/feedback/{id}','InvestorController@feedback');
+Route::get('/investor/availability','InvestorController@availability');
+Route::post('/investor/availability-store','InvestorController@availabilityStore');
+Route::post('/investor/entrepreneur/feedback/add','InvestorController@feedbackAdd');
+Route::post('/investor/entrepreneur/feedback/delete','InvestorController@feedbackDelete');
 Route::post('/investor/store','InvestorController@store');
 Route::post('/investor/{id}/update','InvestorController@update');
+Route::post('/investor/appointment/status','InvestorController@appointmentStatus');
 
 //SupporterController
 Route::get('/supporter','SupporterController@index');
 Route::get('/supporter/entrepreneur-list','SupporterController@entrepreneurList');
 Route::get('/supporter/entrepreneur/{id}','SupporterController@entrepreneurShow');
+Route::get('/supporter/entrepreneur/feedback/{id}','SupporterController@feedback');
+Route::post('/supporter/entrepreneur/feedback/add','SupporterController@feedbackAdd');
+Route::post('/supporter/entrepreneur/feedback/delete','SupporterController@feedbackDelete');
 Route::post('/supporter/store','SupporterController@store');
 Route::post('/supporter/appoinment','SupporterController@appoinment');
 Route::post('/supporter/availablity','SupporterController@availablity');
 Route::post('/supporter/{id}/update','SupporterController@update');
+Route::post('/supporter/appointment/status','SupporterController@appointmentStatus');
 
 //CategoryController
 Route::get('/category','CategoryController@index');
@@ -174,6 +186,7 @@ Route::post('/blog/store','BlogController@store');
 //MessageController
 Route::get('/messages','MessageController@index');
 Route::post('/messages/store','MessageController@store');
+Route::post('/messages/send-message','MessageController@sendMessage');
 Route::get('/enquiry','MessageController@enquiry');
 Route::get('/notifications','MessageController@notifications');
 

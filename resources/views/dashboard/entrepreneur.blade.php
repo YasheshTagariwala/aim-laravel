@@ -465,24 +465,66 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal"><span
-                                                    aria-hidden="true">Ã—</span> <span class="sr-only">close</span>
+                                                    aria-hidden="true"></span> <span class="sr-only">close</span>
                                             </button>
-                                            <h4 id="modalaTitle" class="modal-title">Appointment with <span
+                                            <h4 id="modalaTitle" class="modal-title"><span
                                                     id="modalsTitle"></span></h4>
                                         </div>
-                                        <div id="modalaBody" class="modal-body"><strong>Date</strong> : <span
-                                                id="modelsDate"></span><br>
-                                            <strong>Start Time</strong> - <span id="startTime"></span><br>
-                                            <strong>End Time</strong> - <span id="endTime"></span><br>
-                                            <strong>Message</strong> - <span id="messageContent"></span><br>
-                                            <div id="modalaStatusResult"><strong>Status</strong> - <span
-                                                    class="bodyResult"></span></div>
-                                            <div id="moduleReply"></div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close
-                                            </button>
-                                        </div>
+                                        <form method="post" action="{{url('/entrepreneur/appoinment')}}">
+                                            <div id="modalaBody" class="modal-body">
+                                                <div id="appointment_show_body" style="display: none">
+                                                    <strong>Date</strong> : <span id="modelsDate"></span><br>
+                                                    <strong>Start Time</strong> - <span id="startTime"></span><br>
+                                                    <strong>End Time</strong> - <span id="endTime"></span><br>
+                                                    {{--<strong>Message</strong> - <span id="messageContent"></span><br>--}}
+                                                    <div id="modalaStatusResult"><strong>Status</strong> - <span class="bodyResult"></span></div>
+                                                    {{--<div id="moduleReply"></div>--}}
+                                                </div>
+                                                <div id="appointment_book_body" style="display: none;">
+                                                    {{csrf_field()}}
+                                                    <input type="hidden" name="with_user" id="with_user">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            Date :-
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <input type="text" class="form-control" readonly name="from_date" id="appointment_from_date" required>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            Time From :-
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <select name="from_time" class="form-control" id="appointment_from_time">
+                                                                <?php for ($time=0; $time < 12; $time++) { ?>
+                                                                <option value="{{str_pad($time,2,'0',STR_PAD_LEFT)}} AM">{{$time}} AM</option>
+                                                                <?php } ?>
+                                                                <?php for ($time=12; $time < 24; $time++) { ?>
+                                                                <option value="{{str_pad($time,2,'0',STR_PAD_LEFT)}} PM">{{$time}} PM</option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            Time To :-
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <select name="to_time" class="form-control" id="appointment_to_time">
+                                                                <?php for ($time=0; $time < 12; $time++) { ?>
+                                                                <option value="{{$time}} AM">{{$time}} AM</option>
+                                                                <?php } ?>
+                                                                <?php for ($time=12; $time < 24; $time++) { ?>
+                                                                <option value="{{$time}} PM">{{$time}} PM</option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" data-dismiss="modal">Close
+                                                </button>
+                                                <input class="btn btn-primary" id="appointment_submit_button" type="submit" value="Save">
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -1907,6 +1949,164 @@
                                     <input value="Save" class="button button-primary button-large" type="submit">
                                 </div>
                             </form>
+                            <h2>Your Business Plans</h2>
+                            <table class="table" style="width: 100%">
+                                <thead>
+                                <tr>
+                                    <td>No.</td>
+                                    <td>Business Plan Idea</td>
+                                    <td>Business Plan Budget</td>
+                                    <td>Total Number of Feedbacks</td>
+                                    <td>Action</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($ent_businessplan as $key => $business_plan)
+                                    <tr>
+                                        <td>{{ $key + 1 }}</td>
+                                        <td>{{ $business_plan->idea }}</td>
+                                        <td>{{ $business_plan->budget }}</td>
+                                        <td>{{ count($business_plan->feedbacks) }}</td>
+                                        <td>
+                                            <a href="#" data-toggle="modal" class="btn btn-primary" data-target="#business_plan_{{$business_plan->id}}">Update</a>
+                                            <a href="#" data-toggle="modal" class="btn btn-primary" data-target="#business_plan_feedback_{{$business_plan->id}}">View Feedback</a>
+                                        </td>
+                                    </tr>
+                                    <div class="modal fade" id="business_plan_{{$business_plan->id}}" tabindex="-1" role="dialog"
+                                         aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" style="width:80%">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span></button>
+                                                    <h4 class="modal-title">Business Plan Update</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form id="post" class="" action="{{url('/entrepreneur/'.$business_plan->id.'/update')}}" method="post" enctype="multipart/form-data">
+                                                        {{csrf_field()}}
+                                                        <input name="savefor" value="6" type="hidden">
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                                                    <label style="display: block;">Your Idea</label>
+                                                                    <textarea name="idea" class="form-control" type="text" required="" placeholder="Enter Your Idea...">{{ $business_plan->idea }}</textarea>
+                                                                </div>
+                                                                <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                                                    <label style="display: block;">Your Business Model</label>
+                                                                    <textarea name="women_model" class="form-control" type="text" required="" placeholder="Enter Your Business model...">{{ $business_plan->women_model }}</textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                                                    <label style="display: block;">Your Customer</label>
+                                                                    <textarea name="customer" class="form-control" type="text" required="" placeholder="Enter Your Customer...">{{ $business_plan->customer }}</textarea>
+                                                                </div>
+                                                                <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                                                    <label style="display: block;">Your Market</label>
+                                                                    <textarea name="market" class="form-control" type="text" required="" placeholder="Enter Your Market...">{{ $business_plan->market }}</textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                                                    <label style="display: block;">Your Industry</label>
+                                                                    <textarea name="industry" class="form-control" type="text" required="" placeholder="Enter Your Industry...">{{ $business_plan->industry }}</textarea>
+                                                                </div>
+                                                                <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                                                    <label style="display: block;">Your Product</label>
+                                                                    <textarea name="product" class="form-control" type="text" required="" placeholder="Enter Your Product...">{{ $business_plan->product }}</textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                                                    <label style="display: block;">Your Campaign</label>
+                                                                    <textarea name="campaign" class="form-control" type="text" required="" placeholder="Enter Your Campaign...">{{ $business_plan->campaign }}</textarea>
+                                                                </div>
+                                                                <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                                                    <label style="display: block;">Your Budget</label>
+                                                                    <textarea name="budget" class="form-control" type="text" required="" placeholder="Enter Your Budget...">{{ $business_plan->budget }}</textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                                                    <label style="display: block;">Your Team</label>
+                                                                    <textarea name="team" class="form-control" type="text" required="" placeholder="Enter Your Team...">{{ $business_plan->team }}</textarea>
+                                                                </div>
+                                                                <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                                                    <label style="display: block;">Your Pitch</label>
+                                                                    <textarea name="pitch" class="form-control" type="text" required="" placeholder="Enter Your Pitch...">{{ $business_plan->pitch }}</textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="acf-form-submit">
+                                                            <input value="Update" class="button button-primary button-large" type="submit">
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal fade" id="business_plan_feedback_{{$business_plan->id}}" tabindex="-1" role="dialog"
+                                         aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" style="width:80%">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span></button>
+                                                    <h4 class="modal-title">Business Plan Feedback</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-xs-12 col-sm-6">
+                                                            <div class="row">
+                                                                <div class="col-xs-2 col-sm-2">
+                                                                    <span>No.</span>
+                                                                </div>
+                                                                <div class="col-xs-3 col-sm-3">
+                                                                    <span> User Name </span>
+                                                                </div>
+                                                                <div class="col-xs-7 col-sm-7">
+                                                                    <span>Feedback</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        @if(count($business_plan->feedbacks) > 0)
+                                                            @foreach($business_plan->feedbacks as $feed_key => $feedback)
+                                                                <div class="col-md-12 col-xs-12 col-sm-6">
+                                                                    <div class="row">
+                                                                        <div class="col-xs-2 col-sm-2">
+                                                                            <span>{{ $feed_key + 1 }}</span>
+                                                                        </div>
+                                                                        <div class="col-xs-3 col-sm-3">
+                                                                            <span> {{ $feedback->user->firstname .' '. $feedback->user->lastname }} </span>
+                                                                        </div>
+                                                                        <div class="col-xs-7 col-sm-7">
+                                                                            <span>{{ $feedback->feedback }}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            @endforeach
+                                                        @else
+                                                            <div class="col-md-12 col-xs-12 col-sm-6 text-center">
+                                                                No Feedback Available
+                                                            </div>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                                </tbody>
+                            </table>
                         </div>
                         <div><!-- Project Status -->
                             <div class="panel panel-white">
@@ -2539,25 +2739,55 @@
                 droppable: false, // this allows things to be dropped onto the calendar
                 eventLimit: true, // allow "more" link when too many events
                 events: {
-                    // url: "/wp-admin/admin-ajax.php",
-                    data: {action: "entterprenuer_events_details", userid: 825},
-                    method: 'post'
+                    url: "/entrepreneur/get-appointment-details",
                 },
+                eventTextColor : "#ffffff",
 
                 eventClick: function (event, jsEvent, view) {
+                    console.log(event);
                     jQuery('#modalsTitle').html(event.title);
-                    jQuery('span#modelsDate').html(event.date);
-                    jQuery('span#startTime').html(event.starttime);
-                    jQuery('span#endTime').html(event.endtime);
-                    jQuery("span#messageContent").html(event.message);
-                    if (event.approve == '1') {
-                        jQuery("span.bodyResult").html("Scheduled");
-                    } else if (event.approve == '2') {
-                        jQuery("span.bodyResult").html("Rejected");
-                    } else {
-                        jQuery("span.bodyResult").html("Pending Approval");
+                    if(event.type == "appointment") {
+                        jQuery('span#modelsDate').html(event.date);
+                        jQuery('span#startTime').html(event.sTime);
+                        jQuery('span#endTime').html(event.eTime);
+                        // jQuery("span#messageContent").html(event.message);
+                        if (event.approve == '1') {
+                            jQuery("span.bodyResult").html("Scheduled");
+                        } else if (event.approve == '2') {
+                            jQuery("span.bodyResult").html("Rejected");
+                        } else {
+                            jQuery("span.bodyResult").html("Pending Approval");
+                        }
+                        jQuery('#appointment_show_body').show();
+                        jQuery('#appointment_book_body').hide();
+                        jQuery('#appointment_submit_button').hide();
+                        // jQuery("div#moduleReply").html(event.link);
+                    }else {
+                        jQuery('#appointment_show_body').hide();
+                        jQuery('#appointment_book_body').show();
+                        jQuery('#appointment_submit_button').show();
+                        jQuery('#appointment_from_date').val(event.date);
+                        jQuery('#with_user').val(event.userid);
+
+                        // jQuery('#appointment_from_time').val(event.timesFromTo.from);
+                        // jQuery('#appointment_to_time').val(event.timesFromTo.to);
+
+                        // appointment_from_time
+                        // appointment_to_time
+
+                        var htmlTime = "";
+                        var fromTime = event.timesFromTo.from.toLowerCase().replace("am","").replace("pm","").trim();
+                        var toTime = event.timesFromTo.to.toLowerCase().replace("am","").replace("pm","").trim();
+                        for(var i=fromTime;i<=toTime;i++){
+                            if(i<=11){
+                                htmlTime += "<option value='" + (i + '').padStart(2,0) + ":00'>" + (i + '').padStart(2,0) + ":00 AM</option>";
+                            } else {
+                                htmlTime += "<option value='" + (i + '').padStart(2,0) + ":00'>" + (i + '').padStart(2,0) + ":00 PM</option>";
+                            }
+                        }
+                        jQuery('#appointment_from_time').html(htmlTime);
+                        jQuery('#appointment_to_time').html(htmlTime);
                     }
-                    jQuery("div#moduleReply").html(event.link);
                     jQuery('#fullCalModals').modal();
                 }
             });

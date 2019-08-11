@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Appointments;
+use App\Models\Availability;
+use App\Models\BusinessPlan;
 use App\Models\CashOut;
 use App\Models\Orders;
 use App\Models\ProjectDonations;
@@ -28,7 +31,7 @@ class EntrepreneurController extends Controller
         $ent_market = DB::table('ent_market')->where('created_by',Session::get('userid'))->get();
         $ent_funding = DB::table('ent_funding')->where('created_by',Session::get('userid'))->get();
         $ent_mgmnt_team = DB::table('ent_mgmnt_team')->where('created_by',Session::get('userid'))->get();
-        $ent_businessplan = DB::table('ent_businessplan')->where('created_by',Session::get('userid'))->get();
+        $ent_businessplan = BusinessPlan::where('created_by',Session::get('userid'))->get();
         $campaigns = DB::table('campaigns')->where('created_by',Session::get('userid'))->get();
         $user_invites = DB::table('user_invites')->where('invited_by',Session::get('userid'))->get();
         $blogs = DB::table('blogs')->where('created_by',Session::get('userid'))->get();
@@ -610,5 +613,131 @@ class EntrepreneurController extends Controller
         $cashout->save();
 
         return response()->json(['status' => true],200);
+    }
+
+    public function getAppointmentDetails(Request $request)
+    {
+        $userid = Session::get('userid');
+        $fixed_dates = [];
+
+        $appointments = Appointments::where('created_by', $userid)->get()->map(function ($data) use ($fixed_dates) {
+            $fixed_date[] = date('Y-m-d', strtotime($data->fromdate)) . " " . date('H:i:s', strtotime($data->fromtime));
+            return [
+                "type" => "appointment",
+                "title" => "Appointment With " . $data->withUser->firstname . " " . $data->withUser->lastname,
+                "start" => date('Y-m-d', strtotime($data->fromdate)) . " " . date('H:i:s', strtotime($data->fromtime)),
+                "end" => date('Y-m-d', strtotime($data->todate)) . " " . date('H:i:s', strtotime($data->totime)),
+                "allDay" => 0,
+                "date" => date('Y-m-d', strtotime($data->fromdate)),
+                "sTime" => date('H:i:s', strtotime($data->fromtime)),
+                "eTime" => date('H:i:s', strtotime($data->totime)),
+                "color" => "#3598DB",
+                "approve" => $data->status,
+            ];
+        })->toArray();
+
+        $all_availability = Availability::where('delete_status', 0)->get();
+        $availability = [];
+
+//        echo "<pre>";
+        foreach ($all_availability as $data) {
+            $times_from = date('Y-m-d H:i:s', strtotime($data->fromdate . ' ' . $data->fromtime));
+            $times_to = date('Y-m-d H:i:s', strtotime($data->todate . ' ' . $data->totime));
+            $interval = new \DateInterval('P1D');
+            $realEnd = new \DateTime($times_to);
+            $realEnd->add($interval);
+
+            $booked = Appointments::where('with_user', $data->created_by)
+                ->where(DB::raw('DATE_FORMAT(fromdate,"%Y-%m-%d")'), ">=", date('Y-m-d', strtotime($times_from)))
+                ->where(DB::raw('DATE_FORMAT(fromdate,"%Y-%m-%d")'), "<=", date('Y-m-d', strtotime($times_to)))->get()->groupBy('fromdate');
+
+            $test = [];
+            foreach ($booked as $day => $arr) {
+                $times = [];
+                foreach ($arr as $b) {
+                    $times = array_merge($times, range(date('H', strtotime($b->fromtime)), date('H', strtotime($b->totime))));
+                }
+                $test[$day] = array_unique($times);
+            }
+
+            $booked = $test;
+
+            $period = new \DatePeriod(new \DateTime($times_from), $interval, $realEnd);
+            foreach ($period as $date) {
+                $range = range(date('H', strtotime($data->fromtime)), date('H', strtotime($data->totime)));
+                if (!isset($booked[date('Y-m-d', strtotime($date->format('Y-m-d')))]) || count($booked[date('Y-m-d', strtotime($date->format('Y-m-d')))]) != count($range)) {
+//                    if (!in_array(date('Y-m-d', strtotime($date->format('Y-m-d'))) . " " . date('H:i:s', strtotime($data->fromtime)), $fixed_dates)) {
+//                        if (date('Y-m-d') < date('Y-m-d', strtotime($date->format('Y-m-d')))) {
+                    $availability[] = [
+                        "type" => "availability",
+                        "title" => "Book Appointment With " . $data->user->firstname . " " . $data->user->lastname,
+                        "start" => date('Y-m-d', strtotime($date->format('Y-m-d'))) . " " . date('H:i:s', strtotime($data->fromtime)),
+                        "end" => date('Y-m-d', strtotime($date->format('Y-m-d'))) . " " . date('H:i:s', strtotime($data->totime)),
+                        "allDay" => 0,
+                        "userid" => $data->created_by,
+                        "time_from_to" => trim(str_replace("AM", "", str_replace("PM", "", $data->fromtime))) . '-' . trim(str_replace("AM", "", str_replace("PM", "", $data->totime))),
+                        "date" => date('Y-m-d', strtotime($date->format('Y-m-d'))),
+                        "color" => $data->user->groupid == 3 ? "#FF0000" : "#DB7093",
+                        "status" => 0,
+                        "timesFromTo" => ['from' => date('H A', strtotime($data->fromtime)), 'to' => date('H A', strtotime($data->totime))],
+                    ];
+//                        }
+//                    }
+                }
+            }
+        }
+
+        $appointments = $appointments + $availability;
+        return response()->json($appointments, 200);
+    }
+
+    public function appoinment(Request $request)
+    {
+//        print_r($request->all()); die();
+        $userid = Session::get('userid');
+
+        $with_user = $request->with_user;
+        $from_date = $request->from_date;
+        $from_time = date('H:i:s', strtotime($request->from_time));
+        $to_time = date('H:i:s', strtotime($request->to_time));
+
+
+        if ($from_time >= $to_time) {
+//            die('Err: To Time Should Be Greater');
+            return redirect()->back()->with('message', 'Err: To Time Should Be Greater');
+        }
+
+        $app = Appointments::where('with_user', $with_user)->where(function ($q) use ($from_time, $to_time) {
+            $f = DB::raw('TIME_FORMAT(fromtime,"%H:%i:%S")');
+            $t = DB::raw('TIME_FORMAT(totime,"%H:%i:%S")');
+            $q->where(function ($q) use ($from_time, $to_time, $f, $t) {
+                $q->where($f, '>', $from_time)->where($f, '<', $to_time);
+            });
+            $q->orWhere(function ($q) use ($from_time, $to_time, $f, $t) {
+                $q->where($t, '>', $from_time)->where($t, '<', $to_time);
+            });
+            $q->orWhere(function ($q) use ($from_time, $to_time, $f, $t) {
+                $q->where($f, '=', $from_time)->where($t, '=', $to_time);
+            });
+            $q->orWhere(function ($q) use ($from_time, $to_time, $f, $t) {
+                $q->where($f, '<=', $from_time)->where($t, '>=', $to_time);
+            });
+            $q->orWhere(function ($q) use ($from_time, $to_time, $f, $t) {
+                $q->where($f, '>=', $from_time)->where($t, '<=', $to_time);
+            });
+        })->where(DB::raw('DATE_FORMAT(fromdate,"%Y-%m-%d")'), $from_date)->first();
+
+        if ($app) {
+//            die('Err: Busy schedule. Try another date or time');
+            return redirect()->back()->with('message', 'Err: Busy schedule. Try another date or time');
+        }
+
+        if (date('H:i:s', strtotime($request->from_date)))
+
+            DB::table('appoinments')->insert(['fromdate' => $from_date, 'todate' => $from_date
+                , 'fromtime' => $from_time, 'totime' => $to_time,
+                'with_user' => $request->with_user
+                , 'created_by' => $userid, 'updated_by' => $userid]);
+        return redirect('/entrepreneur')->with('message', 'Appointment Added Successfully');
     }
 }

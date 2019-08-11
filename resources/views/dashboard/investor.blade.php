@@ -66,6 +66,8 @@
                             <li class="side_menu profile_update" id="profile_update">Update Profile</li>
                             <li class="side_menu" id="invested">Invested Projects</li>
                             <li class="side_menu" id="invite">Invite</li>
+                            <li class="side_menu" id="Appointments">Appointments</li>
+                            <li class="side_menu" id="Availability">Availability</li>
                             <li class="side_menu" id="blog">Blog</li>
                             <li class="side_menu" id="Orders"><a href="#">Orders</a></li>
                             <li class="side_menu" id="Orders"><a
@@ -239,6 +241,60 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel panel-white">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">Entrepreneurs </h3>
+                                                <div class="actions pull-right"><i class="fa fa-chevron-down"></i></div>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="table-responsive project-stats">
+                                                    @if(count($entrepreneurs) > 0)
+                                                        <table class="table disktop-view">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>Entrepreneur Logo</th>
+                                                                <th>Entrepreneur Name</th>
+                                                                <th>Country</th>
+                                                                <th>Web</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            @foreach($entrepreneurs as $entp)
+                                                                <tr>
+                                                                    <td>
+                                                                        <img src="{{$entp->logo}}"
+                                                                             class="gravatar img-circle  avatar avatar-50 um-avatar"
+                                                                             width="50" height="50" alt="">
+                                                                    </td>
+                                                                    <th>{{$entp->name}}</th>
+                                                                    <td>{{$entp->country}}</td>
+                                                                    <td>
+                                                                        @if($entp->website != '' && $entp->website != null)
+                                                                            <a href="{{$entp->website}}">{{$entp->website}}</a>
+                                                                        @else
+                                                                            -
+                                                                        @endif
+                                                                    </td>
+                                                                    <td><a href="{{url('investor/entrepreneur/' . $entp->id)}}"><i class="fa fa-eye"></i></a></td>
+                                                                </tr>
+                                                            @endforeach
+                                                            </tbody>
+                                                        </table>
+                                                    @else
+                                                        <div class="alert alert-warning alert-dismissable">
+                                                            No Data Found
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="row">
                                     <div class="col-md-9">
                                         <div class="panel panel-white">
@@ -553,6 +609,162 @@
                                                             </tr> -->
                                                 </tbody>
                                             </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="Appointments"><!-- Invite -->
+                            <div><!-- Invite -->
+                                <div class="row">
+                                    <div class="col-md-12 invite-friends">
+                                        <div class="ajax-loader" style="display:none">
+                                            <img style="margin-top:200px"
+                                                 src="{{url('/')}}/assets_new/images/ajax-loader.gif"/>
+                                        </div>
+                                        <div class="panel panel-white container-wrapper dashboard-forms">
+                                            <h1>Appointments</h1>
+                                            <div id="secure_invite_form">
+                                                <table class="table table-bordered table-striped">
+                                                    <thead>
+                                                    <th>User</th>
+                                                    <th>Date</th>
+                                                    <th>From</th>
+                                                    <th>To</th>
+                                                    <th>Action</th>
+                                                    </thead>
+                                                    <tbody>
+                                                    @if(count($appoinments) > 0)
+                                                        @foreach($appoinments as $appoinment)
+                                                            <tr>
+                                                                <td>{{$appoinment->user->firstname}} {{$appoinment->user->lastname}}</td>
+                                                                <td>{{date('D-M-Y',strtotime($appoinment->fromdate))}}</td>
+                                                                <td>{{date('h:i A',strtotime($appoinment->fromtime))}}</td>
+                                                                <td>{{date('h:i A',strtotime($appoinment->totime))}}</td>
+                                                                @if($appoinment->status == 0)
+                                                                    <td><a style="cursor: pointer" onclick="updateStatus({{$appoinment->id}},1,this)">Approve</a></td>
+                                                                @else
+                                                                    <td><a style="cursor: pointer" onclick="updateStatus({{$appoinment->id}},0,this)">Decline</a></td>
+                                                                @endif
+                                                            </tr>
+                                                        @endforeach
+                                                    @else
+                                                        <tr>
+                                                            No Appointment
+                                                        </tr>
+                                                    @endif
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="Availability"><!-- Invite -->
+                            <div><!-- Invite -->
+                                <div class="row">
+                                    <div class="col-md-12 invite-friends">
+                                        <div class="ajax-loader" style="display:none">
+                                            <img style="margin-top:200px"
+                                                 src="{{url('/')}}/assets_new/images/ajax-loader.gif"/>
+                                        </div>
+                                        <div class="panel panel-white container-wrapper dashboard-forms">
+                                            <?php
+                                            $ip = $_SERVER['REMOTE_ADDR'];
+                                            try {
+                                                if ($ip != "127.0.0.1") {
+                                                    $ipInfo = file_get_contents('http://ip-api.com/json/' . $ip);
+                                                    $ipInfo = json_decode($ipInfo);
+                                                    $timezone = $ipInfo->timezone;
+                                                } else {
+                                                    $timezone = "Asia/Kolkata";
+                                                }
+                                            } catch (Exception $e) {
+                                                $timezone = "Asia/Kolkata";
+                                            }
+                                            date_default_timezone_set($timezone);
+                                            ?>
+                                            <h1>Availablity (TimeZone :- {{$timezone .' ('. date('T').')' }} )</h1>
+                                            <div id="secure_invite_form">
+                                                <form action="/investor/availablity" method="post"
+                                                      class="secure_invite_form form-controll">
+                                                    {{csrf_field()}}
+                                                    <div class="row refer refer-body">
+                                                        <div class="refer-col">
+                                                            <div class="col-md-4 col-sm-4 col-inputs">
+                                                                <label>From Date</label>
+                                                                <input name="fdate" id="friend_name-0" value=""
+                                                                       class="form-control" placeholder="Name"
+                                                                       type="date" required>
+                                                            </div>
+                                                            <div class="col-md-4 col-sm-4 col-inputs">
+                                                                <label>To Date</label>
+                                                                <input name="tdate" id="friend_email-0" value=""
+                                                                       class="form-control" placeholder="Email"
+                                                                       type="date" required>
+                                                            </div>
+                                                            <div class="col-md-2 col-sm-4 col-inputs">
+                                                                <label>From Time</label>
+                                                                <select name="ftime" class="form-control" required>
+                                                                    <?php for ($time = 0; $time < 12; $time++) { ?>
+                                                                    <option value="{{str_pad($time,2,'0',STR_PAD_LEFT)}}:00:00">{{$time}} AM</option>
+                                                                    <?php } ?>
+                                                                    <?php for ($time = 12; $time < 24; $time++) { ?>
+                                                                    <option value="{{str_pad($time,2,'0',STR_PAD_LEFT)}}:00:00">{{$time}} PM</option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-2 col-sm-4 col-inputs">
+                                                                <label>To Time</label>
+                                                                <select name="ttime" class="form-control" required>
+                                                                    <?php for ($time = 0; $time < 12; $time++) { ?>
+                                                                    <option value="{{str_pad($time,2,'0',STR_PAD_LEFT)}}:00:00">{{$time}} AM</option>
+                                                                    <?php } ?>
+                                                                    <?php for ($time = 12; $time < 24; $time++) { ?>
+                                                                    <option value="{{str_pad($time,2,'0',STR_PAD_LEFT)}}:00:00">{{$time}} PM</option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-inputs">
+                                                            <input id="secure_invite_send" name="submit"
+                                                                   class="btn btn-primary" value="Make Availability"
+                                                                   type="submit">
+                                                        </div>
+                                                    </div>
+                                                    <fieldset></fieldset>
+                                                </form>
+                                            </div>
+                                            <div class="sowresult">
+                                                <table class="table table-bordered table-striped">
+                                                    <thead>
+                                                    <tr class="first-tr">
+                                                        <td>Appoinment From</td>
+                                                        <td>Appoinment To</td>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @if(count($availablity) > 0)
+                                                        @foreach($availablity as $appoinment)
+                                                            <tr>
+                                                                <td data-label="Invitations">{{date('l, F jS Y',strtotime($appoinment->fromdate))}}
+                                                                    from {{ date('h:iA',strtotime($appoinment->fromtime))}}
+                                                                    to {{date('h:iA',strtotime($appoinment->totime))}}</td>
+                                                                <td data-label="Invitations">{{date('l, F jS Y',strtotime($appoinment->todate))}}
+                                                                    from {{ date('h:iA',strtotime($appoinment->fromtime))}}
+                                                                    to {{date('h:iA',strtotime($appoinment->totime))}}</td>
+                                                            </tr>
+                                                        @endforeach
+                                                    @else
+                                                        <tr>
+                                                            <td data-label="Invitations">0</td>
+                                                            <td data-label="Invitations  Accepted">0</td>
+                                                        </tr>
+                                                    @endif
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1196,6 +1408,26 @@
                 checkboxes.style.display = "none";
                 expanded = false;
             }
+        }
+
+        function updateStatus(id,status,ele) {
+            jQuery.ajax({
+                data:  {
+                    _token:'{{ csrf_token() }}',
+                    id:id,
+                    status:status
+                },
+                type: "post",
+                url: "{{ url('/investor/appointment/status') }}",
+                dataType: "JSON",
+                success: function(data){
+                    if(status == 1){
+                        $(ele).parent().html('<a style="cursor: pointer" onclick="updateStatus(' + id + ',0,this)">Decline</a>');
+                    } else {
+                        $(ele).parent().html('<a style="cursor: pointer" onclick="updateStatus(' + id + ',1,this)">Approve</a>');
+                    }
+                }
+            });
         }
 
     </script>

@@ -315,6 +315,7 @@
                                                 <li><h3>Campaign</h3><span lang="">{{$business_plan->campaign}}</span></li>
                                                 <li><h3>Budget</h3><span lang="">{{$business_plan->budget}}</span></li>
                                                 <li><h3>Pitch</h3>{{$business_plan->pitch}}</li>
+                                                <li><h3><a href="{{url($type . '/entrepreneur/feedback/' . $business_plan->id)}}">Feedback</a></h3></li>
                                             </ul>
                                         </div>
                                     </div>
