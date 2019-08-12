@@ -441,6 +441,7 @@ class HomeController extends Controller
             $users_list[] = [
                 "name" => $user->firstname .' '. $user->lastname,
                 "email" => $user->email,
+                "group_id" => $user->groupid,
                 'id' => $user->id
             ];
         }

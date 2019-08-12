@@ -1419,7 +1419,7 @@
                 dataType: "JSON",
                 success: function(data){
                     if(status == 1){
-                        $(ele).parent().html('<a style="cursor: pointer" onclick="updateStatus(' + id + ',0,this)">Decline</a>');
+                        $(ele).parent().html('<a style="cursor: pointer" onclick="updateStatus(' + id + ',-1,this)">Decline</a>');
                     } else {
                         $(ele).parent().html('<a style="cursor: pointer" onclick="updateStatus(' + id + ',1,this)">Approve</a>');
                     }

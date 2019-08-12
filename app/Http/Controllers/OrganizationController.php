@@ -2,6 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Appointments;
+use App\Models\Entrepreneurs;
+use App\Models\Investor;
+use App\Models\ProjectDonations;
+use App\Models\ProjectFunding;
+use App\Models\Supporter;
 use App\Models\UserDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
@@ -36,10 +42,31 @@ class OrganizationController extends Controller
         ->join('userdetails', 'projects.created_by', '=', 'userdetails.id')
         ->where('userdetails.groupid','1')->get();
         $users = UserDetails::where('groupid','!=',2)->get();
+
+        $appointments = Appointments::whereHas('withUser',function($query) {
+            $query->where('groupid',3);
+        })->where('status',1)->get();
+        $mentouring_hours = 0;
+        foreach ($appointments as $appointment) {
+            $d1= new \DateTime(date('Y-m-d')." ".$appointment->fromtime);
+            $d2= new \DateTime(date('Y-m-d')." ".$appointment->totime);
+            $interval= $d1->diff($d2);
+            $mentouring_hours += ($interval->days * 24) + $interval->h;
+        }
+
+        $total_funds_invest = ProjectFunding::get()->sum('amount');
+        $total_funds_donate = ProjectDonations::get()->sum('amount');
+
+        $country = Entrepreneurs::get()->groupBy('country')->count();
+
+        $entrepreneurs_list = Entrepreneurs::get();
+        $investor = Investor::get();
+        $supporter = Supporter::get();
         //print_r($project_donations); exit();
         return view("dashboard.organization",compact("organization","blogs"
             ,"user_invites","projects","project_donations","project_funding","orders"
-            ,"entrepreneurs","user_invites","recentblogs",'users'));
+            ,"entrepreneurs","user_invites","recentblogs",'users','mentouring_hours'
+            ,'total_funds_invest','total_funds_donate','country','entrepreneurs_list','investor','supporter'));
     }
 
     /**

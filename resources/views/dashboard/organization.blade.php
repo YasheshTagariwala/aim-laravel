@@ -66,7 +66,7 @@
                                             <div class="dashboard-tile detail tile-red">
                                                 <div class="content" > 
                                                     <a class="go_link" href="javascript:void(0)" data-href="supporters">Supporters Mentoring Hours</a>
-                                                    <p class="text-left "  ><span class="timer" data-to="0" data-speed="2500"></span></p>
+                                                    <p class="text-left "  ><span class="timer" data-to="{{$mentouring_hours}}" data-speed="2500"></span></p>
                                                 </div>          
                                                 <div class="icon"><i class="fa fa-file-text"></i> </div>
                                             </div>
@@ -75,7 +75,7 @@
                                             <div class="dashboard-tile detail tile-purple">
                                                 <div class="content" >
                                                     <a class="go_link" href="javascript:void(0)" data-href="investors"> Funds by Investors</a>
-                                                    <p class="text-left "  >$<span class="timer" data-to="0" data-speed="2500"></span></p>
+                                                    <p class="text-left "  >$<span class="timer" data-to="{{$total_funds_invest}}" data-speed="2500"></span></p>
                                                 </div>
                                                 <div class="icon"><i class="fa fa-envelope"></i> </div>
                                             </div>
@@ -84,7 +84,7 @@
                                             <div class="dashboard-tile detail tile-turquoise">
                                                 <div class="content" > 
                                                     <a class="go_link" href="javascript:void(0)" data-href="supporters">Donations by Supporters</a>
-                                                    <p class="text-left "  >$<span class="timer" data-to="0" data-speed="2500"></span></p>
+                                                    <p class="text-left "  >$<span class="timer" data-to="{{$total_funds_donate}}" data-speed="2500"></span></p>
                                                 </div>
                                                 <div class="icon"><i class="fa fa-bar-chart-o"></i> </div>
                                           </div>
@@ -93,7 +93,7 @@
                                             <div class="dashboard-tile detail tile-blue">
                                                 <div class="content"  > 
                                                     <a class="go_link" href="javascript:void(0)" data-href="enterplace"> Enterprises Count Countries</a> 
-                                                    <p class="text-left "  ><span class="timer" data-to="0" data-speed="2500"></span></p>
+                                                    <p class="text-left "  ><span class="timer" data-to="{{$country}}" data-speed="2500"></span></p>
                                                 </div>
                                                 <div class="icon"><i class="fa fa-flag"></i> </div>
                                             </div>
@@ -112,26 +112,20 @@
                                             <table class="table" cellspacing="0" width="100%">
                                                 <thead class="cf">
                                                     <tr>
-                                                        <th class="numeric">Project</th>
-                                                        <th class="numeric">Funds</th>
-                                                        <th class="numeric">Donations</th>          
-                                                        <th class="numeric">Amount</th>
-                                                        <th class="numeric">Status</th>
+                                                        <th class="numeric">Name</th>
+                                                        <th class="numeric">Email</th>
+                                                        <th class="numeric">Phone</th>
+                                                        <th class="numeric">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach($projects as $project)
+                                                    @foreach($entrepreneurs_list as $entrepreneur)
                                                     <tr>
-                                                        <td class="numeric">{{$project->title}}</td>
-                                                        <td class="numeric">$<?php $sqlQuery = "SELECT sum(amount) as funds FROM project_funding WHERE project_from = ".$project->created_by." ";
-                                                        $result = DB::select(DB::raw($sqlQuery)); 
-                                                        print_r($result[0]->funds); ?></td>
-                                                        <td class="numeric">$<?php $sqlQuery = "SELECT sum(amount) as donation FROM project_donations WHERE project_from = ".$project->created_by." ";
-                                                        $result = DB::select(DB::raw($sqlQuery)); 
-                                                        print_r($result[0]->donation); ?></td>                  
-                                                        <td class="numeric">$0</td>                      
-                                                        <td class="numeric">{{$project->progress}} %</td>             
-                                                    </tr>                  
+                                                        <td class="numeric">{{$entrepreneur->user->firstname .' '.$entrepreneur->user->lastname}}</td>
+                                                        <td class="numeric">{{$entrepreneur->user->email}}</td>
+                                                        <td class="numeric">{{$entrepreneur->user->phone}}</td>
+                                                        <td class="numeric"><a href="{{url('profile/entrepreneur/'.$entrepreneur->user->id)}}">View</a></td>
+                                                    </tr>
                                                     @endforeach
                                                 </tbody>
                                                 <tfoot>
@@ -339,33 +333,29 @@
                                         <div class="panel-body" id="no-more-tables">
                                             <table id="example" class="table table-striped table-bordered cf" cellspacing="0" width="100%">
                                                 <thead class="cf">
-                                                    <tr>
-                                                        <th class="numeric">Project</th>
-                                                        <th class="numeric">Funds Raised</th>
-                                                        <th class="numeric">Donations</th>          
-                                                        <th class="numeric">Admin Transfered Amount</th>
-                                                        <th class="numeric">Status</th>
-                                                    </tr>
+                                                <tr>
+                                                    <th class="numeric">Name</th>
+                                                    <th class="numeric">Email</th>
+                                                    <th class="numeric">Phone</th>
+                                                    <th class="numeric">Action</th>
+                                                </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach($projects as $project)
+                                                @foreach($entrepreneurs_list as $entrepreneur)
                                                     <tr>
-                                                        <td class="numeric">{{$project->title}}</td>
-                                                        <td class="numeric">$<?php $sqlQuery = "SELECT sum(amount) as funds FROM project_funding WHERE project_from = ".$project->created_by." ";
-                                                        $result = DB::select(DB::raw($sqlQuery)); 
-                                                        print_r($result[0]->funds); ?></td>
-                                                        <td class="numeric">$<?php $sqlQuery = "SELECT sum(amount) as donation FROM project_donations WHERE project_from = ".$project->created_by." ";
-                                                        $result = DB::select(DB::raw($sqlQuery)); 
-                                                        print_r($result[0]->donation); ?></td>                  
-                                                        <td class="numeric">$0</td>                      
-                                                        <td class="numeric">{{$project->progress}} %</td>             
-                                                    </tr>                  
-                                                    @endforeach
+                                                        <td class="numeric">{{$entrepreneur->user->firstname .' '.$entrepreneur->user->lastname}}</td>
+                                                        <td class="numeric">{{$entrepreneur->user->email}}</td>
+                                                        <td class="numeric">{{$entrepreneur->user->phone}}</td>
+                                                        <td class="numeric"><a href="{{url('profile/entrepreneur/'.$entrepreneur->user->id)}}">View</a></td>
+                                                    </tr>
+                                                @endforeach
                                                 </tbody>
                                                 <tfoot>
                                                 </tfoot>
-                                            </table>              
-                                            <div class="alert alert-warning alert-dismissable" > No Data Found</div>              
+                                            </table>
+                                            @if(count((array)$entrepreneurs_list) <= 0)
+                                            <div class="alert alert-warning alert-dismissable" > No Data Found</div>
+                                            @endif
                                             <nav class="text-center"></nav>
                                         </div>
                                     </div>
@@ -472,29 +462,28 @@
                                         <div class="panel-body border-top" id="no-more-tables">
                                             <table id="example" class="table table-striped table-bordered cf" cellspacing="0" width="100%">
                                                 <thead class="cf">
-                                                    <tr>
-                                                        <th class="numeric">Supporter Name</th>
-                                                        <th class="numeric">Total Funds Donated</th>
-                                                        <!-- <th class="numeric">Number of Hours Invested</th>
-                                                        <th class="numeric">View Donation Details</th> -->
-                                                        <th class="numeric">Date</th>
-                                                    </tr>
+                                                <tr>
+                                                    <th class="numeric">Name</th>
+                                                    <th class="numeric">Email</th>
+                                                    <th class="numeric">Phone</th>
+                                                    <th class="numeric">Action</th>
+                                                </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach($project_donations as $project_fund)                  
+                                                @foreach($supporter as $entrepreneur)
                                                     <tr>
-                                                        <td data-title="Investor Name" class="numeric">{{$project_fund->firstname}} {{$project_fund->lastname}}</td>
-                                                        <td data-title="Total Funds Invested" class="numeric">${{$project_fund->amount}}</td>
-                                                        <!-- <td data-title="ROI" class="numeric">%</td>
-                                                        <td data-title="View Fund Details" class="numeric"><a class="btn btn-default btn-primary" href="#">View Details</a></td> -->
-                                                        <td >{{$project_fund->created_by}}</td>
-                                                    </tr> 
-                                                    @endforeach                 
+                                                        <td class="numeric">{{$entrepreneur->user->firstname .' '.$entrepreneur->user->lastname}}</td>
+                                                        <td class="numeric">{{$entrepreneur->user->email}}</td>
+                                                        <td class="numeric">{{$entrepreneur->user->phone}}</td>
+                                                        <td class="numeric"><a href="{{url('profile/supporter/'.$entrepreneur->user->id)}}">View</a></td>
+                                                    </tr>
+                                                @endforeach
                                                 </tbody>
                                                 <tfoot></tfoot>
-                                            </table> @if(count($project_donations) < 1)
-                                            <div class="alert alert-warning alert-dismissable" > No Data Found</div>       
-                                            @endif       
+                                            </table>
+                                            @if(count((array)$supporter) < 1)
+                                            <div class="alert alert-warning alert-dismissable" > No Data Found</div>
+                                            @endif
                                             <nav class="text-center"></nav>
                                         </div>
                                     </div> 
@@ -506,29 +495,28 @@
                                         <div class="panel-body border-top" id="no-more-tables">        
                                             <table id="example" class="table table-striped table-bordered cf" cellspacing="0" width="100%">
                                                 <thead class="cf">
-                                                    <tr>
-                                                        <th class="numeric">Investor Name</th>
-                                                        <th class="numeric">Total Funds Invested</th>
-                                                        <!-- <th class="numeric">ROI</th>
-                                                        <th class="numeric">View Fund Details</th> -->
-                                                        <th class="numeric">Date</th>
-                                                    </tr>
+                                                <tr>
+                                                    <th class="numeric">Name</th>
+                                                    <th class="numeric">Email</th>
+                                                    <th class="numeric">Phone</th>
+                                                    <th class="numeric">Action</th>
+                                                </tr>
                                                 </thead>
-                                                <tbody>     
-                                                    @foreach($project_funding as $project_fund)                  
+                                                <tbody>
+                                                @foreach($investor as $entrepreneur)
                                                     <tr>
-                                                        <td data-title="Investor Name" class="numeric">{{$project_fund->firstname}} {{$project_fund->lastname}}</td>
-                                                        <td data-title="Total Funds Invested" class="numeric">${{$project_fund->amount}}</td>
-                                                        <!-- <td data-title="ROI" class="numeric">%</td>
-                                                        <td data-title="View Fund Details" class="numeric"><a class="btn btn-default btn-primary" href="#">View Details</a></td> -->
-                                                        <td >{{$project_fund->created_by}}</td>
-                                                    </tr> 
-                                                    @endforeach                 
+                                                        <td class="numeric">{{$entrepreneur->user->firstname .' '.$entrepreneur->user->lastname}}</td>
+                                                        <td class="numeric">{{$entrepreneur->user->email}}</td>
+                                                        <td class="numeric">{{$entrepreneur->user->phone}}</td>
+                                                        <td class="numeric"><a href="{{url('profile/investor/'.$entrepreneur->user->id)}}">View</a></td>
+                                                    </tr>
+                                                @endforeach
                                                 </tbody>
                                                 <tfoot></tfoot>
-                                            </table>               @if(count($project_funding) < 1)
-                                            <div class="alert alert-warning alert-dismissable" > No Data Found</div>       
-                                            @endif              
+                                            </table>
+                                            @if(count((array)$investor) < 1)
+                                            <div class="alert alert-warning alert-dismissable" > No Data Found</div>
+                                            @endif
                                             <nav class="text-center"></nav>
                                         </div>
                                     </div>

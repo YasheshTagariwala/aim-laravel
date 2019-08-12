@@ -2753,7 +2753,7 @@
                         // jQuery("span#messageContent").html(event.message);
                         if (event.approve == '1') {
                             jQuery("span.bodyResult").html("Scheduled");
-                        } else if (event.approve == '2') {
+                        } else if (event.approve == '-1') {
                             jQuery("span.bodyResult").html("Rejected");
                         } else {
                             jQuery("span.bodyResult").html("Pending Approval");

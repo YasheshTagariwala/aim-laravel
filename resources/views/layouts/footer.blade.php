@@ -129,8 +129,19 @@
                     },
                     list: {
                         onSelectItemEvent: function() {
-                            var selectedItemValue = $("#search_user").getSelectedItemData().id;
-                            $('#searchform').attr('action','{{url('/profile')}}/' + selectedItemValue);
+                            var value = $("#search_user").getSelectedItemData();
+                            var selectedItemValue = value.id;
+                            var type = "";
+                            if(value.group_id == 1) {
+                                type = "entrepreneur"
+                            }else if(value.group_id == 2) {
+                                type = "organization"
+                            }else if(value.group_id == 3) {
+                                type = "supporter"
+                            }else if(value.group_id == 4) {
+                                type = "investor"
+                            }
+                            $('#searchform').attr('action','{{url('/profile')}}/' + type + '/' +selectedItemValue);
                         },
                         match: {
                             enabled: true
