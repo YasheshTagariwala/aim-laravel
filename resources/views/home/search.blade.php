@@ -74,11 +74,11 @@
                                                 <?php
                                                 $company = \App\Models\EntrepreneurCompanies::where('created_by',$user->created_by)->first();
                                                 ?>
-                                                <img src="{{(($user->logo == NULL && $user->logo == "" && file_exists($user->logo)) ? asset('/assets_new/images/profile_image.png') : $user->logo) }}">
+                                                <img src="{{(($user->logo == NULL && $user->logo == "" && !file_exists($user->logo)) ? asset('/assets_new/images/profile_image.png') : $user->logo) }}">
                                             @elseif($group_id == 2)
-                                                <img src="{{(($user->org_logo == NULL && $user->org_logo == "" && file_exists($user->org_logo)) ? asset('/assets_new/images/profile_image.png') : $user->org_logo) }}">
+                                                <img src="{{(($user->org_logo == NULL && $user->org_logo == "" && !file_exists($user->org_logo)) ? asset('/assets_new/images/profile_image.png') : $user->org_logo) }}">
                                             @elseif($group_id == 3)
-                                                <img src="{{(($user->image == NULL && $user->image == "" && file_exists($user->image)) ? asset('/assets_new/images/profile_image.png') : $user->image) }}">
+                                                <img src="{{(($user->image == NULL && $user->image == "" && !file_exists($user->image)) ? asset('/assets_new/images/profile_image.png') : $user->image) }}">
                                             @else
                                                 <img src="{{asset('/assets_new/images/profile_image.png')}}" alt="">
                                             @endif

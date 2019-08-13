@@ -44,11 +44,12 @@
             <div class="row">
                 <div class="col-md-3 col-sm-5">
                     <div class="thumb_logo">
-                        <img src="{{$entrepreneur->logo}}" alt="{{$entrepreneur->name}}" class="details-logo" id=""></div>
+                        <img src="{{(($entrepreneur->logo == NULL && $entrepreneur->logo == "") ? asset('/assets_new/images/profile_image.png') : $entrepreneur->logo) }}"
+                             alt="{{$entrepreneur->user->firstname}} {{$entrepreneur->lastname}}" class="details-logo" id=""></div>
                 </div>
                 <div class="col-md-6 col-sm-6">
                     <h2>
-                        {{$entrepreneur->name}}<br>
+                        {{$entrepreneur->user->firstname}} {{$entrepreneur->lastname}}<br>
                         {{$entrepreneur->user->email}}<br>
                         {{$entrepreneur->user->phone}}<br>
                     </h2>
@@ -75,9 +76,9 @@
     </section>
     <!-- Start Inner Contents -->
     <?php
-        if($group_id == 1) {
-            $company = \App\Models\EntrepreneurCompanies::where('created_by',$user->created_by)->first();
-        }
+    if(Session::get('groupid') == 1) {
+        $company = \App\Models\EntrepreneurCompanies::where('created_by',$entrepreneur->created_by)->first();
+    }
     ?>
     <section class="details-body">
         <div class="container">

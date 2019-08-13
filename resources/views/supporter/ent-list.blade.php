@@ -69,12 +69,13 @@
                                 <div class="list-content ">
                                     <div class="col-md-6 col-sm-6 col-xs-6 list-icon listcont1 text-center " style="height: 200px;">
                                         <div class="thumb_logo">
-                                            <img src="{{$entrepreneur->logo}}" alt="Testing Women by Acropolis">
+                                            <img src="{{(($entrepreneur->logo == NULL && $entrepreneur->logo == "") ? asset('/assets_new/images/profile_image.png') : $entrepreneur->logo) }}"
+                                                 alt="{{$entrepreneur->name}}">
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-sm-6 col-xs-6 vot-info listcont1" style="height: 200px;">
                                         <h3>
-                                            {{$entrepreneur->name}}<br>
+                                            {{$entrepreneur->user->firstname}} {{$entrepreneur->lastname}}<br>
                                             {{$entrepreneur->user->email}}<br>
                                             {{$entrepreneur->user->phone}}<br>
                                         </h3>
@@ -115,7 +116,7 @@
                                                             </h1>
                                                             <div id="stars-default" class="inner-star"></div>
                                                             <figure class="text-center">
-                                                                <img src="{{$entrepreneur->logo}}" alt="Testing Women by Acropolis">
+                                                                <img src="{{(($entrepreneur->logo == NULL && $entrepreneur->logo == "") ? asset('/assets_new/images/profile_image.png') : $entrepreneur->logo) }}" alt="Testing Women by Acropolis">
                                                             </figure>
                                                             <a target="_blank" href="#"> </a>
                                                             {{--<ul>--}}
@@ -183,9 +184,17 @@
                                                                                 </div>
                                                                             </div>
                                                                             <div class="more-link">
-                                                                                <a href="{{url('/supporter/entrepreneur/')}}/{{$entrepreneur->id}}">
-                                                                                    <button type="button" class="btn btn-default">More Details</button>
-                                                                                </a>
+                                                                                <div class="more-link">
+                                                                                    @if(Session::get('groupid') == 3)
+                                                                                        <a href="{{url('/supporter/entrepreneur/')}}/{{$entrepreneur->id}}">
+                                                                                            <button type="button" class="btn btn-default">More Details</button>
+                                                                                        </a>
+                                                                                    @else
+                                                                                        <a href="{{url('/investor/entrepreneur/')}}/{{$entrepreneur->id}}">
+                                                                                            <button type="button" class="btn btn-default">More Details</button>
+                                                                                        </a>
+                                                                                    @endif
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>

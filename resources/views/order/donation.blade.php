@@ -22,7 +22,13 @@
           <div class="tab-content">
             <div class="tab-pane text-style summry_form active" id="proceed">
               <div class="clearfix billing-order-details">           
-            <h4> Your Donation Has Been Transfered Succesfully ! <a href="{{url('/market-place')}}">  Go Back To Home</a></h4> 
+            <h4> Your Donation Has Been Transfered Succesfully !
+                @if(Session::get('groupid') == 3)
+                    <a href="{{url('/supporter')}}">Go Back To Home</a>
+                @else
+                    <a href="{{url('/investor')}}">Go Back To Home</a>
+                @endif
+                </h4>
             </div>
           </div><!-- tab-content -->
         </div><!-- row -->

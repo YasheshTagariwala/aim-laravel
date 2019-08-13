@@ -17,11 +17,11 @@
                 <div class="col-md-3 col-sm-5">
                     <div class="thumb_logo">
                         @if($group_id == 1)
-                            <img src="{{(($user->logo == NULL && $user->logo == "" && file_exists($user->logo)) ? asset('/assets_new/images/profile_image.png') : $user->logo) }}" class="details-logo" id="">
+                            <img src="{{(($user->logo == NULL && $user->logo == "" && !fopen($user->logo,'r')) ? asset('/assets_new/images/profile_image.png') : $user->logo) }}" class="details-logo" id="">
                         @elseif($group_id == 2)
-                            <img src="{{(($user->org_logo == NULL && $user->org_logo == "" && file_exists($user->org_logo)) ? asset('/assets_new/images/profile_image.png') : $user->org_logo) }}" class="details-logo" id="">
+                            <img src="{{(($user->org_logo == NULL && $user->org_logo == "" && !fopen($user->org_logo,'r')) ? asset('/assets_new/images/profile_image.png') : $user->org_logo) }}" class="details-logo" id="">
                         @elseif($group_id == 3)
-                            <img src="{{(($user->image == NULL && $user->image == "" && file_exists($user->image)) ? asset('/assets_new/images/profile_image.png') : $user->image) }}" class="details-logo" id="">
+                            <img src="{{(($user->image == NULL && $user->image == "" && !fopen($user->image,'r')) ? asset('/assets_new/images/profile_image.png') : $user->image) }}" class="details-logo" id="">
                         @else
                             <img src="{{asset('/assets_new/images/profile_image.png')}}" alt="" class="details-logo" id="">
                         @endif
@@ -98,7 +98,7 @@
                                     <div id="faq-cat-1-sub-1" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
                                         <div class="panel-body">
                                             @if($group_id == 1)
-                                                <p><span lang="">{{$company->overview}}</span></p>
+                                                <p><span lang="">{{$company ? $company->overview : ''}}</span></p>
                                             @elseif($group_id == 2)
                                                 <p><span lang="">{{$user->description}}</span></p>
                                             @else($group_id == 3 && $group_id == 4)

@@ -150,7 +150,7 @@
     </section>
 
     <script>
-        var total = '{{$total_funds_raised}}';
+        var total = '{{$total_funds_raised - $total_cashed_out}}';
         function showBank(val) {
             if(val == "bank") {
                 $('#bank_details').show();

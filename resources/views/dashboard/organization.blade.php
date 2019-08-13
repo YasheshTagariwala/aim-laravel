@@ -297,10 +297,13 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="acf-field_56d41973c0dbc">Category <span class="acf-required">*</span></label>
-                                                        <?php $categories = DB::table('categories')->where('groupid','1')->get(); ?>
+                                                        <?php
+                                                            $categories = DB::table('categories')->where('groupid','1')->get();
+                                                            $cats = array_filter(explode(",",$organization[0]->categories));
+                                                        ?>
                                                             <ul>
                                                                 @foreach($categories as $categorie)
-                                                            <li> <label> <input type="checkbox" value="{{$categorie->id}}" name="org_categories[]" @if(count($organization) > 0) @if($organization[0]->categories == $categorie->id) checked="" @endif @endif /> {{$categorie->name}}</label> </li>
+                                                            <li> <label> <input type="checkbox" value="{{$categorie->id}}" name="org_categories[]" @if(count($organization) > 0) @if(in_array($categorie->id,$cats)) checked="" @endif @endif /> {{$categorie->name}}</label> </li>
                                                                 @endforeach
                                                             </ul>
                                                     </div>
