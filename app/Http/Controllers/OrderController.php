@@ -151,7 +151,8 @@ class OrderController extends Controller
 
         try{
             $charge = \Stripe\Charge::create([
-                'amount' => $total_amount*100,
+//                'amount' => $total_amount*100,
+                'amount' => $total_amount,
                 'currency' => 'usd',
                 'description' => 'order from : '.$username,
                 'source' => $token,
@@ -272,7 +273,8 @@ class OrderController extends Controller
             // Get the payment token ID submitted by the form:
             $token = $_POST['stripeToken'];
             $charge = \Stripe\Charge::create([
-            'amount' => $amount*100,
+//            'amount' => $amount*100,
+            'amount' => $amount,
             'currency' => 'usd',
             'description' => 'funding from : '.$username,
             'source' => $token,
