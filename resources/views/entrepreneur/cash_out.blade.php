@@ -44,11 +44,11 @@
                                 </td>
                                 <td>
                                     @if($cash_out->type == "bank")
-                                        {{$cash_out->bank_name}}<br>
-                                        {{$cash_out->bank_acc_no}}<br>
-                                        {{$cash_out->bank_account_holder_name}}<br>
-                                        {{$cash_out->bank_account_type}}<br>
-                                        {{$cash_out->aba_routing_number}}<br>
+                                        Bank Name : - <b>{{$cash_out->bank_name}}</b><br>
+                                        Acc No :- <b>{{$cash_out->bank_acc_no}}</b><br>
+                                        Holder Name :- <b>{{$cash_out->bank_account_holder_name}}</b><br>
+                                        Acc Type :- <b>{{$cash_out->bank_account_type}}</b><br>
+                                        Abn No. :- <b>{{$cash_out->aba_routing_number}}</b><br>
                                     @else
                                         -
                                     @endif
@@ -168,7 +168,7 @@
             var bank_account_type = $('#bank_account_type').val();
             var aba_routing_number = $('#aba_routing_number').val();
             var description = $('#description').val();
-            if(amount > total) {
+            if(amount > +total) {
                 alert('amount must be less than the available amount');
                 return;
             }

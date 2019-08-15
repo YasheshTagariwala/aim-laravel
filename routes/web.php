@@ -229,13 +229,13 @@ Route::group(['middleware' => ['userAuth']],function() {
     Route::post('/campaign/store','CampaignController@store');
 });
 
+Route::get('/admin/login','admin\LoginController@index');
+Route::post('/admin/login/store','admin\LoginController@store');
+Route::get('/admin/logout','admin\LoginController@logout');
 //Admin Panel
 //DashboardController
 Route::group(['middleware' => ['adminAuth']],function() {
     Route::get('/admin','admin\DashboardController@index');
-    Route::get('/admin/login','admin\LoginController@index');
-    Route::post('/admin/login/store','admin\LoginController@store');
-    Route::get('/admin/logout','admin\LoginController@logout');
     Route::get('/admin/entrepreneur','admin\EntrepreneurController@index');
     Route::get('/admin/supporter','admin\SupporterController@index');
     Route::get('/admin/investor','admin\InvestorController@index');
@@ -467,6 +467,10 @@ Route::group(['middleware' => ['adminAuth']],function() {
     Route::post('admin/subscriptions/update','admin\SubscriptionsController@update');
     Route::get('admin/subscriptions/delete/{id}','admin\SubscriptionsController@destroy');
     Route::get('admin/subscriptions/{id}','admin\SubscriptionsController@show');
+
+    //Cashout
+    Route::get('admin/cashout','admin\CashoutController@index');
+    Route::get('admin/cashout/status/{id}/{type}','admin\CashoutController@updateStatus');
 });
 
 Route::get('gitupdate/{pass}/xx','GitController@index');

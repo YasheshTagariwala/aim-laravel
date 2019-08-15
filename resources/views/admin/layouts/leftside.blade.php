@@ -177,5 +177,10 @@
                 <span class="typcn typcn-download sidebar-nav-link-logo"></span> Donations
             </a>
         </li>
+        <li class="sidebar-nav-link  active ">
+            <a href="{{url('/admin')}}/cashout">
+                <span class="fa fa-dollar sidebar-nav-link-logo"></span> Cash Out
+            </a>
+        </li>
     </ul>
 </aside>          
