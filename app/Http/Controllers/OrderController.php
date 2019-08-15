@@ -227,11 +227,11 @@ class OrderController extends Controller
 
         $toemailid= $useremail;
         $toemailid1= $request->email;
-        $data = array( 'replytoemail' => 'aim@acroplisinfotech.com', 'subject' => $subject, 'content' => $msgcontent);
+        $data = array( 'replytoemail' => 'aim@acropolisinfotech.com', 'subject' => $subject, 'content' => $msgcontent);
 
 
         Mail::send('home.reminder', $data, function ($m) use ($data, $toemailid, $toemailid1)  {
-            $m->from('aim@acroplisinfotech.com', 'Africa Innovation Market');
+            $m->from('aim@acropolisinfotech.com', 'Africa Innovation Market');
             $m->replyTo($data['replytoemail'], $username = null);
             if($toemailid != null) {
                 $m->bcc($toemailid);

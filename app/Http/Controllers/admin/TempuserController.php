@@ -79,7 +79,7 @@ class TempuserController extends Controller
         $messagecontent = "";
         $toemailids= 'praveenperfeitoo@gmail.com';
         $content=$messagecontent;
-        $replyto = 'aim@acroplisinfotech.com';
+        $replyto = 'aim@acropolisinfotech.com';
         $url_admin = '/admin/temp_user';
 
         $messagecontent = '<div style="width:100%px;text-align:center;margin: 0;">';
@@ -102,7 +102,7 @@ class TempuserController extends Controller
         ]);
 
             Mail::send('home.reminder', $data, function ($m) use ($data, $toemailids)  {
-            $m->from('aim@acroplisinfotech.com', 'Africa Innovation Market');
+            $m->from('aim@acropolisinfotech.com', 'Africa Innovation Market');
             $m->replyTo($data['replytoemail'], $name = null);
             $m->bcc('praveenperfeitoo@gmail.com', 'yogeshnaveen111@gmail.com');
             $m->to($toemailids, '')->subject($data['subject']);
@@ -208,7 +208,7 @@ class TempuserController extends Controller
         $messagecontent = "";
         $toemailids= $email;
         $content=$messagecontent;
-        $replyto = 'aim@acroplisinfotech.com';
+        $replyto = 'aim@acropolisinfotech.com';
         $url_admin = '/login';
 
         $messagecontent = '<div style="width:100%px;text-align:center;margin: 0;">';
@@ -229,7 +229,7 @@ class TempuserController extends Controller
         ]);
 
             Mail::send('home.reminder', $data, function ($m) use ($data, $toemailids)  {
-            $m->from('aim@acroplisinfotech.com', 'Africa Innovation Market');
+            $m->from('aim@acropolisinfotech.com', 'Africa Innovation Market');
             $m->replyTo($data['replytoemail'], $name = null);
             $m->bcc('praveenperfeitoo@gmail.com', 'yogeshnaveen111@gmail.com');
             $m->to($toemailids, '')->subject($data['subject']);
