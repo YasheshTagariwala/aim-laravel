@@ -127,6 +127,7 @@ class RegisterController extends Controller
                                                           'email' => $request->email,
                                                           'gender' => $request->gender,
                                                           'password' => $password,
+                                                          'userid' => $invites[0]->invited_by,
                                                           'groupid' => $request->grbid,
                                                           'provider' => $provider]
                                                      );

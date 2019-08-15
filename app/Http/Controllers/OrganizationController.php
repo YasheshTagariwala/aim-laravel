@@ -7,6 +7,7 @@ use App\Models\Entrepreneurs;
 use App\Models\Investor;
 use App\Models\ProjectDonations;
 use App\Models\ProjectFunding;
+use App\Models\Projects;
 use App\Models\Supporter;
 use App\Models\UserDetails;
 use Illuminate\Http\Request;
@@ -28,16 +29,24 @@ class OrganizationController extends Controller
         $user_invites = DB::table('user_invites')->where('invited_by',Session::get('userid'))->get();
         $blogs = DB::table('blogs')->where('created_by',Session::get('userid'))->get();
         $orders = DB::table('orders')->where('created_by',Session::get('userid'))->get();
-        $projects = DB::table('projects')->get();
-        $orders = DB::table('orders')->where('created_by',Session::get('userid'))->get();
+//        $projects = DB::table('projects')->get();
+        $projects = Projects::whereHas('user',function($query) {
+            $query->where('userid',Session::get('userid'));
+            $query->orWhere('userid',NULL);
+        })->get();
         $user_invites = DB::table('user_invites')->where('created_by',Session::get('userid'))->get();
         $recentblogs = DB::table('blogs')->skip(0)->take(1)->get();
-        $project_funding = DB::table('project_funding')
-        ->join('userdetails', 'project_funding.created_by', '=', 'userdetails.id')
-        ->where('userdetails.groupid','4')->get();
-        $project_donations = DB::table('project_donations')
-        ->join('userdetails', 'project_donations.created_by', '=', 'userdetails.id')
-        ->where('userdetails.groupid','3')->get();
+
+        $project_funding = ProjectFunding::whereHas('user',function($query) {
+            $query->where('userid',Session::get('userid'));
+            $query->orWhere('userid',NULL);
+        })->whereBetween(DB::raw('DATE(created_at)'),[date('Y-m-d',strtotime("-7 days")),date('Y-m-d')])->get();
+
+        $project_donations = ProjectDonations::whereHas('user',function($query) {
+            $query->where('userid',Session::get('userid'));
+            $query->orWhere('userid',NULL);
+        })->whereBetween(DB::raw('DATE(created_at)'),[date('Y-m-d',strtotime("-7 days")),date('Y-m-d')])->get();
+
         $entrepreneurs = DB::table('projects')
         ->join('userdetails', 'projects.created_by', '=', 'userdetails.id')
         ->where('userdetails.groupid','1')->get();
@@ -45,6 +54,8 @@ class OrganizationController extends Controller
 
         $appointments = Appointments::whereHas('withUser',function($query) {
             $query->where('groupid',3);
+            $query->where('userid',Session::get('userid'));
+            $query->orWhere('userid',NULL);
         })->where('status',1)->get();
         $mentouring_hours = 0;
         foreach ($appointments as $appointment) {
@@ -54,14 +65,33 @@ class OrganizationController extends Controller
             $mentouring_hours += ($interval->days * 24) + $interval->h;
         }
 
-        $total_funds_invest = ProjectFunding::get()->sum('amount');
-        $total_funds_donate = ProjectDonations::get()->sum('amount');
+        $total_funds_invest = ProjectFunding::whereHas('user',function($query) {
+            $query->where('userid',Session::get('userid'));
+            $query->orWhere('userid',NULL);
+        })->get()->sum('amount');
+        
+        $total_funds_donate = ProjectDonations::whereHas('user',function($query) {
+            $query->where('userid',Session::get('userid'));
+            $query->orWhere('userid',NULL);
+        })->get()->sum('amount');
 
-        $country = Entrepreneurs::get()->groupBy('country')->count();
+        $country = Entrepreneurs::whereHas('user',function($query) {
+            $query->where('userid',Session::get('userid'));
+            $query->orWhere('userid',NULL);
+        })->get()->groupBy('country')->count();
 
-        $entrepreneurs_list = Entrepreneurs::get();
-        $investor = Investor::get();
-        $supporter = Supporter::get();
+        $entrepreneurs_list = Entrepreneurs::whereHas('user',function($query) {
+            $query->where('userid',Session::get('userid'));
+            $query->orWhere('userid',NULL);
+        })->get();
+        $investor = Investor::whereHas('user',function($query) {
+            $query->where('userid',Session::get('userid'));
+            $query->orWhere('userid',NULL);
+        })->get();
+        $supporter = Supporter::whereHas('user',function($query) {
+            $query->where('userid',Session::get('userid'));
+            $query->orWhere('userid',NULL);
+        })->get();
         //print_r($project_donations); exit();
         return view("dashboard.organization",compact("organization","blogs"
             ,"user_invites","projects","project_donations","project_funding","orders"
