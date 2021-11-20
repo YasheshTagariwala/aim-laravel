@@ -46,8 +46,8 @@ class RegisterController extends Controller
     {
         //print_r($secret); exit();
         if($provider == 'twitter'){
-//        $token = '1072101674884325377-EKzy4bBs9fYVsjbhIG2tm85jIdDs8B';
-//        $secret = 'RpHXsAxCOETuuneYRhvA2DptKIY5loB5qx7WbfyzFQ4OX';
+//        $token = '';
+//        $secret = '';
 
             $token = Config::get('services.twitter.access_token');
             $secret = Config::get('services.twitter.access_secret');
