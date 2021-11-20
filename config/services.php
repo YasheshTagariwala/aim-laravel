@@ -36,46 +36,46 @@ return [
     ],
 
 //    'facebook' => [
-//        'client_id'     => '907831576088877',  //aim
-//        'client_secret' => 'be4a6f93762538ba876f4b7e7d964084',
-//        'redirect'      => 'http://localhost:8000/register/facebook/callback',
+//        'client_id'     => '',  //aim
+//        'client_secret' => '',
+//        'redirect'      => '',
 //    ],
 
     'facebook' => [
-        'client_id'     => '685538751851466',
-        'client_secret' => '4428ce681b855676d5392ed5bd1673a7',
+        'client_id'     => '',
+        'client_secret' => '',
         'redirect'      => env('APP_URL').'/register/facebook/callback',
     ],
 
 //    'twitter' => [
-//        'client_id'     => 'Dq8yUG8w6VRxzuTonNOaGcWct ',		//aim
-//        'client_secret' => 'a0sbzIlejryFnvF8MGKdnccttd8qk6XuZMsnYeJ9fjaYtdM0AT',
+//        'client_id'     => ' ',		//aim
+//        'client_secret' => '',
 //        'redirect'      => 'http://localhost:8000/register/twitter/callback',
 //    ],
 
     'twitter' => [
-        'client_id'     => '0wTfFV638c0O0DetUmYMHwK0q',
-        'client_secret' => 'D4TeQym3BIVTM4hrjcDeImhylb1eMH5g50nZKIs2teX1YaOQRn',
-        'access_token'  => '1149704559125602304-5qerjPk2XirN0yijHyc2siy2tYRFqu',
-        'access_secret' => 'EXcWDxkJtOCS4GpiEPQ2CkQ5gn5LbgXL5XbQpZPh27UP9',
+        'client_id'     => '',
+        'client_secret' => '',
+        'access_token'  => '',
+        'access_secret' => '',
         'redirect'      => env('APP_URL').'/register/twitter/callback',
     ],
 
 //    'google' => [
-//        'client_id'     => '757620955217-01vj1b20j6c6pvu0d4hc91hl28lora5u.apps.googleusercontent.com',
-//        'client_secret' => 'DmQT0l-oV5GP3G5BEX3HGz2X',
+//        'client_id'     => '',
+//        'client_secret' => '',
 //        'redirect'      =>  env('APP_URL').'/register/google/callback',
 //    ],
 
     'google' => [
-        'client_id'     => '1037518438842-v039rqcaml1jml7f77ddvppgmmnlkql2.apps.googleusercontent.com',
-        'client_secret' => '7PWHtWFLIgvzIgSYXCf8Wwd0',
+        'client_id'     => '',
+        'client_secret' => '',
         'redirect'      => env('APP_URL').'/register/google/callback',
     ],
 
     'linkedin' => [
-        'client_id'     => '78xqx8tdrqs8i4',  //sambpape@gmail.com
-        'client_secret' => 'avG2BOJU7uzRKubV',
+        'client_id'     => '',  //sambpape@gmail.com
+        'client_secret' => '',
         'redirect'      => env('APP_URL').'/register/linkedin/callback',
     ],
 
